@@ -222,13 +222,15 @@ public class NPatch {
                         keyStore.load(is, keystoreArgs.get(1).toCharArray());
                     }
                 }
-                var entry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(keystoreArgs.get(2), new KeyStore.PasswordProtection(keystoreArgs.get(3).toCharArray()));
-                new SigningExtension(SigningOptions.builder()
-                        .setMinSdkVersion(27)
-                        .setV2SigningEnabled(true)
-                        .setCertificates((X509Certificate[]) entry.getCertificateChain())
-                        .setKey(entry.getPrivateKey())
-                        .build()).register(dstZFile);
+                if (keystoreArgs.get(0) != "disable") {
+                    var entry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(keystoreArgs.get(2), new KeyStore.PasswordProtection(keystoreArgs.get(3).toCharArray()));
+                    new SigningExtension(SigningOptions.builder()
+                            .setMinSdkVersion(27)
+                            .setV2SigningEnabled(true)
+                            .setCertificates((X509Certificate[]) entry.getCertificateChain())
+                            .setKey(entry.getPrivateKey())
+                            .build()).register(dstZFile);
+                }
             } catch (Exception e) {
                 throw new PatchError("Failed to register signer", e);
             }
