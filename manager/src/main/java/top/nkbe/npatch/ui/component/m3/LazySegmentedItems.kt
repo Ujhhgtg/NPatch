@@ -1,5 +1,3 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
-
 // SPDX-License-Identifier: GPL-3.0-only
 package top.nkbe.npatch.ui.component.m3
 

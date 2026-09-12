@@ -47,7 +47,6 @@ sealed class SelectAppsResult : Parcelable {
     data class MultipleApps(val selected: List<AppInfo>) : SelectAppsResult()
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SelectAppsScreen(multiSelect: Boolean, initialSelected: List<String>?) {
     val navigator = LocalNavigator.current

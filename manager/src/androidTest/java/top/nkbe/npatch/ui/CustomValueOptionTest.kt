@@ -18,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 import top.nkbe.npatch.ui.component.m3.CustomValueOption
 
-@OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
 class CustomValueOptionTest {
     @get:Rule val compose = createComposeRule()
 

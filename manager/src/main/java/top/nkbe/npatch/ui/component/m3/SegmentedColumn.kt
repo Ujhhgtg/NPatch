@@ -1,5 +1,3 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
-
 // Adapted from WeKit: app/src/main/java/dev/ujhhgtg/wekit/ui/content/m3/SegmentedColumn.kt
 // SPDX-License-Identifier: GPL-3.0-only
 // Copyright (C) 2026 InstallerX Revived contributors

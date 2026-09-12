@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 import top.nkbe.npatch.ui.component.m3.CustomValueDialog
 
-@OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
 class CustomValueDialogTest {
     @get:Rule val compose = createComposeRule()
 

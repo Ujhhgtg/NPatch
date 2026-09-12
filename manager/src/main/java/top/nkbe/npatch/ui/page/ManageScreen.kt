@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
@@ -50,7 +49,6 @@ import top.nkbe.npatch.ui.page.manage.AppManageFab
 import top.nkbe.npatch.ui.page.manage.ModuleManageBody
 import top.nkbe.npatch.ui.viewmodel.manage.ModuleManageViewModel
 
-@OptIn(ExperimentalMaterial3Api::class, androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ManageScreen(
     navigator: Navigator,

@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import top.nkbe.npatch.ui.component.m3.SettingsDialog
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -21,7 +20,6 @@ fun LoadingDialog(show: MutableState<Boolean> = mutableStateOf(true), title: Str
 }
 
 /** Progress content follows InstallerX-Revived's InstallingDialog / PreparingDialog. */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun LoadingDialog(visible: Boolean, title: String) {
     val lastVisibleTitle = remember { LoadingDialogLabel(title) }

@@ -39,7 +39,6 @@ import top.nkbe.npatch.ui.component.m3.RadioButtonWidget
 import top.nkbe.npatch.ui.component.m3.SettingsDialog
 import top.nkbe.npatch.ui.component.m3.SwitchWidget
 
-@OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
 class SettingsAccessibilityTest {
     @get:Rule val compose = createComposeRule()
 

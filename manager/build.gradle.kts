@@ -218,6 +218,10 @@ dependencies {
 
 kotlin {
     compilerOptions {
-        optIn.addAll("androidx.compose.material3.ExperimentalMaterial3Api", "androidx.compose.material3.ExperimentalMaterial3ExpressiveApi")
+        // Match WeKit: all manager compilations, including tests, use these Material APIs.
+        optIn.addAll(
+            "androidx.compose.material3.ExperimentalMaterial3Api",
+            "androidx.compose.material3.ExperimentalMaterial3ExpressiveApi",
+        )
     }
 }

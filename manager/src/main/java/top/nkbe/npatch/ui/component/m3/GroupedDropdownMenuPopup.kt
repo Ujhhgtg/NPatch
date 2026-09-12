@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.DropdownMenuGroup
 import androidx.compose.material3.DropdownMenuPopup
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.MenuItemShapes
 import androidx.compose.runtime.Composable
@@ -21,7 +20,6 @@ import androidx.compose.ui.unit.dp
  * caller owns the menu item content and behavior, while this component keeps
  * the popup and group/item shape behavior consistent across screens.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun GroupedDropdownMenuPopup(
     expanded: Boolean,

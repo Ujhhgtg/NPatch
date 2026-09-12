@@ -1,5 +1,3 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
-
 // Adapted from WeKit: ui/content/WeKitBasicDialog.kt.
 // Dialog spacing, surface and scrolling are copied from that implementation.
 package top.nkbe.npatch.ui.component.m3

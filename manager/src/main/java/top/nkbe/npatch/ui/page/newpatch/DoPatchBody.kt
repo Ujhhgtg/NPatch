@@ -53,7 +53,6 @@ private const val TAG = "NewPatchPage"
 private data class InstallAttempt(val id: Long, val method: NewPatchViewModel.InstallMethod)
 
 /** Status and progress follow InstallerX-Revived's Material 3 InstallingDialog. */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun DoPatchBody(modifier: Modifier, navigator: Navigator) {
     val viewModel = viewModel<NewPatchViewModel>()

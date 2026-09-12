@@ -1,5 +1,3 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
-
 package top.nkbe.npatch.ui.page
 
 import android.Manifest

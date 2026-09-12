@@ -1,5 +1,3 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
-
 // Adapted from WeKit: app/src/main/java/dev/ujhhgtg/wekit/ui/content/m3/M3Shape.kt
 package top.nkbe.npatch.ui.component.m3
 

@@ -84,7 +84,6 @@ import java.io.IOException
 
 private const val TAG = "AppManagePage"
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun AppManageBody(
     navigator: Navigator,

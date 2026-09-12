@@ -22,7 +22,6 @@ import org.junit.Test
 import top.nkbe.npatch.R
 import top.nkbe.npatch.ui.page.newpatch.ConfiguringFab
 
-@OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
 class PatchAccessibilityTest {
     @get:Rule val compose = createComposeRule()
 

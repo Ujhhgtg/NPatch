@@ -49,7 +49,6 @@ private val welcomeShizukuListener: (Int, Int) -> Unit = { _, _ ->
 }
 
 /** Uses the same WeKit / InstallerX Material 3 segmented widget family as Settings. */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomeScreen(reviewMode: Boolean, onFinish: () -> Unit, onReturn: () -> Unit) {
     val context = LocalContext.current

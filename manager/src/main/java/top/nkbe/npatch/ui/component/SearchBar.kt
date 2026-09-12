@@ -8,7 +8,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -24,7 +23,6 @@ import androidx.compose.ui.text.input.ImeAction
 import top.nkbe.npatch.R
 
 /** The same real text field remains mounted while results and tabs change. */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SearchBar(
     query: String,

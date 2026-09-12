@@ -68,7 +68,6 @@ private fun rememberModuleBadgeColors(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ModuleManageBody(
     scrollBehavior: TopAppBarScrollBehavior,
