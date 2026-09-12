@@ -19,6 +19,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.appiconloader.AppIconLoader
@@ -73,6 +75,7 @@ object NeoPackageManager {
     private val appScanDispatcher by lazy {
         Dispatchers.IO.limitedParallelism(maxOf(2, minOf(Runtime.getRuntime().availableProcessors(), 8)))
     }
+    private val appScanMutex = Mutex()
 
     @Parcelize
     class AppInfo(
@@ -117,7 +120,8 @@ object NeoPackageManager {
     private val appIcon = Collections.synchronizedMap(mutableMapOf<String, ImageBitmap>())
 
 
-    suspend fun fetchAppList() {
+    // Serialize the scan and publication so a pre-Shizuku scan cannot replace newer results.
+    suspend fun fetchAppList() = appScanMutex.withLock {
         val result = withContext(Dispatchers.IO) {
             val pm = lspApp.packageManager
             val packages: List<android.content.pm.PackageInfo>

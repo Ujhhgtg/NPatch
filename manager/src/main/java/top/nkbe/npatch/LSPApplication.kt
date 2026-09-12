@@ -61,12 +61,17 @@ class LSPApplication : Application() {
         ShizukuApi.init()
         ShizukuApi.addOnReadyListener {
             globalScope.launch {
+                NeoPackageManager.fetchAppList()
+            }
+            globalScope.launch {
                 ModuleScopeSyncStore.syncTrackedModuleScopes()
             }
         }
         AppBroadcastReceiver.register(this)
-        globalScope.launch { 
-            NeoPackageManager.fetchAppList() 
+        if (!ShizukuApi.isReady) {
+            globalScope.launch {
+                NeoPackageManager.fetchAppList()
+            }
         }
     }
 

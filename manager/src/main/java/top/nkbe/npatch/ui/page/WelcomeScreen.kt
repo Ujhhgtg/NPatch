@@ -44,8 +44,7 @@ import top.nkbe.npatch.ui.component.m3.BaseItemContainer
 import top.nkbe.npatch.ui.component.m3.BaseWidget
 import top.nkbe.npatch.ui.component.m3.SegmentedColumn
 
-private val welcomeShizukuListener: (Int, Int) -> Unit = { _, grantResult ->
-    ShizukuApi.isPermissionGranted = grantResult == PackageManager.PERMISSION_GRANTED
+private val welcomeShizukuListener: (Int, Int) -> Unit = { _, _ ->
     ShizukuApi.refreshState()
 }
 

@@ -8,7 +8,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -55,8 +54,7 @@ fun HomeScreen(navigator: Navigator, onManageShortcut: (Int) -> Unit = {}, conte
         }
     }
     DisposableEffect(Unit) {
-        val listener: (Int, Int) -> Unit = { _, result ->
-            ShizukuApi.isPermissionGranted = result == PackageManager.PERMISSION_GRANTED
+        val listener: (Int, Int) -> Unit = { _, _ ->
             ShizukuApi.refreshState()
         }
         ShizukuApi.refreshState()
