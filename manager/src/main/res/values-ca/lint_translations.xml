@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Sense suport</string>
     <string name="manage_module_api_unsupported">API %1$d no compatible</string>
     <string name="manage_module_unsupported_warning">API %1$d no és compatible amb la canalització moderna</string>
-    <string name="patch_from_installed_modules">Seleccioneu els mòduls Xposed instal·lats</string>
     <string name="patch_advanced">Opcions avançades</string>
     <string name="patch_sigbypasslv0_desc">No s\'ha realitzat cap processament</string>
     <string name="patch_sigbypasslv1_desc">Afegeix Java IO i la redirecció nativa openat/openat64 de manera que les lectures de fitxers relacionats amb la signatura utilitzen el APK original</string>

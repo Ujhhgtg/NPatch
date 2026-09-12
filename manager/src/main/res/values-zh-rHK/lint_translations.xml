@@ -40,7 +40,6 @@
     <string name="manage_module_pipeline_unsupported">不支援的架構</string>
     <string name="manage_module_api_unsupported">不支援的 API %1$d</string>
     <string name="manage_module_unsupported_warning">Modern 架構不支援 API %1$d</string>
-    <string name="patch_from_installed_modules">選取已安裝的 Xposed 模組</string>
     <string name="patch_advanced">進階選項</string>
     <string name="patch_sigbypasslv0_desc">不進行任何處理</string>
     <string name="patch_sigbypasslv1_desc">增加 Java IO 與 Native openat/openat64 重定向，讓簽名相關的檔案讀取改為存取原始 APK</string>

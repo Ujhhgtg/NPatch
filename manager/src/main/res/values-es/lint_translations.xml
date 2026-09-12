@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">No compatible</string>
     <string name="manage_module_api_unsupported">API %1$d no compatible</string>
     <string name="manage_module_unsupported_warning">API %1$d no es compatible con la tubería moderna</string>
-    <string name="patch_from_installed_modules">Seleccione los módulos Xposed instalados</string>
     <string name="patch_advanced">Opciones avanzadas</string>
     <string name="patch_sigbypasslv0_desc">No se realizó ningún procesamiento</string>
     <string name="patch_sigbypasslv1_desc">Agrega Java IO y redirección nativa openat/openat64 para que las lecturas de archivos relacionados con firmas utilicen el APK original.</string>

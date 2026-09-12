@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Nepodržano</string>
     <string name="manage_module_api_unsupported">Nepodržano API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d ne podržava moderni cjevovod</string>
-    <string name="patch_from_installed_modules">Odaberite instalirane Xposed module</string>
     <string name="patch_advanced">Napredne opcije</string>
     <string name="patch_sigbypasslv0_desc">Nije izvršena obrada</string>
     <string name="patch_sigbypasslv1_desc">Dodaje Java IO i izvorno openat/openat64 preusmjeravanje tako da čitanje datoteke povezano s potpisom koristi izvorni APK</string>

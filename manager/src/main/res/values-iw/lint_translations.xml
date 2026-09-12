@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">לא נתמך</string>
     <string name="manage_module_api_unsupported">API %1$d לא נתמך</string>
     <string name="manage_module_unsupported_warning">API %1$d אינו נתמך על ידי הצינור המודרני</string>
-    <string name="patch_from_installed_modules">בחר מודולי Xposed מותקנים</string>
     <string name="patch_advanced">אפשרויות מתקדמות</string>
     <string name="patch_sigbypasslv0_desc">לא בוצע עיבוד</string>
     <string name="patch_sigbypasslv1_desc">מוסיף Java IO והפניה מקורית של openat/openat64 כך שקריאת קבצים הקשורים לחתימה משתמשות ב-APK המקורי</string>

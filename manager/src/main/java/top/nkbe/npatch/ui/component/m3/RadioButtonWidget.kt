@@ -3,6 +3,7 @@
 // Copyright (C) 2026 InstallerX Revived contributors
 package top.nkbe.npatch.ui.component.m3
 
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.TextStyle
  * @param onSelect Callback invoked when the option is selected via the radio button.
  * When omitted, selection falls back to [onClick]; provide both to give the main area a
  * separate action such as opening a detail screen.
+ * @param extraContent Optional content displayed below the description within the same item.
  */
 @Composable
 fun RadioButtonWidget(
@@ -51,6 +53,7 @@ fun RadioButtonWidget(
     trailingDivider: Boolean = false,
     onClick: (() -> Unit)? = null,
     onSelect: (() -> Unit)? = null,
+    extraContent: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     val haptic = LocalHapticFeedback.current
     val selectAction = onSelect ?: onClick
@@ -71,6 +74,7 @@ fun RadioButtonWidget(
         enabled = enabled,
         onClick = onClick ?: selectAction,
         trailingDivider = trailingDivider,
+        extraContent = extraContent,
     ) { interactionSource -> // Receive the shared interactionSource
         RadioButton(
             selected = selected,

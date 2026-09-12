@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Не поддерживается</string>
     <string name="manage_module_api_unsupported">Не поддерживается API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d не поддерживается современным конвейером</string>
-    <string name="patch_from_installed_modules">Выберите установленные модули Xposed</string>
     <string name="patch_advanced">Расширенные параметры</string>
     <string name="patch_sigbypasslv0_desc">Обработка не выполнялась</string>
     <string name="patch_sigbypasslv1_desc">Добавляет Java IO и собственное перенаправление openat/openat64, поэтому при чтении файлов, связанных с подписью, используется исходный APK.</string>

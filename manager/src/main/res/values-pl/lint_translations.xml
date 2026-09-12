@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Nieobsługiwane</string>
     <string name="manage_module_api_unsupported">Nieobsługiwane API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d nie jest obsługiwany przez nowoczesny rurociąg</string>
-    <string name="patch_from_installed_modules">Wybierz zainstalowane moduły Xposed</string>
     <string name="patch_advanced">Zaawansowane opcje</string>
     <string name="patch_sigbypasslv0_desc">Nie wykonano żadnego przetwarzania</string>
     <string name="patch_sigbypasslv1_desc">Dodaje Java IO i natywne przekierowanie openat/openat64, więc odczyty plików związanych z podpisami korzystają z oryginalnego APK</string>

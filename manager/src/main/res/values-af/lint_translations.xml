@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Ongesteun</string>
     <string name="manage_module_api_unsupported">Ongesteunde API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d word nie deur die moderne pyplyn ondersteun nie</string>
-    <string name="patch_from_installed_modules">Kies geïnstalleerde Xposed-modules</string>
     <string name="patch_advanced">Gevorderde opsies</string>
     <string name="patch_sigbypasslv0_desc">Geen verwerking is uitgevoer nie</string>
     <string name="patch_sigbypasslv1_desc">Voeg Java IO en inheemse openat/openat64-herleiding by sodat handtekeningverwante lêerlesings die oorspronklike APK gebruik</string>

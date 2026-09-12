@@ -78,7 +78,6 @@
     <string name="patch_select_dir_error">藏宝处没找对喵呜…</string>
     <string name="patch_from_storage">从储藏室翻找</string>
     <string name="patch_from_applist">从已住下的 Apps 里挑选</string>
-    <string name="patch_from_installed_modules">挑选已就绪的 Xposed 挂件</string>
     <string name="patch_mode">打包套路</string>
     <string name="patch_local">居家模式</string>
     <string name="patch_local_desc">為未嵌入模組的應用程式打補丁。\nXposed 範圍可動態更改，無需重新打補丁。\n此模式下的應用程式只能在本地裝置上與 NPatch 管理器搭配使用。</string>

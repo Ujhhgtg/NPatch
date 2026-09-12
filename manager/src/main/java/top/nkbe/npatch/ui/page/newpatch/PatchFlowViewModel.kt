@@ -7,7 +7,6 @@ import nkbe.util.NeoPackageManager
 /** The patch destination retains dialog data while an app picker is above it or configuration changes. */
 class PatchFlowViewModel : ViewModel() {
     val requestStorage = mutableStateOf(false)
-    val showSelectModuleDialog = mutableStateOf(false)
     val pendingPatchedApp = mutableStateOf<NeoPackageManager.AppInfo?>(null)
     val pendingPatchedType = mutableStateOf(NeoPackageManager.PatchedType.NONE)
     val isExtracting = mutableStateOf(false)

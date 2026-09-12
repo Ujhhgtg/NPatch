@@ -85,7 +85,6 @@
     <string name="patch_select_dir_error">設定儲存資料夾出錯</string>
     <string name="patch_from_storage">從儲存空間中選取 (多個) apk</string>
     <string name="patch_from_applist">選取要打包的已安裝程式</string>
-    <string name="patch_from_installed_modules">選取已安裝的 Xposed 模組</string>
     <string name="patch_mode">打包模式</string>
     <string name="patch_local">本地模式</string>
     <string name="patch_local_desc">為未嵌入模組的應用程式打補丁。\nXposed 範圍可動態更改，無需重新打補丁。\n此模式下的應用程式只能在本地裝置上與 NPatch 管理器搭配使用。</string>

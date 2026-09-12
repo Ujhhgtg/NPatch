@@ -8,6 +8,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -75,6 +77,7 @@ val LocalSegmentedItemShape = compositionLocalOf<Shape> { RoundedCornerShape(Cor
  * @param trailingDivider If true, displays a vertical divider before [trailingContent].
  * @param headlineTrailingContent A composable slot displayed inline after the headline text.
  * @param foreContent A composable slot for content displayed alongside/over the headline.
+ * @param extraContent Optional content displayed below the description within the same item.
  * @param trailingContent A composable slot for trailing content, e.g. switches, checkboxes, or arrows.
  */
 @Composable
@@ -97,6 +100,7 @@ fun BaseWidget(
     trailingDivider: Boolean = false,
     headlineTrailingContent: @Composable RowScope.() -> Unit = {},
     foreContent: @Composable BoxScope.() -> Unit = {},
+    extraContent: (@Composable ColumnScope.() -> Unit)? = null,
     trailingContent: @Composable BoxScope.(interactionSource: MutableInteractionSource) -> Unit = {}
 ) {
     val haptic = LocalHapticFeedback.current
@@ -213,16 +217,23 @@ fun BaseWidget(
         }
 
     val supportingContent: (@Composable () -> Unit)? =
-        description?.let { text ->
+        if (description != null || extraContent != null) {
             {
-                Text(
-                    text = text,
-                    style = descriptionStyle,
-                    modifier = Modifier
-                        .alpha(alpha)
-                        .padding(bottom = dynamicInternalPadding)
-                )
+                Column {
+                    if (description != null) {
+                        Text(
+                            text = description,
+                            style = descriptionStyle,
+                            modifier = Modifier
+                                .alpha(alpha)
+                                .padding(bottom = dynamicInternalPadding)
+                        )
+                    }
+                    extraContent?.invoke(this)
+                }
             }
+        } else {
+            null
         }
 
     val trailing: @Composable () -> Unit = {
@@ -260,7 +271,7 @@ fun BaseWidget(
                 .alpha(alpha)
                 .padding(
                     top = dynamicInternalPadding,
-                    bottom = if (description == null) dynamicInternalPadding else 0.dp
+                    bottom = if (description == null && extraContent == null) dynamicInternalPadding else 0.dp
                 )
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {

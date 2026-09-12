@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Ei tuettu</string>
     <string name="manage_module_api_unsupported">Ei tuettu API %1$d</string>
     <string name="manage_module_unsupported_warning">API Nykyaikainen putkisto ei tue %1$d:tä</string>
-    <string name="patch_from_installed_modules">Valitse asennetut Xposed-moduulit</string>
     <string name="patch_advanced">Lisäasetukset</string>
     <string name="patch_sigbypasslv0_desc">Käsittelyä ei suoritettu</string>
     <string name="patch_sigbypasslv1_desc">Lisää Java IO:n ja alkuperäisen openat/openat64-uudelleenohjauksen, joten allekirjoituksiin liittyvät tiedostot käyttävät alkuperäistä APK</string>

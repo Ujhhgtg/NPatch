@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Tidak didukung</string>
     <string name="manage_module_api_unsupported">API %1$d tidak didukung</string>
     <string name="manage_module_unsupported_warning">API %1$d tidak didukung oleh pipeline modern</string>
-    <string name="patch_from_installed_modules">Pilih modul Xposed yang terpasang</string>
     <string name="patch_advanced">Opsi lanjutan</string>
     <string name="patch_sigbypasslv0_desc">Tidak ada pemrosesan yang dilakukan</string>
     <string name="patch_sigbypasslv1_desc">Menambahkan Java IO dan pengalihan openat/openat64 asli sehingga pembacaan file terkait tanda tangan menggunakan APK asli</string>

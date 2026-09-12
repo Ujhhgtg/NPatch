@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Non supportato</string>
     <string name="manage_module_api_unsupported">API %1$d non supportato</string>
     <string name="manage_module_unsupported_warning">API %1$d non è supportato dalla pipeline moderna</string>
-    <string name="patch_from_installed_modules">Seleziona i moduli Xposed installati</string>
     <string name="patch_advanced">Opzioni avanzate</string>
     <string name="patch_sigbypasslv0_desc">Nessuna elaborazione eseguita</string>
     <string name="patch_sigbypasslv1_desc">Aggiunge Java IO e il reindirizzamento nativo openat/openat64 in modo che le letture dei file relativi alla firma utilizzino lo APK originale</string>

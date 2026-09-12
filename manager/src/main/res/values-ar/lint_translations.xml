@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">غير مدعوم</string>
     <string name="manage_module_api_unsupported">API %1$d غير مدعوم</string>
     <string name="manage_module_unsupported_warning">API %1$d غير مدعوم من قبل خط الأنابيب الحديث</string>
-    <string name="patch_from_installed_modules">حدد وحدات Xposed المثبتة</string>
     <string name="patch_advanced">خيارات متقدمة</string>
     <string name="patch_sigbypasslv0_desc">لم تتم المعالجة</string>
     <string name="patch_sigbypasslv1_desc">يضيف Java IO وإعادة توجيه openat/openat64 الأصلي بحيث تستخدم قراءات الملفات المرتبطة بالتوقيع APK الأصلي</string>

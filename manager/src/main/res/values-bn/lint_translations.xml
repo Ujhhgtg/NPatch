@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">অসমর্থিত</string>
     <string name="manage_module_api_unsupported">অসমর্থিত API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d আধুনিক পাইপলাইন দ্বারা সমর্থিত নয়৷</string>
-    <string name="patch_from_installed_modules">ইনস্টল করা Xposed মডিউল নির্বাচন করুন</string>
     <string name="patch_advanced">উন্নত বিকল্প</string>
     <string name="patch_sigbypasslv0_desc">কোন প্রক্রিয়াকরণ সঞ্চালিত</string>
     <string name="patch_sigbypasslv1_desc">জাভা আইও এবং নেটিভ openat/openat64 পুনঃনির্দেশ যোগ করে যাতে স্বাক্ষর-সম্পর্কিত ফাইলটি আসল APK ব্যবহার করে</string>

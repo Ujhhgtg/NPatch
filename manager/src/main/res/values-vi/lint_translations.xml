@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Không được hỗ trợ</string>
     <string name="manage_module_api_unsupported">API %1$d không được hỗ trợ</string>
     <string name="manage_module_unsupported_warning">API %1$d không được hỗ trợ bởi đường ống hiện đại</string>
-    <string name="patch_from_installed_modules">Chọn các mô-đun Xposed đã cài đặt</string>
     <string name="patch_advanced">Tùy chọn nâng cao</string>
     <string name="patch_sigbypasslv0_desc">Không thực hiện xử lý</string>
     <string name="patch_sigbypasslv1_desc">Thêm Java IO và chuyển hướng openat/openat64 gốc để việc đọc tệp liên quan đến chữ ký sử dụng APK gốc</string>

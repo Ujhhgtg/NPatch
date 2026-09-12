@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">සහාය නොදක්වයි</string>
     <string name="manage_module_api_unsupported">සහාය නොදක්වන API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d නවීන නල මාර්ගයෙන් සහාය නොදක්වයි</string>
-    <string name="patch_from_installed_modules">ස්ථාපිත Xposed මොඩියුල තෝරන්න</string>
     <string name="patch_advanced">උසස් විකල්ප</string>
     <string name="patch_sigbypasslv0_desc">කිසිදු සැකසුම් සිදු නොකෙරේ</string>
     <string name="patch_sigbypasslv1_desc">ජාවා IO සහ ස්වදේශීය openat/openat64 යළි-යොමු කිරීම් එක් කරයි, එබැවින් අත්සන සම්බන්ධ ගොනු කියවීම මුල් APK භාවිතා කරයි</string>

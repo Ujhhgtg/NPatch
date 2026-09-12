@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">지원되지 않음</string>
     <string name="manage_module_api_unsupported">지원되지 않는 API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d는 최신 파이프라인에서 지원되지 않습니다.</string>
-    <string name="patch_from_installed_modules">설치된 Xposed 모듈 선택</string>
     <string name="patch_advanced">고급 옵션</string>
     <string name="patch_sigbypasslv0_desc">처리가 수행되지 않았습니다.</string>
     <string name="patch_sigbypasslv1_desc">Java IO 및 기본 openat/openat64 리디렉션을 추가하여 서명 관련 파일 읽기가 원본 APK를 사용하도록 합니다.</string>

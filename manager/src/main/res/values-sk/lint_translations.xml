@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Nepodporované</string>
     <string name="manage_module_api_unsupported">Nepodporované API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d nie je podporovaný moderným potrubím</string>
-    <string name="patch_from_installed_modules">Vyberte nainštalované moduly Xposed</string>
     <string name="patch_advanced">Pokročilé možnosti</string>
     <string name="patch_sigbypasslv0_desc">Nevykonalo sa žiadne spracovanie</string>
     <string name="patch_sigbypasslv1_desc">Pridáva Java IO a natívne presmerovanie openat/openat64, takže čítanie súborov súvisiacich s podpisom používa pôvodné APK</string>

@@ -57,7 +57,6 @@ fun NewPatchScreen(
     val flowViewModel = viewModel<PatchFlowViewModel>()
     val scope = flowViewModel.viewModelScope
     val errorUnknown = stringResource(R.string.error_unknown)
-    val showSelectModuleDialog = flowViewModel.showSelectModuleDialog
     var pendingPatchedApp by flowViewModel.pendingPatchedApp
     var pendingPatchedType by flowViewModel.pendingPatchedType
     var isExtracting by flowViewModel.isExtracting
@@ -172,7 +171,14 @@ fun NewPatchScreen(
             when (patchViewModel.patchState) {
                 PatchState.CONFIGURING -> PatchOptionsBody(
                     modifier = Modifier,
-                    onAddEmbed = { showSelectModuleDialog.value = true },
+                    onAddEmbed = {
+                        scope.launch {
+                            val result = navigator.navigateForResult<SelectAppsResult>(
+                                Route.SelectApps(true, patchViewModel.embeddedModules.mapTo(ArrayList()) { it.app.packageName })
+                            )
+                            if (result is SelectAppsResult.MultipleApps) patchViewModel.embeddedModules = result.selected
+                        }
+                    },
                 )
                 PatchState.PATCHING, PatchState.FINISHED, PatchState.ERROR -> {
                     DoPatchBody(modifier = Modifier, navigator = navigator)
@@ -194,30 +200,6 @@ fun NewPatchScreen(
             }
         }
     }
-
-    // Shared Material dialogs retain their data and window for the full exit transition.
-    SettingsDialog(
-        show = showSelectModuleDialog.value,
-        title = stringResource(R.string.patch_embed_modules),
-        content = {},
-        onDismissRequest = { showSelectModuleDialog.value = false },
-        confirmButton = {
-            TextButton(onClick = {
-                showSelectModuleDialog.value = false
-                scope.launch {
-                    val result = navigator.navigateForResult<SelectAppsResult>(
-                        Route.SelectApps(true, patchViewModel.embeddedModules.mapTo(ArrayList()) { it.app.packageName })
-                    )
-                    if (result is SelectAppsResult.MultipleApps) patchViewModel.embeddedModules = result.selected
-                }
-            }) { Text(stringResource(R.string.patch_from_installed_modules)) }
-        },
-        dismissButton = {
-            TextButton(onClick = { showSelectModuleDialog.value = false }) {
-                Text(stringResource(android.R.string.cancel))
-            }
-        },
-    )
 
     RetainedPatchDialog(pendingPatchedApp?.takeUnless { isExtracting }) { app, show ->
         val patchedType = pendingPatchedType

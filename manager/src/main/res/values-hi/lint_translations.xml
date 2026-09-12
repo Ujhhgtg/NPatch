@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">असमर्थित</string>
     <string name="manage_module_api_unsupported">असमर्थित API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d आधुनिक पाइपलाइन द्वारा समर्थित नहीं है</string>
-    <string name="patch_from_installed_modules">स्थापित Xposed मॉड्यूल का चयन करें</string>
     <string name="patch_advanced">उन्नत विकल्प</string>
     <string name="patch_sigbypasslv0_desc">कोई प्रसंस्करण नहीं किया गया</string>
     <string name="patch_sigbypasslv1_desc">Java IO और नेटिव openat/openat64 पुनर्निर्देशन जोड़ता है ताकि हस्ताक्षर-संबंधी फ़ाइल मूल APK का उपयोग करके पढ़ सके</string>

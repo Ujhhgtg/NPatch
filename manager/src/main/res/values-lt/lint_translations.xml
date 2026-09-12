@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Nepalaikoma</string>
     <string name="manage_module_api_unsupported">Nepalaikomas API %1$d</string>
     <string name="manage_module_unsupported_warning">API %1$d šiuolaikinis dujotiekis nepalaiko</string>
-    <string name="patch_from_installed_modules">Pasirinkite įdiegtus Xposed modulius</string>
     <string name="patch_advanced">Išplėstinės parinktys</string>
     <string name="patch_sigbypasslv0_desc">Apdorojimas neatliktas</string>
     <string name="patch_sigbypasslv1_desc">Prideda Java IO ir vietinį openat/openat64 peradresavimą, todėl su parašu susiję failai naudoja originalų APK</string>

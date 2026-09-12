@@ -1,5 +1,10 @@
 package top.nkbe.npatch.ui.page.newpatch
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectableGroup
@@ -8,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -103,18 +109,22 @@ fun PatchOptionsBody(modifier: Modifier, onAddEmbed: () -> Unit) {
                         icon = Icons.Outlined.WorkOutline,
                         selected = !viewModel.useManager,
                         onSelect = { viewModel.setUseManager(false) },
+                        extraContent = {
+                            // LSPatch's SelectionItem expands its action inside the selected mode.
+                            AnimatedVisibility(
+                                visible = !viewModel.useManager,
+                                enter = fadeIn() + expandVertically(expandFrom = Alignment.Top),
+                                exit = fadeOut() + shrinkVertically(shrinkTowards = Alignment.Bottom),
+                            ) {
+                                TextButton(onClick = onAddEmbed) {
+                                    Text(
+                                        text = "${stringResource(R.string.patch_embed_modules)} (${viewModel.embeddedModules.size})",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                    )
+                                }
+                            }
+                        },
                     )
-                }
-                item(key = "modules", animatedVisibility = !viewModel.useManager) {
-                    BaseWidget(
-                        icon = Icons.Outlined.Extension,
-                        title = stringResource(R.string.patch_embed_modules),
-                        description = viewModel.embeddedModules.takeIf { it.isNotEmpty() }
-                            ?.joinToString { it.label },
-                        onClick = onAddEmbed,
-                    ) {
-                        Text(viewModel.embeddedModules.size.toString())
-                    }
                 }
             }
         }

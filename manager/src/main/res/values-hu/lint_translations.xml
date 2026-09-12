@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Nem támogatott</string>
     <string name="manage_module_api_unsupported">Nem támogatott API %1$d</string>
     <string name="manage_module_unsupported_warning">API A modern csővezeték nem támogatja a %1$d-t</string>
-    <string name="patch_from_installed_modules">Válassza ki a telepített Xposed modulokat</string>
     <string name="patch_advanced">Speciális beállítások</string>
     <string name="patch_sigbypasslv0_desc">Nem történt feldolgozás</string>
     <string name="patch_sigbypasslv1_desc">Hozzáadja a Java IO-t és a natív openat/openat64 átirányítást, így az aláírással kapcsolatos fájlok olvasása az eredeti APK fájlt használja</string>

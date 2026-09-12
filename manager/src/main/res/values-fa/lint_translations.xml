@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">پشتیبانی نمی شود</string>
     <string name="manage_module_api_unsupported">API %1$d پشتیبانی نمی شود</string>
     <string name="manage_module_unsupported_warning">API %1$d توسط خط لوله مدرن پشتیبانی نمی شود</string>
-    <string name="patch_from_installed_modules">ماژول های نصب شده Xposed را انتخاب کنید</string>
     <string name="patch_advanced">گزینه های پیشرفته</string>
     <string name="patch_sigbypasslv0_desc">هیچ پردازشی انجام نشد</string>
     <string name="patch_sigbypasslv1_desc">جاوا IO و تغییر مسیر openat/openat64 بومی را اضافه می کند تا فایل های مربوط به امضا از APK اصلی استفاده کنند.</string>

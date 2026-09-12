@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Neacceptat</string>
     <string name="manage_module_api_unsupported">API %1$d neacceptat</string>
     <string name="manage_module_unsupported_warning">API %1$d nu este acceptat de conducta modernă</string>
-    <string name="patch_from_installed_modules">Selectați modulele Xposed instalate</string>
     <string name="patch_advanced">Opțiuni avansate</string>
     <string name="patch_sigbypasslv0_desc">Nu a fost efectuată nicio prelucrare</string>
     <string name="patch_sigbypasslv1_desc">Adaugă Java IO și redirecționare nativă openat/openat64, astfel încât citirile fișierelor legate de semnătură să folosească APK original</string>

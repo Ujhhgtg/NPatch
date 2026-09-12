@@ -42,7 +42,6 @@
     <string name="manage_module_pipeline_unsupported">Μη υποστηριζόμενο</string>
     <string name="manage_module_api_unsupported">Μη υποστηριζόμενο API %1$d</string>
     <string name="manage_module_unsupported_warning">API Το %1$d δεν υποστηρίζεται από τον σύγχρονο αγωγό</string>
-    <string name="patch_from_installed_modules">Επιλέξτε εγκατεστημένες μονάδες Xposed</string>
     <string name="patch_advanced">Προηγμένες επιλογές</string>
     <string name="patch_sigbypasslv0_desc">Δεν έγινε καμία επεξεργασία</string>
     <string name="patch_sigbypasslv1_desc">Προσθέτει Java IO και εγγενή ανακατεύθυνση openat/openat64, ώστε τα αρχεία που σχετίζονται με την υπογραφή να χρησιμοποιούν το αρχικό APK</string>
