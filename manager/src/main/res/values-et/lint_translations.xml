@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">Algse APK eraldamine…</string>
     <string name="patch_extract_original_missing">Sellest pakendist ei leitud manustatud originaali APK (võimalik, et see on paigatud 0. taseme möödaviiguga).\n\nKas soovite välimise APK asemel otse lappida?</string>
     <string name="patch_extract_package_mismatch">Paketi nimede mittevastavus: välispakend on \'%1$s\', kuid ekstraheeritud APK pakett on \'%2$s\'.\n\nKas soovite siiski jätkata ekstraheeritud APK-ga?</string>
-    <string name="screen_select_modules">Valige moodulid Xposed</string>
+    <string name="screen_select_modules">Valige moodulid</string>
     <string name="welcome_version">Versioon %1$s</string>
     <string name="welcome_intro_content">Moodne Xposed mooduli sissepritse ja APK lapimise tööriist, mis on loodud juurteta keskkondade jaoks.</string>
     <string name="welcome_intro_detail">NPatch sisestab Xposed laaduri, muutes APK faile. Kohalik režiim töötab koos halduriga moodulite laadimiseks ja ulatuste dünaamiliseks haldamiseks, ilma et peaks haldur taustal töötama. Integreeritud režiim manustab moodulid otse sihtrakendusse, et neid saaks kasutada iseseisvalt seadmetes ilma haldurita. Shizuku avab ainult mõned mugavusfunktsioonid ja seda ei nõuta NPatch südamiku parandamiseks, mooduli laadimiseks ega põhihalduseks.</string>

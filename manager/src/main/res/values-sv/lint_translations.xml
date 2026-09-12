@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">Extraherar original APK…</string>
     <string name="patch_extract_original_missing">Inget inbäddat original APK hittades i detta paket (möjligen patchad med nivå 0-bypass).\n\nVill du patcha den yttre APK direkt istället?</string>
     <string name="patch_extract_package_mismatch">Paketnamnet matchar inte: yttre paketet är \'%1$s\', men det extraherade APK-paketet är \'%2$s\'.\n\nVill du fortfarande fortsätta med den extraherade APK?</string>
-    <string name="screen_select_modules">Välj Xposed-moduler</string>
+    <string name="screen_select_modules">Välj moduler</string>
     <string name="welcome_version">Version %1$s</string>
     <string name="welcome_intro_content">Ett modernt Xposed-modulinjektions- och APK-patchverktyg designat för rotlösa miljöer.</string>
     <string name="welcome_intro_detail">NPatch injicerar Xposed-lastaren genom att modifiera APK-filer. Lokalt läge arbetar med hanteraren för att ladda moduler och hantera scopes dynamiskt, utan att hålla managern igång i bakgrunden. Integrerat läge bäddar in moduler direkt i målappen för fristående användning på enheter utan manager. Shizuku låser bara upp vissa bekvämlighetsfunktioner och krävs inte för NPatch-kärnpatchning, modulladdning eller grundläggande hantering.</string>

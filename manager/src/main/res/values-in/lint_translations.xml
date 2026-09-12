@@ -75,7 +75,7 @@
     <string name="patch_extract_original_extracting">Mengekstrak APK asli…</string>
     <string name="patch_extract_original_missing">Tidak ada APK asli tertanam yang ditemukan dalam paket ini (mungkin ditambal dengan bypass Level 0).\n\nApakah Anda ingin menambal bagian luar APK secara langsung?</string>
     <string name="patch_extract_package_mismatch">Nama paket tidak cocok: paket luar adalah \'%1$s\', tetapi paket APK yang diekstrak adalah \'%2$s\'.\n\nApakah Anda masih ingin melanjutkan dengan APK yang diekstraksi?</string>
-    <string name="screen_select_modules">Pilih modul Xposed</string>
+    <string name="screen_select_modules">Pilih modul</string>
     <string name="welcome_version">Versi %1$s</string>
     <string name="welcome_intro_content">Injeksi modul Xposed modern dan alat patching APK yang dirancang untuk lingkungan tanpa root.</string>
     <string name="welcome_intro_detail">NPatch menyuntikkan pemuat Xposed dengan memodifikasi file APK. Mode lokal bekerja dengan pengelola untuk memuat modul dan mengelola cakupan secara dinamis, tanpa membuat pengelola tetap berjalan di latar belakang. Mode terintegrasi menyematkan modul langsung ke aplikasi target untuk penggunaan mandiri di perangkat tanpa pengelola. Shizuku hanya membuka beberapa fitur kenyamanan dan tidak diperlukan untuk patching inti NPatch, pemuatan modul, atau manajemen dasar.</string>

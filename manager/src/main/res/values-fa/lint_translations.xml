@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">در حال استخراج APK اصلی…</string>
     <string name="patch_extract_original_missing">هیچ APK اصلی جاسازی شده در این بسته یافت نشد (احتمالاً با بای پس سطح 0 وصله شده است).\n\nآیا می خواهید APK بیرونی را مستقیماً وصله کنید؟</string>
     <string name="patch_extract_package_mismatch">عدم تطابق نام بسته: بسته بیرونی \'%1$s\' است، اما بسته APK استخراج شده \'%2$s\' است.\n\nآیا همچنان می خواهید با APK استخراج شده ادامه دهید؟</string>
-    <string name="screen_select_modules">ماژول های Xposed را انتخاب کنید</string>
+    <string name="screen_select_modules">ماژول‌ها را انتخاب کنید</string>
     <string name="welcome_version">نسخه %1$s</string>
     <string name="welcome_intro_content">یک ابزار مدرن تزریق ماژول Xposed و ابزار وصله APK که برای محیط های بدون ریشه طراحی شده است.</string>
     <string name="welcome_intro_detail">NPatch با تغییر فایل‌های APK لودر Xposed را تزریق می‌کند. حالت محلی با مدیر کار می کند تا ماژول ها را بارگیری کند و دامنه ها را به صورت پویا مدیریت کند، بدون اینکه مدیر در پس زمینه در حال اجرا باشد. حالت یکپارچه ماژول‌ها را مستقیماً در برنامه مورد نظر برای استفاده مستقل در دستگاه‌های بدون مدیر تعبیه می‌کند. Shizuku فقط برخی از ویژگی های راحتی را باز می کند و برای وصله هسته NPatch، بارگیری ماژول یا مدیریت اولیه مورد نیاز نیست.</string>

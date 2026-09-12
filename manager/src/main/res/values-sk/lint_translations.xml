@@ -78,7 +78,7 @@
     <string name="patch_extract_original_extracting">Extrahuje sa originál APK…</string>
     <string name="patch_extract_original_missing">V tomto balíku sa nenašiel žiadny vložený originál APK (pravdepodobne opravený bypassom úrovne 0).\n\nChcete namiesto toho priamo opraviť vonkajší APK?</string>
     <string name="patch_extract_package_mismatch">Nezhoda názvu balíka: vonkajší balík je \'%1$s\', ale extrahovaný balík APK je \'%2$s\'.\n\nStále chcete pokračovať s extrahovaným APK?</string>
-    <string name="screen_select_modules">Vyberte moduly Xposed</string>
+    <string name="screen_select_modules">Vyberte moduly</string>
     <string name="welcome_version">Verzia %1$s</string>
     <string name="welcome_intro_content">Moderný nástroj na vstrekovanie modulov Xposed a opravný nástroj APK určený pre prostredia bez koreňov.</string>
     <string name="welcome_intro_detail">NPatch vstrekne zavádzač Xposed úpravou súborov APK. Miestny režim spolupracuje s manažérom na načítaní modulov a dynamickej správe rozsahov bez toho, aby bol manažér spustený na pozadí. Integrovaný režim vkladá moduly priamo do cieľovej aplikácie na samostatné použitie na zariadeniach bez správcu. Shizuku odomyká iba niektoré funkcie pre pohodlie a nie je potrebný na opravu jadra NPatch, načítanie modulov alebo základnú správu.</string>

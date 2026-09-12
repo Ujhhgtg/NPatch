@@ -144,7 +144,7 @@
 
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Select apps</string>
-    <string name="screen_select_modules">Select Xposed modules</string>
+    <string name="screen_select_modules">Select modules</string>
 
     <!-- Welcome Screen -->
     <string name="welcome_version">Version %1$s</string>

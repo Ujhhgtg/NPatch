@@ -75,7 +75,7 @@
     <string name="patch_extract_original_extracting">กำลังแยก APK ดั้งเดิม…</string>
     <string name="patch_extract_original_missing">ไม่พบ APK ดั้งเดิมที่ฝังอยู่ในแพ็คเกจนี้ (อาจแพตช์ด้วยการบายพาสระดับ 0)\n\nคุณต้องการแพตช์ APK ภายนอกโดยตรงแทนหรือไม่?</string>
     <string name="patch_extract_package_mismatch">ชื่อแพ็คเกจไม่ตรงกัน: แพ็คเกจภายนอกคือ \'%1$s\' แต่แพ็คเกจ APK ที่แยกออกมาคือ \'%2$s\'\n\nคุณยังต้องการดำเนินการกับ APK ที่แยกออกมาหรือไม่</string>
-    <string name="screen_select_modules">เลือกโมดูล Xposed</string>
+    <string name="screen_select_modules">เลือกโมดูล</string>
     <string name="welcome_version">เวอร์ชัน %1$s</string>
     <string name="welcome_intro_content">การแทรกโมดูล Xposed ที่ทันสมัยและเครื่องมือการแพตช์ APK ที่ออกแบบมาสำหรับสภาพแวดล้อมที่ไม่ต้องรูท</string>
     <string name="welcome_intro_detail">NPatch แทรกตัวโหลด Xposed โดยการแก้ไขไฟล์ APK โหมดภายในทำงานร่วมกับผู้จัดการเพื่อโหลดโมดูลและจัดการขอบเขตแบบไดนามิก โดยไม่ปล่อยให้ผู้จัดการทำงานอยู่เบื้องหลัง โหมดรวมจะฝังโมดูลลงในแอปเป้าหมายโดยตรงเพื่อการใช้งานแบบสแตนด์อโลนบนอุปกรณ์ที่ไม่มีผู้จัดการ Shizuku จะปลดล็อคคุณสมบัติอำนวยความสะดวกบางอย่างเท่านั้น และไม่จำเป็นสำหรับการแพทช์หลัก NPatch การโหลดโมดูล หรือการจัดการขั้นพื้นฐาน</string>

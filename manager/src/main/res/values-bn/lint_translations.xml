@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">আসল APK বের করা হচ্ছে…</string>
     <string name="patch_extract_original_missing">এই প্যাকেজে কোন এমবেড করা আসল APK পাওয়া যায়নি (সম্ভবত লেভেল 0 বাইপাসের সাথে প্যাচ করা হয়েছে)।\n\nআপনি কি পরিবর্তে সরাসরি বাইরের APK প্যাচ করতে চান?</string>
     <string name="patch_extract_package_mismatch">প্যাকেজের নাম মেলেনি: বাইরের প্যাকেজ হল \'%1$s\', কিন্তু এক্সট্র্যাক্ট করা APK প্যাকেজ হল \'%2$s\'।\n\nআপনি কি এখনও নিষ্কাশিত APK নিয়ে এগিয়ে যেতে চান?</string>
-    <string name="screen_select_modules">Xposed মডিউল নির্বাচন করুন</string>
+    <string name="screen_select_modules">মডিউল নির্বাচন করুন</string>
     <string name="welcome_version">সংস্করণ %1$s</string>
     <string name="welcome_intro_content">একটি আধুনিক Xposed মডিউল ইনজেকশন এবং APK প্যাচিং টুল রুটহীন পরিবেশের জন্য ডিজাইন করা হয়েছে।</string>
     <string name="welcome_intro_detail">NPatch APK ফাইলগুলি সংশোধন করে Xposed লোডারকে ইনজেক্ট করে। স্থানীয় মোড ম্যানেজারকে ব্যাকগ্রাউন্ডে চলমান না রেখে মডিউল লোড করতে এবং গতিশীলভাবে স্কোপ পরিচালনা করতে ম্যানেজারের সাথে কাজ করে। ইন্টিগ্রেটেড মোড ম্যানেজার ব্যতীত ডিভাইসগুলিতে স্বতন্ত্র ব্যবহারের জন্য লক্ষ্য অ্যাপে সরাসরি মডিউলগুলিকে এম্বেড করে। Shizuku শুধুমাত্র কিছু সুবিধার বৈশিষ্ট্য আনলক করে এবং NPatch কোর প্যাচিং, মডিউল লোডিং বা মৌলিক ব্যবস্থাপনার জন্য প্রয়োজন হয় না।</string>

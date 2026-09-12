@@ -74,7 +74,7 @@
     <string name="patch_extract_original_extracting">オリジナルのAPKを抽出中…</string>
     <string name="patch_extract_original_missing">このパッケージには埋め込まれたオリジナルの APK が見つかりません (レベル 0 バイパスでパッチされている可能性があります)。\n\n代わりに外側の APK に直接パッチを適用しますか?</string>
     <string name="patch_extract_package_mismatch">パッケージ名が一致しません。外側のパッケージは「%1$s」、抽出した APK のパッケージは「%2$s」です。\n\n抽出した APK を使用して続行しますか？</string>
-    <string name="screen_select_modules">Xposedモジュールを選択してください</string>
+    <string name="screen_select_modules">モジュールを選択</string>
     <string name="welcome_version">バージョン %1$s</string>
     <string name="welcome_intro_content">ルートレス環境向けに設計された最新の Xposed モジュール インジェクションおよび APK パッチ適用ツール。</string>
     <string name="welcome_intro_detail">NPatch は、APK ファイルを変更することで Xposed ローダーを挿入します。ローカル モードは、マネージャーをバックグラウンドで実行し続けることなく、マネージャーと連携してモジュールをロードし、スコープを動的に管理します。統合モードでは、マネージャーなしでデバイス上でスタンドアロンで使用できるように、モジュールをターゲット アプリに直接埋め込みます。 Shizuku は一部の便利な機能のロックを解除するだけであり、NPatch コアのパッチ適用、モジュールのロード、または基本的な管理には必要ありません。</string>

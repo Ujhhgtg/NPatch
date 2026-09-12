@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">Извлича се оригинален APK…</string>
     <string name="patch_extract_original_missing">В този пакет не е намерен вграден оригинален APK (възможно е закрепен с байпас на ниво 0).\n\nИскате ли вместо това директно да закърпите външния APK?</string>
     <string name="patch_extract_package_mismatch">Несъответствие в името на пакета: външният пакет е „%1$s“, но извлеченият пакет APK е „%2$s“.\n\nВсе още ли искате да продължите с извлечения APK?</string>
-    <string name="screen_select_modules">Изберете Xposed модули</string>
+    <string name="screen_select_modules">Изберете модули</string>
     <string name="welcome_version">Версия %1$s</string>
     <string name="welcome_intro_content">Модерен инструмент за инжектиране на модул Xposed и инструмент за корекции APK, предназначен за среди без root.</string>
     <string name="welcome_intro_detail">NPatch инжектира зареждащата програма Xposed, като модифицира APK файловете. Локалният режим работи с мениджъра, за да зарежда модули и да управлява динамично обхвати, без да поддържа мениджъра да работи във фонов режим. Интегрираният режим вгражда модули директно в целевото приложение за самостоятелно използване на устройства без мениджър. Shizuku отключва само някои функции за удобство и не се изисква за корекция на ядрото на NPatch, зареждане на модули или основно управление.</string>

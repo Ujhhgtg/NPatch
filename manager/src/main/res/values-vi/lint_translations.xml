@@ -75,7 +75,7 @@
     <string name="patch_extract_original_extracting">Đang trích xuất APK gốc…</string>
     <string name="patch_extract_original_missing">Không tìm thấy APK gốc được nhúng trong gói này (có thể được vá bằng đường vòng cấp 0).\n\nThay vào đó, bạn có muốn vá trực tiếp APK bên ngoài không?</string>
     <string name="patch_extract_package_mismatch">Tên gói không khớp: gói bên ngoài là \'%1$s\', nhưng gói APK được trích xuất là \'%2$s\'.\n\nBạn vẫn muốn tiếp tục trích xuất APK phải không?</string>
-    <string name="screen_select_modules">Chọn mô-đun Xposed</string>
+    <string name="screen_select_modules">Chọn mô-đun</string>
     <string name="welcome_version">Phiên bản %1$s</string>
     <string name="welcome_intro_content">Công cụ chèn mô-đun Xposed hiện đại và công cụ vá lỗi APK được thiết kế cho môi trường không có root.</string>
     <string name="welcome_intro_detail">NPatch chèn trình tải Xposed bằng cách sửa đổi các tệp APK. Chế độ cục bộ hoạt động với trình quản lý để tải các mô-đun và quản lý phạm vi một cách linh hoạt mà không khiến trình quản lý chạy ở chế độ nền. Chế độ tích hợp nhúng các mô-đun trực tiếp vào ứng dụng mục tiêu để sử dụng độc lập trên các thiết bị mà không cần trình quản lý. Shizuku chỉ mở khóa một số tính năng tiện lợi và không bắt buộc đối với việc vá lõi NPatch, tải mô-đun hoặc quản lý cơ bản.</string>

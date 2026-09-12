@@ -80,7 +80,7 @@
     <string name="patch_extract_original_extracting">استخراج APK الأصلي…</string>
     <string name="patch_extract_original_missing">لم يتم العثور على APK الأصلي المضمن في هذه الحزمة (ربما تم تصحيحه بتجاوز المستوى 0).\n\nهل تريد تصحيح APK الخارجي مباشرة بدلاً من ذلك؟</string>
     <string name="patch_extract_package_mismatch">عدم تطابق اسم الحزمة: الحزمة الخارجية هي \"%1$s\"، ولكن الحزمة APK المستخرجة هي \"%2$s\".\n\nهل مازلت ترغب في متابعة APK المستخرج؟</string>
-    <string name="screen_select_modules">حدد وحدات Xposed</string>
+    <string name="screen_select_modules">حدد الوحدات</string>
     <string name="welcome_version">الإصدار %1$s</string>
     <string name="welcome_intro_content">حقن وحدة Xposed حديثة وأداة تصحيح APK مصممة للبيئات التي لا جذور لها.</string>
     <string name="welcome_intro_detail">يقوم NPatch بإدخال محمل Xposed عن طريق تعديل ملفات APK. يعمل الوضع المحلي مع المدير لتحميل الوحدات وإدارة النطاقات ديناميكيًا، دون إبقاء المدير قيد التشغيل في الخلفية. يقوم الوضع المتكامل بتضمين الوحدات مباشرة في التطبيق المستهدف للاستخدام المستقل على الأجهزة بدون المدير. يفتح Shizuku فقط بعض ميزات الراحة وهو غير مطلوب للتصحيح الأساسي لـ NPatch أو تحميل الوحدة أو الإدارة الأساسية.</string>

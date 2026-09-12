@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">APK ya orîjînal derxistin…</string>
     <string name="patch_extract_original_missing">Di vê pakêtê de APK-ya orîjînal a pêvekirî nehat dîtin (dibe ku bi rêça Asta 0-ê ve hatî kişandin).\n\nMa hûn dixwazin li şûna wê rasterast APK-ya derve bişkînin?</string>
     <string name="patch_extract_package_mismatch">Nakokiya navê pakêtê: Pakêta derve \'%1$s\' e, lê pakêta APK ya hatî derxistin \'%2$s\' e.\n\nMa hûn hîn jî dixwazin ku bi APK-ya hatî derxistin bidomînin?</string>
-    <string name="screen_select_modules">Modulên Xposed hilbijêrin</string>
+    <string name="screen_select_modules">Modulan hilbijêrin</string>
     <string name="welcome_version">Guhertoya %1$s</string>
     <string name="welcome_intro_content">Derzkirinek modulek Xposed ya nûjen û amûrek pêvekirina APK ku ji bo hawîrdorên bê root hatî çêkirin.</string>
     <string name="welcome_intro_detail">NPatch bi guheztina pelên APK barkerê Xposed derzî dike. Moda herêmî bi rêveberê re dixebite ku modulan bar bike û qadan bi dînamîkî rêve bibe, bêyî ku rêveber li paşde bixebite. Moda yekbûyî modulan rasterast di sepana armancê de vedihewîne ji bo karanîna serbixwe li ser cîhazên bêyî rêveber. Shizuku tenê hin taybetmendiyên rehetiyê vedike û ji bo lêxistina bingehîn a NPatch, barkirina modul, an rêveberiya bingehîn ne hewce ye.</string>

@@ -74,7 +74,7 @@
     <string name="patch_extract_original_extracting">Orijinal APK çıkarılıyor…</string>
     <string name="patch_extract_original_missing">Bu pakette yerleşik orijinal APK bulunamadı (muhtemelen Düzey 0 bypass ile yamalı).\n\nBunun yerine doğrudan dış APK\'ye yama uygulamak ister misiniz?</string>
     <string name="patch_extract_package_mismatch">Paket adı uyuşmazlığı: dış paket \'%1$s\', ancak çıkarılan APK paketi \'%2$s\'.\n\nÇıkarılan APK işlemine devam etmek istiyor musunuz?</string>
-    <string name="screen_select_modules">Xposed modüllerini seçin</string>
+    <string name="screen_select_modules">Modülleri seçin</string>
     <string name="welcome_version">Sürüm %1$s</string>
     <string name="welcome_intro_content">Köksüz ortamlar için tasarlanmış modern bir Xposed modül enjeksiyonu ve APK yama aracı.</string>
     <string name="welcome_intro_detail">NPatch, APK dosyalarını değiştirerek Xposed yükleyiciyi enjekte eder. Yerel mod, yöneticiyi arka planda çalıştırmaya gerek kalmadan modülleri yüklemek ve kapsamları dinamik olarak yönetmek için yöneticiyle birlikte çalışır. Entegre mod, yönetici olmadan cihazlarda bağımsız kullanım için modülleri doğrudan hedef uygulamaya yerleştirir. Shizuku yalnızca bazı kolaylık özelliklerinin kilidini açar ve NPatch çekirdek yamalama, modül yükleme veya temel yönetim için gerekli değildir.</string>

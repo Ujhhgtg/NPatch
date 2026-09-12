@@ -78,7 +78,7 @@
     <string name="patch_extract_original_extracting">מחלץ את APK המקורי…</string>
     <string name="patch_extract_original_missing">לא נמצא APK מקורי מוטבע בחבילה זו (ייתכן שתוקן עם מעקף רמה 0).\n\nהאם אתה רוצה לתקן ישירות את ה-APK החיצוני במקום זאת?</string>
     <string name="patch_extract_package_mismatch">חוסר התאמה של שם החבילה: החבילה החיצונית היא \'%1$s\', אך חבילת ה-APK שחולצה היא \'%2$s\'.\n\nהאם אתה עדיין רוצה להמשיך עם ה-APK שחולץ?</string>
-    <string name="screen_select_modules">בחר מודולים של Xposed</string>
+    <string name="screen_select_modules">בחר מודולים</string>
     <string name="welcome_version">גרסה %1$s</string>
     <string name="welcome_intro_content">הזרקת מודול Xposed מודרני וכלי תיקון APK המיועד לסביבות חסרות שורשים.</string>
     <string name="welcome_intro_detail">NPatch מזריק את מטעין Xposed על ידי שינוי קבצי APK. מצב מקומי עובד עם המנהל כדי לטעון מודולים ולנהל היקפים באופן דינמי, מבלי להשאיר את המנהל פועל ברקע. מצב משולב מטמיע מודולים ישירות באפליקציית היעד לשימוש עצמאי במכשירים ללא המנהל. Shizuku פותח רק חלק מתכונות הנוחות ואינו נדרש עבור תיקון ליבות NPatch, טעינת מודול או ניהול בסיסי.</string>

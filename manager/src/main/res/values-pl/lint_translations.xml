@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">Wyodrębnianie oryginalnego APK…</string>
     <string name="patch_extract_original_missing">W tym pakiecie nie znaleziono wbudowanego oryginalnego APK (prawdopodobnie z poprawką z obejściem poziomu 0).\n\nCzy zamiast tego chcesz bezpośrednio załatać zewnętrzny APK?</string>
     <string name="patch_extract_package_mismatch">Niezgodna nazwa pakietu: pakiet zewnętrzny to „%1$s”, ale wyodrębniony pakiet APK to „%2$s”.\n\nCzy nadal chcesz kontynuować wyodrębnianie APK?</string>
-    <string name="screen_select_modules">Wybierz moduły Xposed</string>
+    <string name="screen_select_modules">Wybierz moduły</string>
     <string name="welcome_version">Wersja %1$s</string>
     <string name="welcome_intro_content">Nowoczesne narzędzie do wstrzykiwania modułów Xposed i narzędzie do łatania APK przeznaczone dla środowisk bez rootowania.</string>
     <string name="welcome_intro_detail">NPatch wstawia moduł ładujący Xposed, modyfikując pliki APK. Tryb lokalny współpracuje z menedżerem w celu dynamicznego ładowania modułów i zarządzania zakresami, bez konieczności utrzymywania menedżera działającego w tle. Tryb zintegrowany osadza moduły bezpośrednio w aplikacji docelowej do samodzielnego użytku na urządzeniach bez menedżera. Shizuku odblokowuje jedynie niektóre wygodne funkcje i nie jest wymagany do łatania rdzenia NPatch, ładowania modułów ani podstawowego zarządzania.</string>

@@ -140,7 +140,7 @@
 
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">选择应用程序</string>
-    <string name="screen_select_modules">选择 Xposed 模块</string>
+    <string name="screen_select_modules">选择模块</string>
 
     <!-- Welcome Screen -->
     <string name="welcome_version">版本 %1$s</string>

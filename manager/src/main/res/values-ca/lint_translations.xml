@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">S\'està extreint APK original…</string>
     <string name="patch_extract_original_missing">No s\'ha trobat cap APK original incrustat en aquest paquet (possiblement s\'ha pegat amb un bypass de nivell 0).\n\nVoleu pegar directament el APK exterior?</string>
     <string name="patch_extract_package_mismatch">El nom del paquet no coincideix: el paquet exterior és \"%1$s\", però el paquet APK extret és \"%2$s\".\n\nEncara voleu continuar amb el APK extret?</string>
-    <string name="screen_select_modules">Seleccioneu mòduls Xposed</string>
+    <string name="screen_select_modules">Seleccioneu mòduls</string>
     <string name="welcome_version">Versió %1$s</string>
     <string name="welcome_intro_content">Una moderna eina d\'injecció de mòduls Xposed i eina de pegat APK dissenyada per a entorns sense arrels.</string>
     <string name="welcome_intro_detail">NPatch injecta el carregador Xposed modificant els fitxers APK. El mode local funciona amb el gestor per carregar mòduls i gestionar els àmbits de manera dinàmica, sense mantenir el gestor en execució en segon pla. El mode integrat incorpora mòduls directament a l\'aplicació de destinació per utilitzar-los autònoms en dispositius sense el gestor. Shizuku només desbloqueja algunes funcions de comoditat i no és necessari per a l\'aplicació de pedaços bàsics de NPatch, la càrrega de mòduls o la gestió bàsica.</string>

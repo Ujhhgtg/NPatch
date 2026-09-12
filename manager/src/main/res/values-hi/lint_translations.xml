@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">मूल APK निकाला जा रहा है…</string>
     <string name="patch_extract_original_missing">इस पैकेज में कोई एम्बेडेड मूल APK नहीं मिला (संभवतः लेवल 0 बाईपास के साथ पैच किया गया)।\n\nक्या आप इसके बजाय बाहरी APK को सीधे पैच करना चाहते हैं?</string>
     <string name="patch_extract_package_mismatch">पैकेज का नाम बेमेल: बाहरी पैकेज \'%1$s\' है, लेकिन निकाला गया APK पैकेज \'%2$s\' है।\n\nक्या आप अभी भी निकाले गए APK के साथ आगे बढ़ना चाहते हैं?</string>
-    <string name="screen_select_modules">Xposed मॉड्यूल का चयन करें</string>
+    <string name="screen_select_modules">मॉड्यूल का चयन करें</string>
     <string name="welcome_version">संस्करण %1$s</string>
     <string name="welcome_intro_content">एक आधुनिक Xposed मॉड्यूल इंजेक्शन और APK पैचिंग टूल रूटलेस वातावरण के लिए डिज़ाइन किया गया है।</string>
     <string name="welcome_intro_detail">NPatch, APK फ़ाइलों को संशोधित करके Xposed लोडर को इंजेक्ट करता है। स्थानीय मोड मॉड्यूल को लोड करने और प्रबंधक को पृष्ठभूमि में चालू रखे बिना गतिशील रूप से स्कोप प्रबंधित करने के लिए प्रबंधक के साथ काम करता है। एकीकृत मोड प्रबंधक के बिना उपकरणों पर स्टैंडअलोन उपयोग के लिए मॉड्यूल को सीधे लक्ष्य ऐप में एम्बेड करता है। Shizuku केवल कुछ सुविधा सुविधाओं को अनलॉक करता है और NPatch कोर पैचिंग, मॉड्यूल लोडिंग या बुनियादी प्रबंधन के लिए आवश्यक नहीं है।</string>

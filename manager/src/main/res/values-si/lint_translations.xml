@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">මුල් APK උපුටා ගනිමින්…</string>
     <string name="patch_extract_original_missing">මෙම පැකේජය තුළ කාවැද්දූ මුල් APK කිසිවක් හමු නොවීය (සමහර විට 0 මට්ටමේ බයිපාස් සමඟ පැච් කර ඇත).\n\nඔබට ඒ වෙනුවට පිටත APK කෙලින්ම පැච් කිරීමට අවශ්‍යද?</string>
     <string name="patch_extract_package_mismatch">පැකේජයේ නම නොගැලපීම: පිටත පැකේජය \'%1$s\', නමුත් උපුටා ගත් APK පැකේජය \'%2$s\' වේ.\n\nඔබට තවමත් උපුටා ගත් APK සමඟ ඉදිරියට යාමට අවශ්‍යද?</string>
-    <string name="screen_select_modules">Xposed මොඩියුල තෝරන්න</string>
+    <string name="screen_select_modules">මොඩියුල තෝරන්න</string>
     <string name="welcome_version">අනුවාදය %1$s</string>
     <string name="welcome_intro_content">මුල් රහිත පරිසරයන් සඳහා නිර්මාණය කර ඇති නවීන Xposed මොඩියුල එන්නත් සහ APK පැච් කිරීමේ මෙවලමක්.</string>
     <string name="welcome_intro_detail">NPatch APK ගොනු වෙනස් කිරීම මගින් Xposed ලෝඩරය එන්නත් කරයි. කළමනාකරු පසුබිමේ ධාවනය නොකර මොඩියුල පූරණය කිරීමට සහ විෂය පථ ගතිකව කළමනාකරණය කිරීමට කළමනාකරු සමඟ දේශීය ප්‍රකාරය ක්‍රියා කරයි. ඒකාබද්ධ මාදිලිය කළමනාකරු නොමැතිව උපාංගවල ස්වාධීන භාවිතය සඳහා ඉලක්ක යෙදුමට සෘජුවම මොඩියුල ඇතුළත් කරයි. Shizuku සමහර පහසු විශේෂාංග පමණක් අගුළු හරින අතර NPatch core patching, module loading, හෝ මූලික කළමනාකරණය සඳහා අවශ්‍ය නොවේ.</string>

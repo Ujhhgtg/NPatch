@@ -7,6 +7,9 @@ import sys
 import xml.etree.ElementTree as ET
 
 RES = Path(__file__).resolve().parents[1] / 'manager/src/main/res'
+# Locale resource directories use a language/region qualifier or a BCP 47 tag.
+# Configuration-only directories such as values-night and values-v31 inherit strings.
+LOCALE_DIRECTORY = re.compile(r'values-(?:[a-z]{2}(?:-r[A-Z]{2})?|b\+[a-z]{2,3}(?:\+[A-Za-z0-9]+)*)')
 FORMAT = re.compile(r'%(?:(\d+)\$)?[-#+ 0,(]*\d*(?:\.\d+)?([a-zA-Z%])')
 IDENTIFIERS = re.compile(
     r'https?://[^\s<>"\)]+|(?:/[\w.-]+){2,}|'
@@ -59,7 +62,10 @@ def check_text(locale, name, source, translated):
 
 source = read(RES / 'values')
 required = {key: node for key, node in source.items() if node.get('translatable') != 'false'}
-locales = {p.name: read(p) for p in sorted(RES.glob('values-*')) if p.is_dir()}
+locales = {
+    p.name: read(p) for p in sorted(RES.glob('values-*'))
+    if p.is_dir() and LOCALE_DIRECTORY.fullmatch(p.name)
+}
 for locale, own in locales.items():
     base = locale.split('-r', 1)[0]
     inherited = source if base == 'values-en' else locales.get(base, {})

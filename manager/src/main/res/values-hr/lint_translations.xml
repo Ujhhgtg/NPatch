@@ -77,7 +77,7 @@
     <string name="patch_extract_original_extracting">Izdvajanje originalnog APK…</string>
     <string name="patch_extract_original_missing">U ovom paketu nije pronađen ugrađeni originalni APK (moguće zakrpan s premosnicom razine 0).\n\nŽelite li umjesto toga izravno zakrpati vanjski APK?</string>
     <string name="patch_extract_package_mismatch">Nepodudaranje naziva paketa: vanjski paket je \'%1$s\', ali ekstrahirani paket APK je \'%2$s\'.\n\nŽelite li i dalje nastaviti s izdvojenim APK?</string>
-    <string name="screen_select_modules">Odaberite Xposed module</string>
+    <string name="screen_select_modules">Odaberite module</string>
     <string name="welcome_version">Verzija %1$s</string>
     <string name="welcome_intro_content">Moderni Xposed modul za ubrizgavanje i APK alat za krpanje dizajniran za okruženja bez korijena.</string>
     <string name="welcome_intro_detail">NPatch ubacuje Xposed loader modificirajući APK datoteke. Lokalni način rada radi s upraviteljem za učitavanje modula i dinamičko upravljanje opsegom, bez održavanja rada upravitelja u pozadini. Integrirani način rada ugrađuje module izravno u ciljnu aplikaciju za samostalnu upotrebu na uređajima bez upravitelja. Shizuku otključava samo neke praktične značajke i nije potreban za NPatch krpanje jezgre, učitavanje modula ili osnovno upravljanje.</string>

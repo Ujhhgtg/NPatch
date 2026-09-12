@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">Onttrek tans oorspronklike APK …</string>
     <string name="patch_extract_original_missing">Geen ingebedde oorspronklike APK in hierdie pakket gevind nie (moontlik gelap met Vlak 0-omleiding).\n\nWil jy eerder die buitenste APK direk pleister?</string>
     <string name="patch_extract_package_mismatch">Pakketnaam pas nie: buitenste pakket is \'%1$s\', maar onttrekte APK-pakket is \'%2$s\'.\n\nWil jy steeds voortgaan met die onttrekte APK?</string>
-    <string name="screen_select_modules">Kies Xposed modules</string>
+    <string name="screen_select_modules">Kies modules</string>
     <string name="welcome_version">Weergawe %1$s</string>
     <string name="welcome_intro_content">\'n Moderne Xposed-module-inspuiting en APK-pleisterinstrument wat ontwerp is vir wortellose omgewings.</string>
     <string name="welcome_intro_detail">NPatch spuit die Xposed-laaier in deur APK-lêers te wysig. Plaaslike modus werk saam met die bestuurder om modules te laai en omvangs dinamies te bestuur, sonder om die bestuurder op die agtergrond aan die gang te hou. Geïntegreerde modus sluit modules direk in die teikentoepassing in vir selfstandige gebruik op toestelle sonder die bestuurder. Shizuku ontsluit slegs \'n paar geriefskenmerke en is nie nodig vir NPatch-kernpleistering, module-laai of basiese bestuur nie.</string>

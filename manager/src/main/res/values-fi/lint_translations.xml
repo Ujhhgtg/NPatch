@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">Puretaan alkuperäistä APK…</string>
     <string name="patch_extract_original_missing">Tästä paketista ei löytynyt upotettua alkuperäistä APK:tä (mahdollisesti korjattu tason 0 ohituksella).\n\nHaluatko korjata ulomman APK:n suoraan sen sijaan?</string>
     <string name="patch_extract_package_mismatch">Paketin nimi ei täsmää: ulkopakkaus on \"%1$s\", mutta purettu APK-paketti on \"%2$s\".\n\nHaluatko silti jatkaa puretun APK:n kanssa?</string>
-    <string name="screen_select_modules">Valitse Xposed-moduulit</string>
+    <string name="screen_select_modules">Valitse moduulit</string>
     <string name="welcome_version">Versio %1$s</string>
     <string name="welcome_intro_content">Moderni Xposed-moduulin injektio- ja APK-paikkaustyökalu, joka on suunniteltu juurittomiin ympäristöihin.</string>
     <string name="welcome_intro_detail">NPatch ruiskuttaa Xposed-lataimen muokkaamalla APK-tiedostoja. Paikallinen tila toimii johtajan kanssa moduulien lataamisessa ja laajuuksien hallinnassa dynaamisesti pitämättä hallintaa käynnissä taustalla. Integroitu tila upottaa moduulit suoraan kohdesovellukseen itsenäiseen käyttöön laitteissa ilman hallintaa. Shizuku avaa vain joitain mukavuusominaisuuksia, eikä sitä vaadita NPatch-ytimen korjaukseen, moduulien lataamiseen tai perushallintaan.</string>

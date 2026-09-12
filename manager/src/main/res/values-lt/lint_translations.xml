@@ -78,7 +78,7 @@
     <string name="patch_extract_original_extracting">Ištraukiamas originalus APK…</string>
     <string name="patch_extract_original_missing">Šiame pakete nerasta įdėto originalaus APK (galbūt pataisyta naudojant 0 lygio aplinkkelį).\n\nAr norite tiesiogiai užtaisyti išorinį APK?</string>
     <string name="patch_extract_package_mismatch">Paketo pavadinimo neatitikimas: išorinė pakuotė yra „%1$s“, bet ištraukta APK pakuotė yra „%2$s“.\n\nAr vis tiek norite tęsti ištrauktą APK?</string>
-    <string name="screen_select_modules">Pasirinkite Xposed modulius</string>
+    <string name="screen_select_modules">Pasirinkite modulius</string>
     <string name="welcome_version">Versija %1$s</string>
     <string name="welcome_intro_content">Modernus Xposed modulio įpurškimo ir APK pataisymo įrankis, sukurtas aplinkai be šaknų.</string>
     <string name="welcome_intro_detail">NPatch įveda Xposed įkroviklį modifikuodamas APK failus. Vietinis režimas veikia su valdytoju, kad įkeltų modulius ir tvarkytų apimtis dinamiškai, neleisdamas tvarkyklei veikti fone. Integruotas režimas įterpia modulius tiesiai į tikslinę programą, kad būtų galima naudoti atskirai įrenginiuose be valdytojo. Shizuku atrakina tik kai kurias patogumo funkcijas ir nėra reikalingas NPatch branduolių pataisymui, modulių įkėlimui ar pagrindiniam valdymui.</string>

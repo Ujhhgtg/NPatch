@@ -73,7 +73,7 @@
     <string name="patch_extract_original_extracting">원본 APK 추출 중…</string>
     <string name="patch_extract_original_missing">이 패키지에는 내장된 원본 APK가 없습니다(레벨 0 우회로 패치되었을 수 있음).\n\n대신 외부 APK를 직접 패치하시겠습니까?</string>
     <string name="patch_extract_package_mismatch">패키지 이름 불일치: 외부 패키지는 \'%1$s\'이지만 추출된 APK 패키지는 \'%2$s\'입니다.\n\n추출된 APK를 계속 진행하시겠습니까?</string>
-    <string name="screen_select_modules">Xposed 모듈 선택</string>
+    <string name="screen_select_modules">모듈 선택</string>
     <string name="welcome_version">버전 %1$s</string>
     <string name="welcome_intro_content">루트 없는 환경을 위해 설계된 최신 Xposed 모듈 주입 및 APK 패치 도구입니다.</string>
     <string name="welcome_intro_detail">NPatch는 APK 파일을 수정하여 Xposed 로더를 주입합니다. 로컬 모드는 관리자와 함께 작동하여 관리자를 백그라운드에서 계속 실행하지 않고도 모듈을 로드하고 범위를 동적으로 관리합니다. 통합 모드는 관리자 없이 장치에서 독립형으로 사용할 수 있도록 대상 앱에 모듈을 직접 포함합니다. Shizuku는 일부 편의 기능만 잠금 해제하며 NPatch 코어 패치, 모듈 로딩 또는 기본 관리에는 필요하지 않습니다.</string>

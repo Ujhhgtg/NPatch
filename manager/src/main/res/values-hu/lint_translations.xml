@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">Az eredeti APK kibontása…</string>
     <string name="patch_extract_original_missing">Ebben a csomagban nem található beágyazott eredeti APK (valószínűleg 0. szintű bypass-szal javítva).\n\nHelyette közvetlenül a külső APK-t szeretné foltozni?</string>
     <string name="patch_extract_package_mismatch">A csomagnév nem egyezik: a külső csomag „%1$s”, de a kibontott APK csomag „%2$s”.\n\nTovábbra is folytatni szeretné a kibontott APK-t?</string>
-    <string name="screen_select_modules">Válassza ki a Xposed modulokat</string>
+    <string name="screen_select_modules">Válassza ki a modulokat</string>
     <string name="welcome_version">%1$s verzió</string>
     <string name="welcome_intro_content">Modern Xposed modul-injektáló és APK foltozó eszköz gyökérmentes környezetekhez.</string>
     <string name="welcome_intro_detail">A NPatch beadja a Xposed betöltőt a APK fájlok módosításával. A helyi mód a kezelővel együttműködve dinamikusan tölti be a modulokat és kezeli a hatóköröket anélkül, hogy a kezelő a háttérben futna. Az integrált mód közvetlenül a célalkalmazásba ágyazza be a modulokat, így a kezelő nélküli eszközökön önállóan is használható. A Shizuku csak néhány kényelmi funkciót nyit meg, és nem szükséges a NPatch magjavításhoz, a modulok betöltéséhez vagy az alapkezeléshez.</string>

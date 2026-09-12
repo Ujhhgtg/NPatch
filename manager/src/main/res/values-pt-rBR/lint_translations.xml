@@ -74,7 +74,7 @@
     <string name="patch_extract_original_extracting">Extraindo APK original…</string>
     <string name="patch_extract_original_missing">Nenhum APK original incorporado encontrado neste pacote (possivelmente corrigido com bypass de nível 0).\n\nVocê deseja corrigir o APK externo diretamente?</string>
     <string name="patch_extract_package_mismatch">Incompatibilidade de nome do pacote: o pacote externo é \'%1$s\', mas o pacote APK extraído é \'%2$s\'.\n\nVocê ainda deseja prosseguir com o APK extraído?</string>
-    <string name="screen_select_modules">Selecione módulos Xposed</string>
+    <string name="screen_select_modules">Selecione módulos</string>
     <string name="welcome_version">Versão %1$s</string>
     <string name="welcome_intro_content">Uma moderna injeção de módulo Xposed e ferramenta de patch APK projetada para ambientes sem raiz.</string>
     <string name="welcome_intro_detail">NPatch injeta o carregador Xposed modificando os arquivos APK. O modo local funciona com o gerenciador para carregar módulos e gerenciar escopos dinamicamente, sem manter o gerenciador em execução em segundo plano. O modo integrado incorpora módulos diretamente no aplicativo de destino para uso independente em dispositivos sem gerenciador. Shizuku desbloqueia apenas alguns recursos convenientes e não é necessário para correção de núcleo NPatch, carregamento de módulo ou gerenciamento básico.</string>

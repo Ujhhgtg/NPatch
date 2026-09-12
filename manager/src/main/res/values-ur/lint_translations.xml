@@ -76,7 +76,7 @@
     <string name="patch_extract_original_extracting">اصل APK نکالا جا رہا ہے…</string>
     <string name="patch_extract_original_missing">اس پیکج میں کوئی ایمبیڈڈ اصل APK نہیں ملا (ممکنہ طور پر لیول 0 بائی پاس کے ساتھ پیچ شدہ)۔\n\nکیا آپ اس کے بجائے بیرونی APK کو براہ راست پیچ کرنا چاہتے ہیں؟</string>
     <string name="patch_extract_package_mismatch">پیکیج کا نام مماثل نہیں ہے: بیرونی پیکیج \'%1$s\' ہے، لیکن نکالا ہوا APK پیکیج \'%2$s\' ہے۔\n\nکیا آپ اب بھی نکالے گئے APK کے ساتھ آگے بڑھنا چاہتے ہیں؟</string>
-    <string name="screen_select_modules">Xposed ماڈیولز کو منتخب کریں۔</string>
+    <string name="screen_select_modules">ماڈیولز منتخب کریں</string>
     <string name="welcome_version">ورژن %1$s</string>
     <string name="welcome_intro_content">ایک جدید Xposed ماڈیول انجیکشن اور APK پیچنگ ٹول بغیر جڑ کے ماحول کے لیے ڈیزائن کیا گیا ہے۔</string>
     <string name="welcome_intro_detail">NPatch APK فائلوں میں ترمیم کرکے Xposed لوڈر کو انجیکشن لگاتا ہے۔ لوکل موڈ مینیجر کو پس منظر میں چلائے بغیر ماڈیول لوڈ کرنے اور دائرہ کار کو متحرک طور پر منظم کرنے کے لیے مینیجر کے ساتھ کام کرتا ہے۔ انٹیگریٹڈ موڈ ماڈیولز کو براہ راست ٹارگٹ ایپ میں ایمبیڈ کرتا ہے تاکہ مینیجر کے بغیر آلات پر اسٹینڈ اکیلا استعمال کیا جا سکے۔ Shizuku صرف کچھ سہولت کی خصوصیات کو کھولتا ہے اور NPatch کور پیچنگ، ماڈیول لوڈنگ، یا بنیادی انتظام کے لیے اس کی ضرورت نہیں ہے۔</string>
