@@ -188,18 +188,18 @@ fun AppearanceSettings() {
         }
     }
     val themeModes = listOf(
-        stringResource(R.string.settings_theme_mode_system),
-        stringResource(R.string.settings_theme_mode_light),
-        stringResource(R.string.settings_theme_mode_dark),
+        DropdownOption(0, stringResource(R.string.settings_theme_mode_system), Icons.Outlined.SettingsBrightness),
+        DropdownOption(1, stringResource(R.string.settings_theme_mode_light), Icons.Outlined.LightMode),
+        DropdownOption(2, stringResource(R.string.settings_theme_mode_dark), Icons.Outlined.DarkMode),
     )
     SegmentedColumn(title = stringResource(R.string.settings_appearance_theme)) {
         item(key = "theme_mode") {
-            SettingsChoice(
+            DropDownMenuWidget(
                 title = stringResource(R.string.settings_theme_mode),
                 icon = Icons.Outlined.SettingsBrightness,
                 options = themeModes,
-                selectedIndex = theme.themeMode.value,
-                onSelected = { index -> scope.launch { context.dataStore.edit { it[ThemeConfig.THEME_MODE] = index } } },
+                value = theme.themeMode.value,
+                onValueChange = { index -> scope.launch { context.dataStore.edit { it[ThemeConfig.THEME_MODE] = index } } },
             )
         }
         item(key = "monet") {
@@ -609,11 +609,15 @@ private fun KeyStorePreference() {
     val unknownError = stringResource(R.string.error_unknown)
     var showCustom by rememberSaveable { mutableStateOf(false) }
     val currentPreset = Configs.keyStorePreset
-    SettingsChoice(
+    DropDownMenuWidget(
         title = stringResource(R.string.settings_keystore), icon = Icons.Outlined.Key,
-        options = listOf("NPatch", "FPA", stringResource(R.string.settings_keystore_custom)),
-        selectedIndex = currentPreset.ordinal,
-        onSelected = { index ->
+        options = listOf(
+            DropdownOption(0, "NPatch"),
+            DropdownOption(1, "FPA"),
+            DropdownOption(2, stringResource(R.string.settings_keystore_custom)),
+        ),
+        value = currentPreset.ordinal,
+        onValueChange = { index ->
             if (index == 2) showCustom = true else scope.launch {
                 runCatching { if (index == 0) MyKeyStore.reset() else MyKeyStore.setBuiltinFpa() }
                     .onFailure { Log.e(TAG, "Failed to change keystore", it); snackbarHost.showSnackbar(unknownError) }

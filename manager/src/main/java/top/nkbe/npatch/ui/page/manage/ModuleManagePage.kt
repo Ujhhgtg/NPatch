@@ -13,6 +13,8 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +30,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
 import nkbe.util.NeoPackageManager
 import top.nkbe.npatch.R
-import top.nkbe.npatch.ui.component.AccessibleMenuItem
+import top.nkbe.npatch.ui.component.m3.DropdownAction
+import top.nkbe.npatch.ui.component.m3.ExpressiveActionDropdown
 import top.nkbe.npatch.ui.component.AppItem
 import top.nkbe.npatch.ui.component.m3.topShape
 import top.nkbe.npatch.ui.component.m3.middleShape
@@ -219,36 +222,30 @@ fun ModuleManageBody(
                             }
                         )
 
-                        DropdownMenu(
-                            expanded = showDropdown.value,
-                            onDismissRequest = { showDropdown.value = false }
-                        ) {
-                            val actions = mutableListOf<Pair<String, () -> Unit>>()
-
+                        val actions = buildList {
                             if (settingsIntent != null) {
-                                actions.add(stringResource(R.string.manage_module_settings) to {
+                                add(DropdownAction(stringResource(R.string.manage_module_settings), Icons.Outlined.Settings) {
                                     context.startActivity(settingsIntent)
                                 })
                             }
-                            actions.add(stringResource(R.string.manage_app_info) to {
+                            add(DropdownAction(stringResource(R.string.manage_app_info), Icons.Outlined.Info) {
                                 val intent = Intent(
                                     Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                                     Uri.fromParts("package", item.appInfo.app.packageName, null)
                                 )
                                 context.startActivity(intent)
                             })
-
-                            actions.forEach { (text, action) ->
-                                    AccessibleMenuItem(
-                                        text = text,
-                                        onClick = {
-                                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
-                                            showDropdown.value = false
-                                            action()
-                                        }
-                                    )
-                            }
                         }
+                        ExpressiveActionDropdown(
+                            expanded = showDropdown.value,
+                            groups = listOf(actions),
+                            onDismissRequest = { showDropdown.value = false },
+                            onAction = { action ->
+                                hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                                showDropdown.value = false
+                                action.onClick()
+                            },
+                        )
                     }
                 }
             }

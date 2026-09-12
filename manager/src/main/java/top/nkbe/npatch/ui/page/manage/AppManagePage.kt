@@ -23,6 +23,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardCapslock
+import androidx.compose.material.icons.outlined.SystemUpdate
+import androidx.compose.material.icons.outlined.Extension
+import androidx.compose.material.icons.outlined.FileUpload
+import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.outlined.Speed
+import androidx.compose.material.icons.outlined.StopCircle
+import androidx.compose.material.icons.outlined.RestartAlt
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,7 +62,8 @@ import top.nkbe.npatch.manager.DiagnosticLogExporter
 import top.nkbe.npatch.share.Constants
 import top.nkbe.npatch.share.LSPConfig
 
-import top.nkbe.npatch.ui.component.AccessibleMenuItem
+import top.nkbe.npatch.ui.component.m3.DropdownAction
+import top.nkbe.npatch.ui.component.m3.ExpressiveActionDropdown
 import top.nkbe.npatch.ui.component.AppItem
 import top.nkbe.npatch.ui.component.m3.topShape
 import top.nkbe.npatch.ui.component.m3.middleShape
@@ -343,23 +353,19 @@ fun AppManageBody(
                             }
                         )
 
-                        DropdownMenu(
-                            expanded = showDropdown.value,
-                            onDismissRequest = { showDropdown.value = false }
-                        ) {
-                            val actions = mutableListOf<Pair<String, () -> Unit>>()
+                        val actions = buildList {
 
                             if (canUpdateLoader || BuildConfig.DEBUG) {
-                                actions.add(stringResource(R.string.manage_update_loader) to {
+                                add(DropdownAction(stringResource(R.string.manage_update_loader), Icons.Outlined.SystemUpdate) {
                                     scope.launch { viewModel.dispatch(AppManageViewModel.ViewAction.UpdateLoader(appInfo, patchConfig)) }
                                 })
                             }
                             if (isLocal) {
-                                actions.add(stringResource(R.string.manage_module_scope) to {
+                                add(DropdownAction(stringResource(R.string.manage_module_scope), Icons.Outlined.Extension) {
                                     openScope()
                                 })
                             }
-                            actions.add(stringResource(R.string.manage_export_diagnostics) to {
+                            add(DropdownAction(stringResource(R.string.manage_export_diagnostics), Icons.Outlined.FileUpload) {
                                 scope.launch {
                                     runCatching {
                                         val result = DiagnosticLogExporter.export(
@@ -398,7 +404,7 @@ fun AppManageBody(
                                     }
                                 }
                             })
-                            actions.add(stringResource(R.string.manage_repatch) to {
+                            add(DropdownAction(stringResource(R.string.manage_repatch), Icons.Outlined.Build) {
                                 navigator.navigate(
                                     Route.NewPatch(
                                         id = ACTION_APPLIST,
@@ -407,7 +413,7 @@ fun AppManageBody(
                                 )
                             })
                             val shizukuUnavailable = stringResource(R.string.shizuku_unavailable)
-                            actions.add(stringResource(R.string.manage_optimize) to {
+                            add(DropdownAction(stringResource(R.string.manage_optimize), Icons.Outlined.Speed) {
                                 scope.launch {
                                     if (!ShizukuApi.isReady) {
                                         Toast.makeText(context, shizukuUnavailable, Toast.LENGTH_SHORT).show()
@@ -416,7 +422,7 @@ fun AppManageBody(
                                     }
                                 }
                             })
-                            actions.add(stringResource(R.string.manage_force_stop) to {
+                            add(DropdownAction(stringResource(R.string.manage_force_stop), Icons.Outlined.StopCircle) {
                                 if (ShizukuApi.isReady) {
                                     scope.launch { viewModel.dispatch(AppManageViewModel.ViewAction.PerformForceStop(appInfo)) }
                                 } else {
@@ -426,7 +432,7 @@ fun AppManageBody(
                                     context.startActivity(intent)
                                 }
                             })
-                            actions.add(stringResource(R.string.manage_force_restart) to {
+                            add(DropdownAction(stringResource(R.string.manage_force_restart), Icons.Outlined.RestartAlt) {
                                 if (ShizukuApi.isReady) {
                                     scope.launch {
                                         viewModel.dispatch(AppManageViewModel.ViewAction.PerformForceRestart(appInfo))
@@ -438,32 +444,30 @@ fun AppManageBody(
                                     context.startActivity(intent)
                                 }
                             })
-                            actions.add(stringResource(R.string.manage_app_info) to {
+                            add(DropdownAction(stringResource(R.string.manage_app_info), Icons.Outlined.Info) {
                                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                                     data = "package:${appInfo.app.packageName}".toUri()
                                 }
                                 context.startActivity(intent)
                             })
-                            actions.add(stringResource(R.string.uninstall) to {
+                            add(DropdownAction(stringResource(R.string.uninstall), Icons.Outlined.Delete) {
                                 val intent = Intent(Intent.ACTION_DELETE).apply {
                                     data = "package:${appInfo.app.packageName}".toUri()
                                     putExtra(Intent.EXTRA_RETURN_RESULT, true)
                                 }
                                 launcher.launch(intent)
                             })
-
-                            actions.forEachIndexed { index, (text, action) ->
-                                if (index == actions.lastIndex) HorizontalDivider()
-                                AccessibleMenuItem(
-                                        text = text,
-                                        onClick = {
-                                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
-                                            showDropdown.value = false
-                                            action()
-                                        }
-                                    )
-                            }
                         }
+                        ExpressiveActionDropdown(
+                            expanded = showDropdown.value,
+                            groups = listOf(actions.dropLast(1), actions.takeLast(1)),
+                            onDismissRequest = { showDropdown.value = false },
+                            onAction = { action ->
+                                hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                                showDropdown.value = false
+                                action.onClick()
+                            },
+                        )
                     }
                 }
             }

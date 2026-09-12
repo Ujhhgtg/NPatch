@@ -29,7 +29,11 @@ import org.junit.Rule
 import org.junit.Test
 import top.nkbe.npatch.ui.component.AppItem
 import top.nkbe.npatch.ui.component.SearchBar
-import top.nkbe.npatch.ui.component.AccessibleMenuItem
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Speed
+import top.nkbe.npatch.ui.component.m3.DropdownAction
+import top.nkbe.npatch.ui.component.m3.ExpressiveActionDropdown
 import top.nkbe.npatch.ui.component.m3.BaseWidget
 import top.nkbe.npatch.ui.component.m3.RadioButtonWidget
 import top.nkbe.npatch.ui.component.m3.SettingsDialog
@@ -110,7 +114,14 @@ class SettingsAccessibilityTest {
         var clicks = 0
         compose.setContent {
             MaterialExpressiveTheme {
-                AccessibleMenuItem(text = "Optimize", onClick = { clicks++ })
+                Box {
+                    ExpressiveActionDropdown(
+                        expanded = true,
+                        groups = listOf(listOf(DropdownAction("Optimize", Icons.Outlined.Speed) { clicks++ })),
+                        onDismissRequest = {},
+                        onAction = { it.onClick() },
+                    )
+                }
             }
         }
         compose.onNodeWithText("Optimize")
