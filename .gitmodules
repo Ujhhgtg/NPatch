@@ -8,5 +8,5 @@
 	branch = master
 [submodule "remote-api"]
 	path = remote-api
-	url = https://github.com/7723mod/NPatch-Remote-API.git
-	branch = master
+	url = https://github.com/Ujhhgtg/NPatch-Remote-API.git
+	branch = codex/lint-build-tooling
