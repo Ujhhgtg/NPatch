@@ -257,11 +257,20 @@ fun AppearanceSettings() {
                     description = stringResource(R.string.settings_card_background_alpha_summary),
                     icon = Icons.Outlined.Palette,
                 ) { Text("${alpha.roundToInt()}%", style = MaterialTheme.typography.labelLarge) }
+                val alphaSliderState = remember {
+                    SliderState(
+                        value = alpha,
+                        steps = CARD_BACKGROUND_ALPHA_MAX - CARD_BACKGROUND_ALPHA_MIN - 1,
+                        trackRange = CARD_BACKGROUND_ALPHA_MIN.toFloat()..CARD_BACKGROUND_ALPHA_MAX.toFloat(),
+                    )
+                }
+                alphaSliderState.value = alpha
                 Slider(
-                    value = alpha,
+                    state = alphaSliderState,
                     onValueChange = { alpha = it.roundToInt().toFloat() },
-                    valueRange = CARD_BACKGROUND_ALPHA_MIN.toFloat()..CARD_BACKGROUND_ALPHA_MAX.toFloat(),
-                    steps = CARD_BACKGROUND_ALPHA_MAX - CARD_BACKGROUND_ALPHA_MIN - 1,
+                    track = { sliderState ->
+                        SliderDefaults.Track(sliderState = sliderState, drawTick = { _, _ -> })
+                    },
                     onValueChangeFinished = {
                         val percent = alpha.roundToInt().coerceIn(CARD_BACKGROUND_ALPHA_MIN, CARD_BACKGROUND_ALPHA_MAX)
                         scope.launch { context.dataStore.edit { it[ThemeConfig.CARD_BACKGROUND_ALPHA_PERCENT] = percent } }
