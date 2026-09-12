@@ -240,6 +240,44 @@ fun AppManageBody(
 
                     val showDropdown = remember { mutableStateOf(false) }
                     val scopeUpdatedText = stringResource(R.string.manage_module_scope_updated)
+                    val openScope: () -> Unit = {
+                        viewModel.viewModelScope.launch {
+                            val targetAppPkg = appInfo.app.packageName
+                            val activated = withContext(Dispatchers.IO) {
+                                ConfigManager.getModulesForApp(targetAppPkg).map { it.pkgName }.toSet()
+                            }
+
+                            val initialSelected = NeoPackageManager.appList.mapNotNull {
+                                if (activated.contains(it.app.packageName)) it.app.packageName else null
+                            }
+                            val result = navigator.navigateForResult<SelectAppsResult>(
+                                Route.SelectApps(true, initialSelected)
+                            )
+                            if (result is SelectAppsResult.MultipleApps) {
+                                withContext(Dispatchers.IO) {
+                                    val previousModules = ConfigManager.getModulesForApp(targetAppPkg)
+                                    val affectedPackages = buildSet {
+                                        previousModules.forEach { add(it.pkgName) }
+                                        result.selected.forEach { add(it.app.packageName) }
+                                    }
+                                    previousModules.forEach {
+                                        ConfigManager.deactivateModule(targetAppPkg, it)
+                                    }
+                                    result.selected.forEach {
+                                        Log.d(TAG, "Activate ${it.app.packageName} for $targetAppPkg")
+                                        ConfigManager.activateModule(targetAppPkg, LoadedModule(it.app.packageName, it.app.sourceDir))
+                                    }
+                                    if (ShizukuApi.isReady) {
+                                        // Notify both removed and newly added modules so they do not
+                                        // keep stale scope state after a scope edit.
+                                        ModuleScopeSyncStore.syncModuleScopes(affectedPackages)
+                                    }
+                                }
+                                moduleManageViewModel.refreshScopedActivationState()
+                                Toast.makeText(context, scopeUpdatedText, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
 
                     Box(modifier = Modifier.fillMaxWidth()) {
                         AppItem(
@@ -298,10 +336,7 @@ fun AppManageBody(
                                     }
                                 }
                             },
-                            onClick = {
-                                showDropdown.value = true
-                                hapticFeedback.performHapticFeedback(HapticFeedbackType.ContextClick)
-                            },
+                            onClick = openScope,
                             onLongPress = {
                                 showDropdown.value = true
                                 hapticFeedback.performHapticFeedback(HapticFeedbackType.ContextClick)
@@ -321,42 +356,7 @@ fun AppManageBody(
                             }
                             if (isLocal) {
                                 actions.add(stringResource(R.string.manage_module_scope) to {
-                                    viewModel.viewModelScope.launch {
-                                        val targetAppPkg = appInfo.app.packageName
-                                        val activated = withContext(Dispatchers.IO) {
-                                            ConfigManager.getModulesForApp(targetAppPkg).map { it.pkgName }.toSet()
-                                        }
-
-                                        val initialSelected = NeoPackageManager.appList.mapNotNull {
-                                            if (activated.contains(it.app.packageName)) it.app.packageName else null
-                                        }
-                                        val result = navigator.navigateForResult<SelectAppsResult>(
-                                            Route.SelectApps(true, initialSelected)
-                                        )
-                                        if (result is SelectAppsResult.MultipleApps) {
-                                            withContext(Dispatchers.IO) {
-                                                val previousModules = ConfigManager.getModulesForApp(targetAppPkg)
-                                                val affectedPackages = buildSet {
-                                                    previousModules.forEach { add(it.pkgName) }
-                                                    result.selected.forEach { add(it.app.packageName) }
-                                                }
-                                                previousModules.forEach {
-                                                    ConfigManager.deactivateModule(targetAppPkg, it)
-                                                }
-                                                result.selected.forEach {
-                                                    Log.d(TAG, "Activate ${it.app.packageName} for $targetAppPkg")
-                                                    ConfigManager.activateModule(targetAppPkg, LoadedModule(it.app.packageName, it.app.sourceDir))
-                                                }
-                                                if (ShizukuApi.isReady) {
-                                                    // Notify both removed and newly added modules so they do not
-                                                    // keep stale scope state after a scope edit.
-                                                    ModuleScopeSyncStore.syncModuleScopes(affectedPackages)
-                                                }
-                                            }
-                                            moduleManageViewModel.refreshScopedActivationState()
-                                            Toast.makeText(context, scopeUpdatedText, Toast.LENGTH_SHORT).show()
-                                        }
-                                    }
+                                    openScope()
                                 })
                             }
                             actions.add(stringResource(R.string.manage_export_diagnostics) to {
