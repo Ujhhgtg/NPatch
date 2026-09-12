@@ -4,7 +4,7 @@
 
     <style name="Theme.NPatch.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@android:color/background_dark</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_playstore</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
         <item name="postSplashScreenTheme">@style/Theme.NPatch</item>
     </style>
 </resources>
