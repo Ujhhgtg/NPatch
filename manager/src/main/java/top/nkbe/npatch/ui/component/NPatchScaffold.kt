@@ -44,6 +44,7 @@ fun NPatchScaffold(
             floatingActionButtonPosition = floatingActionButtonPosition,
             snackbarHost = snackbarHost,
             containerColor = Color.Transparent,
+            contentColor = MaterialTheme.colorScheme.onSurface,
             contentWindowInsets = contentWindowInsets,
             content = content,
         )
