@@ -88,6 +88,7 @@ private const val TAG = "AppManagePage"
 @Composable
 fun AppManageBody(
     navigator: Navigator,
+    scrollBehavior: TopAppBarScrollBehavior,
     searchQuery: String = "",
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -193,6 +194,7 @@ fun AppManageBody(
 
     NPatchPullToRefresh(
         isRefreshing = viewModel.isRefreshing,
+        scrollBehavior = scrollBehavior,
         onRefresh = { viewModel.dispatch(AppManageViewModel.ViewAction.Refresh) },
         pullToRefreshState = pullToRefreshState,
         contentPadding = contentPadding,

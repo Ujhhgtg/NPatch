@@ -71,6 +71,7 @@ private fun rememberModuleBadgeColors(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ModuleManageBody(
+    scrollBehavior: TopAppBarScrollBehavior,
     searchQuery: String = "",
     contentPadding: PaddingValues = PaddingValues(0.dp),
     viewModel: ModuleManageViewModel = viewModel()
@@ -90,6 +91,7 @@ fun ModuleManageBody(
 
     NPatchPullToRefresh(
         isRefreshing = viewModel.isRefreshing,
+        scrollBehavior = scrollBehavior,
         onRefresh = { viewModel.refresh() },
         pullToRefreshState = pullToRefreshState,
         contentPadding = contentPadding,

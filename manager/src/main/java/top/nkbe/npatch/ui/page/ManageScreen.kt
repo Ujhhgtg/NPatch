@@ -32,7 +32,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
@@ -94,7 +93,7 @@ fun ManageScreen(
     }
 
     NPatchScaffold(
-        modifier = modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.displayCutout).only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal),
         topBar = {
             NPatchTopAppBar(
@@ -149,8 +148,8 @@ fun ManageScreen(
                     if (page == 0) 96.dp else 16.dp,
             )
             when (page) {
-                0 -> AppManageBody(navigator, searchQuery, listPadding)
-                1 -> ModuleManageBody(searchQuery, listPadding, moduleManageViewModel)
+                0 -> AppManageBody(navigator, scrollBehavior, searchQuery, listPadding)
+                1 -> ModuleManageBody(scrollBehavior, searchQuery, listPadding, moduleManageViewModel)
             }
         }
     }

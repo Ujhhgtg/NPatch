@@ -43,6 +43,7 @@ Direct Miuix dependencies are restricted to `miuix-nav-android`, `miuix-blur-and
 
 - Each destination draws an opaque base and its own optional wallpaper before content. Navigation transitions cannot expose another destination through the foreground surface.
 - One controller owns each PagerState. Clicks, shortcuts and Back submit a target; settled swipes report their result. Main keeps all three page compositions alive.
+- Refresh containers wrap the app-bar nested-scroll connection, so list overscroll first expands the title and only the remaining distance reaches pull-to-refresh.
 - DataStore theme values are loaded once at the activity boundary. Preferences consume the loaded state, without rendering placeholder defaults on tab entry.
 - Cold startup keeps the system splash until the first themed composition is ready. The platform owns its exit transition; no placeholder frame or custom launch animation is inserted.
 - The splash drawable references the complete launcher artwork, including the NPatch wordmark, with one-sixth insets so the mark and lettering remain inside the system icon mask.

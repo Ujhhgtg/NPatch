@@ -2,11 +2,13 @@
 // Ported from InstallerX-Revived ui/page/main/settings/config/apply/ApplyPage.kt.
 package top.nkbe.npatch.ui.component
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
@@ -14,6 +16,7 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
@@ -21,6 +24,7 @@ import androidx.compose.ui.unit.dp
 fun NPatchPullToRefresh(
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
     pullToRefreshState: PullToRefreshState = rememberPullToRefreshState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -41,5 +45,9 @@ fun NPatchPullToRefresh(
                 containerColor = MaterialTheme.colorScheme.surfaceContainer,
             )
         },
-    ) { content() }
+    ) {
+        // Post-scroll travels outwards: expand the app bar before refresh receives
+        // any drag left over from the list. Pre-scroll reverses this order.
+        Box(Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) { content() }
+    }
 }

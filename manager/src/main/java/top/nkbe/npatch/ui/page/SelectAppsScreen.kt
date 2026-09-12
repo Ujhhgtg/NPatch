@@ -18,7 +18,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
@@ -76,7 +75,7 @@ fun SelectAppsScreen(multiSelect: Boolean, initialSelected: List<String>?) {
     LaunchedEffect(multiSelect) { viewModel.filterAppList(false, appFilter) }
 
     NPatchScaffold(
-        modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             NPatchTopAppBar(
                 modifier = Modifier.m3AppBarBlur(backdrop),
@@ -119,6 +118,7 @@ fun SelectAppsScreen(multiSelect: Boolean, initialSelected: List<String>?) {
         )
         NPatchPullToRefresh(
             isRefreshing = viewModel.isRefreshing,
+            scrollBehavior = scrollBehavior,
             onRefresh = { viewModel.filterAppList(true, appFilter) },
             contentPadding = innerPadding,
             modifier = Modifier.fillMaxSize(),
