@@ -42,7 +42,7 @@ fun AppItem(
     description: String = "",
     warningText: String? = null,
     isEnabled: Boolean = true,
-    cardColors: CardColors = backgroundAwareCardColors(color = MaterialTheme.colorScheme.surface),
+    cardColors: CardColors = backgroundAwareCardColors(),
     shape: Shape = RoundedCornerShape(16.dp),
     checked: Boolean? = null,
     onClick: () -> Unit = {},
