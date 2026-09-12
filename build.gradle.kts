@@ -1,6 +1,7 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.ApplicationDefaultConfig
+import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
-import com.android.build.gradle.BaseExtension
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
@@ -10,7 +11,7 @@ plugins {
     alias(libs.plugins.agp.lib) apply false
     alias(libs.plugins.agp.app) apply false
     alias(npatch.plugins.compose.compiler) apply false
-    alias(npatch.plugins.kotlin.android) apply false
+    alias(npatch.plugins.kotlin.parcelize) apply false
 }
 
 buildscript {
@@ -81,26 +82,28 @@ tasks.register("buildAll") {
 }
 
 fun Project.configureBaseExtension() {
-    extensions.findByType(BaseExtension::class)?.run {
-        compileSdkVersion(androidCompileSdkVersion)
+    extensions.findByType(CommonExtension::class)?.run {
+        compileSdk = androidCompileSdkVersion
         ndkVersion = androidCompileNdkVersion
         buildToolsVersion = androidBuildToolsVersion
+        // The other Android modules are Java-only and must not gain an implicit Kotlin runtime.
+        enableKotlin = this@configureBaseExtension.path == ":manager"
 
         externalNativeBuild.cmake {
             version = "3.29.8+"
             buildStagingDirectory = layout.buildDirectory.get().asFile
         }
 
-        defaultConfig {
+        defaultConfig.apply {
             minSdk = androidMinSdkVersion
-            targetSdk = androidTargetSdkVersion
+            if (this is ApplicationDefaultConfig) targetSdk = androidTargetSdkVersion
 
             externalNativeBuild {
                 cmake {
                     arguments += "-DVECTOR_ROOT=${File(rootDir.absolutePath, "core")}"
                     arguments += "-DEXTERNAL_ROOT=${File(rootDir.absolutePath, "core/external")}"
                     arguments += "-DCORE_ROOT=${File(rootDir.absolutePath, "core/native") }"
-                    abiFilters("arm64-v8a", "x86_64")
+                    abiFilters.addAll(listOf("arm64-v8a", "x86_64"))
                     val flags = arrayOf(
                         "-Wall",
                         "-Qunused-arguments",
@@ -115,24 +118,24 @@ fun Project.configureBaseExtension() {
                         "-Wno-unused-value",
                         "-D__FILE__=__FILE_NAME__",
                     )
-                    cppFlags("-std=c++20", *flags)
-                    cFlags("-std=c18", *flags)
-                    arguments(
+                    cppFlags.addAll(listOf("-std=c++20", *flags))
+                    cFlags.addAll(listOf("-std=c18", *flags))
+                    arguments.addAll(listOf(
                         "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
                         "-DVERSION_CODE=$verCode",
                         "-DVERSION_NAME=$verName",
-                    )
+                    ))
                 }
             }
         }
 
-        compileOptions {
-            targetCompatibility(androidTargetCompatibility)
-            sourceCompatibility(androidSourceCompatibility)
+        compileOptions.apply {
+            targetCompatibility = androidTargetCompatibility
+            sourceCompatibility = androidSourceCompatibility
         }
 
-        buildTypes {
-            named("debug") {
+        buildTypes.apply {
+            getByName("debug").apply {
                 externalNativeBuild {
                     cmake {
                         arguments.addAll(
@@ -144,7 +147,7 @@ fun Project.configureBaseExtension() {
                     }
                 }
             }
-            named("release") {
+            getByName("release").apply {
                 externalNativeBuild {
                     cmake {
                         val flags = arrayOf(

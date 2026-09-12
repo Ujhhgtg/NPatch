@@ -27,12 +27,11 @@ fun encodeAllowlistEntry(value: String): String {
 
 plugins {
     alias(libs.plugins.agp.app)
-    alias(npatch.plugins.kotlin.android)
     alias(npatch.plugins.kotlin.serialization)
     alias(npatch.plugins.compose.compiler)
     alias(npatch.plugins.google.devtools.ksp)
     alias(npatch.plugins.rikka.tools.refine)
-    id("kotlin-parcelize")
+    alias(npatch.plugins.kotlin.parcelize)
 }
 
 android {
@@ -70,7 +69,7 @@ android {
             )
         }
         all {
-            sourceSets[name].assets.srcDirs(rootProject.projectDir.resolve("out/assets/$name"))
+            sourceSets[name].assets.directories.add(rootProject.projectDir.resolve("out/assets/$name").absolutePath)
         }
     }
 
