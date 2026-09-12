@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -27,6 +26,7 @@ import nkbe.util.NeoPackageManager
 import nkbe.util.NeoPackageManager.AppInfo
 import top.nkbe.npatch.R
 import top.nkbe.npatch.ui.component.AppItem
+import top.nkbe.npatch.ui.component.ExpressiveBackButton
 import top.nkbe.npatch.ui.component.m3.topShape
 import top.nkbe.npatch.ui.component.m3.middleShape
 import top.nkbe.npatch.ui.component.m3.bottomShape
@@ -85,9 +85,7 @@ fun SelectAppsScreen(multiSelect: Boolean, initialSelected: List<String>?) {
                 title = title,
                 scrollBehavior = scrollBehavior,
                 navigationIcon = {
-                    IconButton(onClick = { navigator.pop() }) {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back))
-                    }
+                    ExpressiveBackButton(onClick = { navigator.pop() })
                 },
                 bottomContent = {
                     SearchBar(
