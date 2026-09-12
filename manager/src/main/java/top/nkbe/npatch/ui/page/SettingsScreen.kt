@@ -377,10 +377,10 @@ private fun InstallerPreference() {
     val packageName = Configs.thirdPartyInstallerPackage
     val defaultLabel = stringResource(R.string.settings_third_party_installer_system_default)
     var show by rememberSaveable { mutableStateOf(false) }
+    var showEditor by rememberSaveable { mutableStateOf(false) }
     var draft by rememberSaveable { mutableStateOf(packageName) }
-    var customPackage by rememberSaveable { mutableStateOf("") }
+    var customPackage by rememberSaveable { mutableStateOf(Configs.customInstallerPackage) }
     var customSelected by rememberSaveable { mutableStateOf(false) }
-    var invalidPackage by rememberSaveable { mutableStateOf(false) }
     var discovered by remember { mutableStateOf<List<DiscoveredInstaller>>(emptyList()) }
     var discovering by remember { mutableStateOf(false) }
     val currentSummary by produceState(initialValue = packageName.ifBlank { defaultLabel }, packageName, defaultLabel) {
@@ -400,6 +400,10 @@ private fun InstallerPreference() {
                         .onFailure { Log.e(TAG, "Failed to discover package installers", it) }
                         .getOrDefault(emptyList())
                 }
+                if (draft.isNotBlank() && discovered.none { it.packageName == draft }) {
+                    customPackage = draft
+                    customSelected = true
+                }
             } finally {
                 discovering = false
             }
@@ -413,9 +417,9 @@ private fun InstallerPreference() {
         icon = Icons.Outlined.Android,
         onClick = {
             draft = packageName
-            customPackage = packageName
-            customSelected = false
-            invalidPackage = false
+            customPackage = Configs.customInstallerPackage
+            customSelected = packageName.isNotBlank() && packageName == customPackage
+            showEditor = false
             show = true
         },
     )
@@ -426,17 +430,22 @@ private fun InstallerPreference() {
         scrollable = false,
         confirmButton = {
             TextButton(enabled = !saving && !discovering, onClick = {
-                val selectedPackage = if (customSelected) customPackage.trim() else draft
+                val selectedPackage = if (customSelected) customPackage else draft
                 saving = true
                 scope.launch {
                     try {
-                        val valid = selectedPackage.isBlank() || withContext(Dispatchers.IO) {
+                        val valid = (!customSelected && selectedPackage.isBlank()) || withContext(Dispatchers.IO) {
                             ThirdPartyPackageInstaller.isInstallerValid(context, selectedPackage)
                         }
                         if (valid) {
+                            Configs.customInstallerPackage = customPackage
                             Configs.thirdPartyInstallerPackage = selectedPackage
                             show = false
-                        } else invalidPackage = true
+                        } else {
+                            customPackage = selectedPackage
+                            customSelected = true
+                            showEditor = true
+                        }
                     } finally { saving = false }
                 }
             }) { Text(stringResource(android.R.string.ok)) }
@@ -458,12 +467,14 @@ private fun InstallerPreference() {
                     0 -> RadioButtonWidget(
                         title = defaultLabel,
                         selected = !customSelected && draft.isBlank(),
-                        onSelect = { customSelected = false; draft = ""; invalidPackage = false },
+                        onSelect = { customSelected = false; draft = "" },
                     )
-                    customIndex -> RadioButtonWidget(
+                    customIndex -> CustomValueOption(
                         title = stringResource(R.string.settings_third_party_installer_custom),
-                        selected = customSelected || (draft.isNotBlank() && discovered.none { it.packageName == draft }),
-                        onSelect = { customSelected = true; invalidPackage = false },
+                        value = customPackage,
+                        selected = customSelected,
+                        onEdit = { showEditor = true },
+                        onSelect = { customSelected = true },
                     )
                     else -> {
                         val installer = discovered[index - 1]
@@ -471,33 +482,34 @@ private fun InstallerPreference() {
                             title = installer.label,
                             description = installer.packageName,
                             selected = !customSelected && draft == installer.packageName,
-                            onSelect = { customSelected = false; draft = installer.packageName; invalidPackage = false },
+                            onSelect = { customSelected = false; draft = installer.packageName },
                         )
                     }
                 }
             }
         }
         if (discovering) LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(
-            value = customPackage,
-            onValueChange = { customPackage = it; customSelected = true; invalidPackage = false },
-            label = { Text(stringResource(R.string.settings_third_party_installer_custom_hint)) },
-            singleLine = true,
-            isError = invalidPackage,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
-            modifier = Modifier.fillMaxWidth(),
-        )
-        if (invalidPackage) SettingsErrorText(stringResource(R.string.settings_third_party_installer_invalid_pkg))
     }
+    CustomValueDialog(
+        show = show && showEditor,
+        title = stringResource(R.string.settings_third_party_installer_custom),
+        label = stringResource(R.string.settings_third_party_installer_custom_hint),
+        value = customPackage,
+        errorText = stringResource(R.string.settings_third_party_installer_invalid_pkg),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
+        onDismissRequest = { showEditor = false },
+        validate = { value -> withContext(Dispatchers.IO) { ThirdPartyPackageInstaller.isInstallerValid(context, value) } },
+        onConfirm = { customPackage = it },
+    )
 }
 
 @Composable
 private fun DnsPreference() {
     var selected by remember { mutableStateOf(NetworkDns.selectedProvider()) }
     var show by rememberSaveable { mutableStateOf(false) }
+    var showEditor by rememberSaveable { mutableStateOf(false) }
     var draft by rememberSaveable { mutableStateOf(selected) }
     var customUrl by rememberSaveable { mutableStateOf(NetworkDns.customUrl()) }
-    var invalid by rememberSaveable { mutableStateOf(false) }
     val providers = DnsProvider.entries
     val labels = listOf(
         stringResource(R.string.settings_dns_tencent),
@@ -510,7 +522,7 @@ private fun DnsPreference() {
         title = stringResource(R.string.settings_dns),
         description = "${labels[providers.indexOf(selected)]} · ${stringResource(R.string.settings_dns_summary)}",
         icon = Icons.Outlined.Language,
-        onClick = { draft = selected; customUrl = NetworkDns.customUrl(); invalid = false; show = true },
+        onClick = { draft = selected; customUrl = NetworkDns.customUrl(); showEditor = false; show = true },
     )
     SettingsDialog(
         show = show,
@@ -519,12 +531,16 @@ private fun DnsPreference() {
         scrollable = false,
         confirmButton = {
             TextButton(onClick = {
-                if (draft == DnsProvider.CUSTOM) {
-                    if (!NetworkDns.setCustomUrl(customUrl)) {
-                        invalid = true
+                if (customUrl.isNotBlank()) {
+                    if (!NetworkDns.setCustomUrl(customUrl, selectProvider = false)) {
+                        showEditor = true
                         return@TextButton
                     }
-                } else NetworkDns.setProvider(draft)
+                } else if (draft == DnsProvider.CUSTOM) {
+                    showEditor = true
+                    return@TextButton
+                }
+                NetworkDns.setProvider(draft)
                 selected = draft
                 show = false
             }) { Text(stringResource(android.R.string.ok)) }
@@ -532,27 +548,39 @@ private fun DnsPreference() {
     ) {
         LazyColumn(Modifier.weight(1f, fill = false).fillMaxWidth().selectableGroup()) {
             lazySegmentedItems(providers, key = { it.name }) { provider ->
-                RadioButtonWidget(
-                    title = labels[providers.indexOf(provider)], selected = draft == provider,
-                    onSelect = { draft = provider; invalid = false },
-                )
+                if (provider == DnsProvider.CUSTOM) {
+                    CustomValueOption(
+                        title = labels[provider.ordinal],
+                        value = customUrl,
+                        selected = draft == provider,
+                        selectionEnabled = NetworkDns.isValidCustomUrl(customUrl),
+                        onEdit = { showEditor = true },
+                        onSelect = { draft = provider },
+                    )
+                } else {
+                    RadioButtonWidget(
+                        title = labels[provider.ordinal],
+                        selected = draft == provider,
+                        onSelect = { draft = provider },
+                    )
+                }
             }
         }
-        if (draft == DnsProvider.CUSTOM) {
-            Text(stringResource(R.string.settings_dns_custom_summary), style = MaterialTheme.typography.bodyMedium)
-            OutlinedTextField(
-                value = customUrl,
-                onValueChange = { customUrl = it; invalid = false },
-                label = { Text(stringResource(R.string.settings_dns_custom_url)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
-                isError = invalid,
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            if (invalid) SettingsErrorText(stringResource(R.string.settings_dns_custom_invalid))
-        }
     }
+    CustomValueDialog(
+        show = show && showEditor,
+        title = stringResource(R.string.settings_dns_custom),
+        label = stringResource(R.string.settings_dns_custom_url),
+        value = customUrl,
+        errorText = stringResource(R.string.settings_dns_custom_invalid),
+        description = stringResource(R.string.settings_dns_custom_summary),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
+        onDismissRequest = { showEditor = false },
+        validate = { NetworkDns.isValidCustomUrl(it) },
+        onConfirm = { customUrl = it },
+    )
 }
+
 private val LANGUAGE_ENTRIES = listOf(
     "" to "settings_language_system",
     "en" to "English",

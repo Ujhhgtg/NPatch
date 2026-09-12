@@ -41,13 +41,17 @@ object NetworkDns {
         cachedClient = null
     }
 
-    fun setCustomUrl(url: String): Boolean {
+    fun isValidCustomUrl(url: String): Boolean {
+        val parsed = url.trim().toHttpUrlOrNull()
+        return parsed != null && parsed.isHttps && parsed.host.isNotBlank()
+    }
+
+    fun setCustomUrl(url: String, selectProvider: Boolean = true): Boolean {
         val normalized = url.trim()
-        val parsed = normalized.toHttpUrlOrNull()
-        if (parsed == null || !parsed.isHttps || parsed.host.isBlank()) return false
+        if (!isValidCustomUrl(normalized)) return false
         preferences().edit {
             putString(PREF_CUSTOM_URL, normalized)
-            putString(PREF_PROVIDER, DnsProvider.CUSTOM.preferenceValue)
+            if (selectProvider) putString(PREF_PROVIDER, DnsProvider.CUSTOM.preferenceValue)
         }
         cachedClient = null
         return true

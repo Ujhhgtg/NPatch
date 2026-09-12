@@ -50,6 +50,7 @@ Direct Miuix dependencies are restricted to `miuix-nav-android`, `miuix-blur-and
 - Search uses one real input and one result tree. There is no fake input, IME-height focus reset, duplicate pager, or full-page visibility switch.
 - InstallerX’s `adjustResize` activity behavior and patch-page IME padding keep inline editing from panning the entire destination.
 - Dialog dismissal and transitions are owned by the native dialog window, with no custom fade, scale or predictive-back transform.
+- Custom DNS and installer rows use separate edit and radio actions. Their shared editor validates before returning a value, reports errors on the text field, and discards cancelled edits; the parent dialog commits the selection.
 
 ## Regression checks
 

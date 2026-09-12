@@ -83,4 +83,9 @@ object Configs {
     var thirdPartyInstallerPackage by delegateStateOf(lspApp.prefs.getString(PREFS_THIRD_PARTY_INSTALLER, "") ?: "") {
         lspApp.prefs.edit { putString(PREFS_THIRD_PARTY_INSTALLER, it) }
     }
+
+    private const val PREFS_CUSTOM_INSTALLER = "custom_installer_package"
+    var customInstallerPackage by delegateStateOf(lspApp.prefs.getString(PREFS_CUSTOM_INSTALLER, "") ?: "") {
+        lspApp.prefs.edit { putString(PREFS_CUSTOM_INSTALLER, it) }
+    }
 }

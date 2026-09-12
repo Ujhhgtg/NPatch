@@ -47,6 +47,7 @@ object ThirdPartyPackageInstaller {
         }
 
         return discovered.map { DiscoveredInstaller(it.key, it.value) }
+            .filter { isInstallerValid(context, it.packageName) }
             .sortedBy { it.label }
     }
 
@@ -56,7 +57,7 @@ object ThirdPartyPackageInstaller {
         val enabledFromAppInfo = runCatching {
             pm.getApplicationInfo(packageName, 0).enabled
         }.getOrNull()
-        if (enabledFromAppInfo != null) return enabledFromAppInfo
+        if (enabledFromAppInfo == false || packageName == context.packageName) return false
 
         val dummyUri = "content://${context.packageName}.fileprovider/dummy.apk".toUri()
         val testIntent = Intent(Intent.ACTION_VIEW).apply {
@@ -65,12 +66,12 @@ object ThirdPartyPackageInstaller {
         }
         val resolved = runCatching {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-                pm.resolveActivity(testIntent, PackageManager.ResolveInfoFlags.of(0))
+                pm.resolveActivity(testIntent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong()))
             } else {
-                pm.resolveActivity(testIntent, 0)
+                pm.resolveActivity(testIntent, PackageManager.MATCH_DEFAULT_ONLY)
             }
         }.getOrNull()
-        return resolved != null
+        return resolved?.activityInfo?.let { it.enabled && it.exported } == true
     }
 
     fun install(
