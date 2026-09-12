@@ -12,8 +12,14 @@ import android.os.Build
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Android
 import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Code
+import androidx.compose.material.icons.outlined.DeveloperBoard
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Layers
+import androidx.compose.material.icons.outlined.Smartphone
+import androidx.compose.material.icons.outlined.Tag
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -147,17 +153,17 @@ private fun DeviceInformation() {
         append(" " + Build.MODEL)
     }
     val fields = listOf(
-        stringResource(R.string.home_api_version) to "${LSPConfig.instance.API_CODE}",
-        stringResource(R.string.home_npatch_version) to "${LSPConfig.instance.VERSION_NAME} (${LSPConfig.instance.VERSION_CODE})",
-        stringResource(R.string.home_framework_version) to "${LSPConfig.instance.CORE_VERSION_NAME} (${LSPConfig.instance.CORE_VERSION_CODE})",
-        stringResource(R.string.home_system_version) to system,
-        stringResource(R.string.home_device) to device,
-        stringResource(R.string.home_system_abi) to Build.SUPPORTED_ABIS.joinToString(),
+        Triple(stringResource(R.string.home_api_version), "${LSPConfig.instance.API_CODE}", Icons.Outlined.Code),
+        Triple(stringResource(R.string.home_npatch_version), "${LSPConfig.instance.VERSION_NAME} (${LSPConfig.instance.VERSION_CODE})", Icons.Outlined.Tag),
+        Triple(stringResource(R.string.home_framework_version), "${LSPConfig.instance.CORE_VERSION_NAME} (${LSPConfig.instance.CORE_VERSION_CODE})", Icons.Outlined.Layers),
+        Triple(stringResource(R.string.home_system_version), system, Icons.Outlined.Android),
+        Triple(stringResource(R.string.home_device), device, Icons.Outlined.Smartphone),
+        Triple(stringResource(R.string.home_system_abi), Build.SUPPORTED_ABIS.joinToString(), Icons.Outlined.DeveloperBoard),
     )
     SegmentedColumn {
-        fields.forEach { (title, value) ->
+        fields.forEach { (title, value, icon) ->
             item {
-                BaseWidget(title = title, description = value, onClick = {
+                BaseWidget(title = title, description = value, icon = icon, onClick = {
                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     clipboard.setPrimaryClip(ClipData.newPlainText("NPatch Info", fields.joinToString("\n") { "${it.first}: ${it.second}" }))
                     scope.launch { snackbar.showSnackbar(copied) }

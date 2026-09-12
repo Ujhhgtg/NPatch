@@ -1,6 +1,6 @@
 # Material 3 Expressive UI
 
-The manager UI uses only WeKit and InstallerX-Revived as design references. Business operations remain NPatch's. The copied components retain their upstream copyright and license headers; adaptations use the repository's GPL license.
+The manager UI components follow WeKit and InstallerX-Revived. Device-information icon choices additionally follow KernelSU as requested. Business operations remain NPatch's. The copied components retain their upstream copyright and license headers; adaptations use the repository's GPL license.
 
 Reference working copies used on 2026-09-12:
 
@@ -25,6 +25,7 @@ Paths in the following table are relative to each reference project's `app/src/m
 | WeKit `ui/utils/theme/{ModuleAppTheme,SeedResolver}.kt` | `theme/Theme.kt`; MaterialExpressiveTheme, expressive motion and MaterialKolor seed generation. |
 | InstallerX `com/rosan/installer/ui/navigation/PagerState.kt` | `page/MainPagerState.kt`; complete cancelable navigation controller shared by Main and Manage. |
 | InstallerX `ui/page/main/settings/home/HomePage.kt` | `page/HomeScreen.kt`; status panel, copied StatCard and grouped device information. |
+| KernelSU `manager/app/src/main/java/me/weishu/kernelsu/ui/screen/home/HomeMaterial.kt` | `page/HomeScreen.kt`; Material leading-icon choices for the six device/framework information rows. |
 | InstallerX `ui/page/main/settings/preferred/about/AboutPage.kt` | `page/AboutScreen.kt`; collapsing heading, grouped links and app information. |
 | InstallerX `ui/theme/Shape.kt` | `component/m3/AppItemShapes.kt`; complete first/middle/last/single list shapes copied. |
 | InstallerX `ui/page/main/widget/setting/NavigationItemWidget.kt` | `page/SettingsScreen.kt`; shared settings action / chevron layout. |
