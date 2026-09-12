@@ -44,7 +44,10 @@ import top.nkbe.npatch.ui.viewmodel.SelectAppsViewModel
 @Parcelize
 sealed class SelectAppsResult : Parcelable {
     data class SingleApp(val selected: AppInfo) : SelectAppsResult()
-    data class MultipleApps(val selected: List<AppInfo>) : SelectAppsResult()
+    data class MultipleApps(
+        val selected: List<AppInfo>,
+        val selectedPackageNames: List<String> = selected.map { it.app.packageName },
+    ) : SelectAppsResult()
 }
 
 @Composable
@@ -101,7 +104,12 @@ fun SelectAppsScreen(multiSelect: Boolean, initialSelected: List<String>?) {
                     modifier = Modifier.padding(bottom = (imeBottom - systemBottom).coerceAtLeast(0.dp)),
                     onClick = {
                         val selected = NeoPackageManager.appList.filter { it.app.packageName in selectedPackages }
-                        navigator.setResultAndBack(SelectAppsResult.MultipleApps(selected))
+                        navigator.setResultAndBack(
+                            SelectAppsResult.MultipleApps(
+                                selected = selected,
+                                selectedPackageNames = selectedPackages,
+                            ),
+                        )
                     },
                     icon = { Icon(Icons.Outlined.Done, contentDescription = stringResource(android.R.string.ok)) },
                     text = { Text(stringResource(android.R.string.ok)) },

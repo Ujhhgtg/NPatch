@@ -258,26 +258,19 @@ fun AppManageBody(
                                 ConfigManager.getModulesForApp(targetAppPkg).map { it.pkgName }.toSet()
                             }
 
-                            val initialSelected = NeoPackageManager.appList.mapNotNull {
-                                if (activated.contains(it.app.packageName)) it.app.packageName else null
-                            }
                             val result = navigator.navigateForResult<SelectAppsResult>(
-                                Route.SelectApps(true, initialSelected)
+                                Route.SelectApps(true, activated.toList())
                             )
                             if (result is SelectAppsResult.MultipleApps) {
                                 withContext(Dispatchers.IO) {
-                                    val previousModules = ConfigManager.getModulesForApp(targetAppPkg)
-                                    val affectedPackages = buildSet {
-                                        previousModules.forEach { add(it.pkgName) }
-                                        result.selected.forEach { add(it.app.packageName) }
-                                    }
-                                    previousModules.forEach {
-                                        ConfigManager.deactivateModule(targetAppPkg, it)
-                                    }
-                                    result.selected.forEach {
-                                        Log.d(TAG, "Activate ${it.app.packageName} for $targetAppPkg")
-                                        ConfigManager.activateModule(targetAppPkg, LoadedModule(it.app.packageName, it.app.sourceDir))
-                                    }
+                                    val affectedPackages = ConfigManager.saveModuleSelection(
+                                        appPkgName = targetAppPkg,
+                                        initialPackageNames = activated,
+                                        selectedPackageNames = result.selectedPackageNames.toSet(),
+                                        availableModules = result.selected.map {
+                                            LoadedModule(it.app.packageName, it.app.sourceDir)
+                                        },
+                                    )
                                     if (ShizukuApi.isReady) {
                                         // Notify both removed and newly added modules so they do not
                                         // keep stale scope state after a scope edit.
