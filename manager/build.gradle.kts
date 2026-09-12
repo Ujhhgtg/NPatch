@@ -1,6 +1,9 @@
+import java.security.KeyStore
+import java.security.MessageDigest
 import java.util.Base64
 import java.util.Locale
 import com.android.build.api.artifact.SingleArtifact
+import com.android.build.api.variant.BuildConfigField
 
 val defaultManagerPackageName: String by rootProject.extra
 val apiCode: Int by rootProject.extra
@@ -36,20 +39,6 @@ android {
     defaultConfig {
         applicationId = defaultManagerPackageName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        val managerSignatureAllowlist = (
-            System.getenv("NPATCH_MANAGER_SIGNATURE_SHA256")
-                ?: project.findProperty("npatchManagerSignatureSha256")?.toString()
-                ?: listOf(
-                    "DB73788534AFFC4BFA3AE16040A2D3A2",
-                    "C2B63EDEA1E07F3A1CF9AFF4DD0995A8",
-                ).joinToString("")
-            )
-            .split(',', ';', ' ', '\n', '\r', '\t')
-            .map { it.trim().uppercase(Locale.ROOT) }
-            .filter { it.isNotEmpty() }
-            .distinct()
-            .joinToString(",") { encodeAllowlistEntry(it) }
-        buildConfigField("String", "MANAGER_SIGNATURE_SHA256_ALLOWLIST", "\"$managerSignatureAllowlist\"")
     }
 
     dependenciesInfo {
@@ -102,6 +91,35 @@ androidComponents {
     onVariants { variant ->
         val variantLowered = variant.name.lowercase()
         val variantCapped = variant.name.replaceFirstChar { it.uppercase() }
+
+        val configuredSignature = providers.environmentVariable("NPATCH_MANAGER_SIGNATURE_SHA256")
+            .orElse(providers.gradleProperty("npatchManagerSignatureSha256"))
+        val signingConfig = android.buildTypes.getByName(requireNotNull(variant.buildType)).signingConfig
+        val signatureAllowlist = configuredSignature.orElse(providers.provider {
+            val config = requireNotNull(signingConfig) { "Missing manager signing config for ${variant.name}" }
+            val storeFile = requireNotNull(config.storeFile) { "Missing manager signing keystore for ${variant.name}" }
+            val store = KeyStore.getInstance(config.storeType ?: KeyStore.getDefaultType())
+            storeFile.inputStream().use { store.load(it, config.storePassword?.toCharArray()) }
+            val certificate = requireNotNull(store.getCertificate(config.keyAlias)) {
+                "Missing manager signing certificate for ${variant.name}"
+            }
+            MessageDigest.getInstance("SHA-256").digest(certificate.encoded)
+                .joinToString("") { "%02X".format(Locale.ROOT, it) }
+        })
+        requireNotNull(variant.buildConfigFields).put("MANAGER_SIGNATURE_SHA256_ALLOWLIST", signatureAllowlist.map { fingerprints ->
+            val encoded = fingerprints.split(',', ';', ' ', '\n', '\r', '\t')
+                .map { it.trim().uppercase(Locale.ROOT) }
+                .filter { it.isNotEmpty() }
+                .distinct()
+                .joinToString(",", transform = ::encodeAllowlistEntry)
+            BuildConfigField("String", "\"$encoded\"", "SHA-256 fingerprints for the selected signing certificate")
+        })
+        // validateSigning also creates the default debug keystore on a fresh checkout.
+        tasks.configureEach {
+            if (name == "generate${variantCapped}BuildConfig") {
+                dependsOn("validateSigning$variantCapped")
+            }
+        }
 
         val copyAssetsTaskProvider = tasks.register<Copy>("copy${variantCapped}Assets") {
             dependsOn(":meta-loader:copy$variantCapped")

@@ -17,6 +17,7 @@ java {
 }
 
 dependencies {
+    testImplementation("junit:junit:4.13.2")
     implementation(projects.apkzlib)
     implementation(projects.share.java)
     implementation("vector:axml")
