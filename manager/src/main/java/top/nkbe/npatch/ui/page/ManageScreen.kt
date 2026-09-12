@@ -24,6 +24,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
@@ -32,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -43,6 +45,7 @@ import top.nkbe.npatch.ui.component.SearchBar
 import top.nkbe.npatch.ui.component.m3AppBarBlur
 import top.nkbe.npatch.ui.component.m3AppBarColor
 import top.nkbe.npatch.ui.component.m3BackdropLayer
+import top.nkbe.npatch.ui.component.pagerTabIndicatorOffset
 import top.nkbe.npatch.ui.component.rememberMaterial3BlurBackdrop
 import top.nkbe.npatch.ui.page.manage.AppManageBody
 import top.nkbe.npatch.ui.page.manage.AppManageFab
@@ -105,13 +108,19 @@ fun ManageScreen(
                         modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout).only(WindowInsetsSides.Horizontal)).padding(horizontal = 16.dp, vertical = 8.dp),
                     )
                     PrimaryTabRow(
-                        selectedTabIndex = controller.selectedPage,
+                        selectedTabIndex = pagerState.currentPage,
                         modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars.union(WindowInsets.displayCutout).only(WindowInsetsSides.Horizontal)).padding(horizontal = 12.dp).padding(bottom = 8.dp),
                         containerColor = Color.Transparent,
+                        indicator = {
+                            TabRowDefaults.PrimaryIndicator(
+                                modifier = Modifier.pagerTabIndicatorOffset(this, pagerState),
+                                width = Dp.Unspecified,
+                            )
+                        },
                     ) {
                         tabTitles.forEachIndexed { index, title ->
                             Tab(
-                                selected = controller.selectedPage == index,
+                                selected = pagerState.currentPage == index,
                                 onClick = { onPageChanged(index) },
                                 text = { Text(title) },
                             )
