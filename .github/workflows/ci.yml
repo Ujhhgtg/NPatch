@@ -29,6 +29,11 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Redirect the nested ManifestEditor submodule to the fork
+        run: >-
+          git config --global url."https://github.com/Ujhhgtg/ManifestEditor.git".insteadOf
+          "https://github.com/HSSkyBoy/ManifestEditor.git"
+
       - name: Checkout
         uses: actions/checkout@v7
         with:

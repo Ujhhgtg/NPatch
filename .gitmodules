@@ -4,8 +4,8 @@
 	branch = android10-release
 [submodule "core"]
 	path = core
-	url = https://github.com/HSSkyBoy/Vector.git
-	branch = master
+	url = https://github.com/Ujhhgtg/Vector.git
+	branch = core
 [submodule "remote-api"]
 	path = remote-api
 	url = https://github.com/Ujhhgtg/NPatch-Remote-API.git
