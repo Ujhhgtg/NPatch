@@ -21,6 +21,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import kotlin.math.abs
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
@@ -33,6 +34,26 @@ class MainPagerState(val pagerState: PagerState, private val coroutineScope: Cor
         private set
 
     private var navJob: Job? = null
+
+    fun snapToPage(targetIndex: Int, onSettled: () -> Unit = {}) {
+        navJob?.cancel()
+        selectedPage = targetIndex
+        isNavigating = true
+        // A snap can finish synchronously; register its job before running the completion guard.
+        navJob = coroutineScope.launch(start = CoroutineStart.LAZY) {
+            val myJob = coroutineContext.job
+            try {
+                pagerState.scrollToPage(targetIndex)
+                onSettled()
+            } finally {
+                if (navJob == myJob) {
+                    selectedPage = pagerState.currentPage
+                    isNavigating = false
+                }
+            }
+        }
+        navJob?.start()
+    }
 
     fun animateToPage(targetIndex: Int) {
         if (targetIndex == selectedPage) return

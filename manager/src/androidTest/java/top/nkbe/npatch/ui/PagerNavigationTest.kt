@@ -17,6 +17,34 @@ import top.nkbe.npatch.ui.page.rememberMainPagerState
 class PagerNavigationTest {
     @get:Rule val compose = createComposeRule()
 
+    @Test fun shortcutSettlesInnerTabBeforeContinuingNavigation() {
+        lateinit var controller: MainPagerState
+        var pageAtContinuation: Int? = null
+        var offsetAtContinuation: Float? = null
+        compose.setContent {
+            val pager = rememberPagerState(pageCount = { 2 })
+            controller = rememberMainPagerState(pager)
+            HorizontalPager(pager, modifier = Modifier.fillMaxSize(), beyondViewportPageCount = 1) { page ->
+                Box(Modifier.fillMaxSize()) { Text("Page $page") }
+            }
+        }
+        compose.mainClock.autoAdvance = false
+        compose.runOnIdle {
+            controller.snapToPage(1) {
+                pageAtContinuation = controller.pagerState.currentPage
+                offsetAtContinuation = controller.pagerState.currentPageOffsetFraction
+            }
+        }
+        compose.mainClock.advanceTimeByFrame()
+        compose.waitUntil { pageAtContinuation != null }
+        compose.runOnIdle {
+            assertEquals(1, pageAtContinuation)
+            assertEquals(0f, offsetAtContinuation)
+            assertEquals(1, controller.selectedPage)
+            assertEquals(false, controller.isNavigating)
+        }
+    }
+
     @Test fun rapidNavigationCancelsPreviousTargetAndReturnsToHome() {
         lateinit var controller: MainPagerState
         compose.setContent {

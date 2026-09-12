@@ -33,6 +33,8 @@ fun MainScreen(
     val tabs = MainTab.entries
     val pager = rememberPagerState(initialPage = selectedTab.coerceIn(tabs.indices), pageCount = { tabs.size })
     val controller = rememberMainPagerState(pager)
+    val managePager = rememberPagerState(initialPage = selectedManageTab.coerceIn(0, 1), pageCount = { 2 })
+    val manageController = rememberMainPagerState(managePager)
     val onTabSettled by rememberUpdatedState(onSelectedTabChange)
     val currentSelectedTab by rememberUpdatedState(selectedTab)
     val focusManager = LocalFocusManager.current
@@ -119,12 +121,15 @@ fun MainScreen(
                     navigator = navigator,
                     contentPadding = contentPadding,
                     onManageShortcut = { manageTab ->
-                        onSelectedManageTabChange(manageTab)
-                        onSelectedTabChange(MainTab.Manage.ordinal)
+                        manageController.snapToPage(manageTab) {
+                            onSelectedManageTabChange(manageTab)
+                            onSelectedTabChange(MainTab.Manage.ordinal)
+                        }
                     },
                 )
                 MainTab.Manage -> ManageScreen(
                     navigator = navigator,
+                    controller = manageController,
                     selectedPage = selectedManageTab,
                     onSelectedPageChange = onSelectedManageTabChange,
                     contentPadding = contentPadding,

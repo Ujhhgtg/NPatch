@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
@@ -55,6 +54,7 @@ import top.nkbe.npatch.ui.viewmodel.manage.ModuleManageViewModel
 @Composable
 fun ManageScreen(
     navigator: Navigator,
+    controller: MainPagerState,
     modifier: Modifier = Modifier,
     selectedPage: Int = 0,
     onSelectedPageChange: (Int) -> Unit = {},
@@ -62,9 +62,8 @@ fun ManageScreen(
 ) {
     val tabTitles = listOf(stringResource(R.string.apps), stringResource(R.string.modules))
     val safeSelectedPage = selectedPage.coerceIn(tabTitles.indices)
-    val pagerState = rememberPagerState(initialPage = safeSelectedPage, pageCount = { tabTitles.size })
+    val pagerState = controller.pagerState
     val onPageChanged by rememberUpdatedState(onSelectedPageChange)
-    val controller = rememberMainPagerState(pagerState)
     var searchQuery by rememberSaveable { mutableStateOf("") }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val moduleManageViewModel = viewModel<ModuleManageViewModel>()
