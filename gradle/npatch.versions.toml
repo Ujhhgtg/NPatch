@@ -26,6 +26,7 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit" }
 # Androidx Libraries
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+androidx-splashscreen = "androidx.core:core-splashscreen:1.2.0"
 androidx-customview = "androidx.customview:customview:1.2.0"
 androidx-customview-poolingcontainer = "androidx.customview:customview-poolingcontainer:1.1.0"
 androidx-activity-compose = "androidx.activity:activity-compose:1.13.0"

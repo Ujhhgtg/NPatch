@@ -176,6 +176,7 @@ dependencies {
     implementation(npatch.androidx.compose.ui)
     implementation(npatch.androidx.compose.ui.tooling.preview)
     implementation(npatch.androidx.core.ktx)
+    implementation(npatch.androidx.splashscreen)
     implementation(npatch.androidx.datastore.preferences)
     implementation(npatch.coil.compose)
     implementation(libs.gson)

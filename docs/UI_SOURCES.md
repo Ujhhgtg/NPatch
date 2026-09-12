@@ -19,6 +19,7 @@ Paths in the following table are relative to each reference project's `app/src/m
 | WeKit `ui/content/FloatingBottomBar.kt`, `ui/content/{animation,liquid}/*.kt`, `ui/content/DragGestureInspector.kt` | `component/`; complete floating navigation, gestures, highlights and blur implementation copied, including keyboard and accessibility actions. |
 | WeKit `ui/navigation/M3NavEffects.kt`, `ui/utils/CornerRadiusUtil.kt` | `page/M3NavEffects.kt`, `util/CornerRadiusUtil.kt`; device corner clipping, dimming and surface colors. |
 | WeKit `activity/settings/SettingsActivity.kt` | `activity/MainActivity.kt`; Miuix NavDisplay, persisted typed back stack and per-entry lifecycle/viewmodel ownership. |
+| InstallerX `com/rosan/installer/ui/activity/SettingsActivity.kt` and `res/values*/themes.xml` | `activity/MainActivity.kt` and manager launch themes; keep the system splash until the themed UI is composed, using AndroidX SplashScreen for API 28+ compatibility. |
 | WeKit `ui/utils/theme/{ModuleAppTheme,SeedResolver}.kt` | `theme/Theme.kt`; MaterialExpressiveTheme, expressive motion and MaterialKolor seed generation. |
 | InstallerX `com/rosan/installer/ui/navigation/PagerState.kt` | `page/MainPagerState.kt`; complete cancelable navigation controller shared by Main and Manage. |
 | InstallerX `ui/page/main/settings/home/HomePage.kt` | `page/HomeScreen.kt`; status panel, copied StatCard and grouped device information. |
@@ -40,6 +41,7 @@ Direct Miuix dependencies are restricted to `miuix-nav-android`, `miuix-blur-and
 - Each destination draws an opaque base and its own optional wallpaper before content. Navigation transitions cannot expose another destination through the foreground surface.
 - One controller owns each PagerState. Clicks, shortcuts and Back submit a target; settled swipes report their result. Main keeps all three page compositions alive.
 - DataStore theme values are loaded once at the activity boundary. Preferences consume the loaded state, without rendering placeholder defaults on tab entry.
+- Cold startup keeps the system splash until the first themed composition is ready. The platform owns its exit transition; no placeholder frame or custom launch animation is inserted.
 - Scaffold measures the bottom navigation. Pages receive its actual height as scrollable end padding, keeping content behind blur while allowing the final item to scroll fully above navigation.
 - Process recreation returns interrupted native patch/picker flows to a stable destination; configuration changes preserve their live state and pending result channels.
 - Search uses one real input and one result tree. There is no fake input, IME-height focus reset, duplicate pager, or full-page visibility switch.
