@@ -14,7 +14,7 @@ Paths in the following table are relative to each reference project's `app/src/m
 | WeKit `dev/ujhhgtg/wekit/ui/content/m3/ExpressiveCollapsingTopAppBar.kt` | `component/ExpressiveCollapsingTopAppBar.kt`; complete title layout, measurement, drag, typography interpolation and heading semantics copied. |
 | WeKit `ui/content/m3/ExpressiveBackButton.kt` | `component/ExpressiveBackButton.kt`; NPatch's existing Material arrow and localized back description. |
 | WeKit `ui/content/m3/{SegmentedColumn,BaseWidget,BaseItemContainer,SwitchWidget,RadioButtonWidget,M3Shape}.kt` | `component/m3/`; complete grouped item shapes, animations and widgets. Ordinary actions do not expose selection; switches and radio rows have one accessible state. |
-| WeKit `ui/content/WeKitBasicDialog.kt` | `component/m3/SettingsDialog.kt`; surface, 24 dp spacing, scrollable content. Retains the window during exit and binds predictive back to its own window dispatcher. |
+| WeKit `ui/content/WeKitBasicDialog.kt` | `component/m3/SettingsDialog.kt`; surface, 24 dp spacing and scrollable content. Dialog windows handle their own dismissal and platform transition. |
 | WeKit `ui/content/M3Blur.kt` | `component/M3Blur.kt`; complete M3 color/blend and backdrop helpers copied. The reference tint is composited on the regular canvas to keep the title legible when a capture frame is unavailable. |
 | WeKit `ui/content/FloatingBottomBar.kt`, `ui/content/{animation,liquid}/*.kt`, `ui/content/DragGestureInspector.kt` | `component/`; complete floating navigation, gestures, highlights and blur implementation copied, including keyboard and accessibility actions. |
 | WeKit `ui/navigation/M3NavEffects.kt`, `ui/utils/CornerRadiusUtil.kt` | `page/M3NavEffects.kt`, `util/CornerRadiusUtil.kt`; device corner clipping, dimming and surface colors. |
@@ -47,11 +47,11 @@ Direct Miuix dependencies are restricted to `miuix-nav-android`, `miuix-blur-and
 - Process recreation returns interrupted native patch/picker flows to a stable destination; configuration changes preserve their live state and pending result channels.
 - Search uses one real input and one result tree. There is no fake input, IME-height focus reset, duplicate pager, or full-page visibility switch.
 - InstallerX’s `adjustResize` activity behavior and patch-page IME padding keep inline editing from panning the entire destination.
-- Dialog callers stay composed with `show = false` until exit completes. Nullable patch-dialog data is retained for that transition.
+- Dialog dismissal and transitions are owned by the native dialog window, with no custom fade, scale or predictive-back transform.
 
 ## Regression checks
 
-`manager/src/androidTest` contains focused tests for ordinary action semantics, single switch/radio state nodes, and retained dialog exit. Run on an explicitly selected test emulator:
+`manager/src/androidTest` contains focused tests for ordinary action semantics, single switch/radio state nodes, and native dialog dismissal. Run on an explicitly selected test emulator:
 
 ```sh
 ANDROID_HOME=/path/to/android-sdk ./gradlew :manager:assembleDebug :manager:assembleDebugAndroidTest

@@ -5,7 +5,7 @@ import androidx.compose.runtime.remember
 
 private class DialogSnapshot<T>(var value: T?)
 
-/** Keeps the last dialog data available while SettingsDialog plays its exit transition. */
+/** Keeps dialog content arguments stable while its visibility changes. */
 @Composable
 fun <T : Any> RetainedPatchDialog(value: T?, content: @Composable (T, Boolean) -> Unit) {
     val snapshot = remember { DialogSnapshot(value) }

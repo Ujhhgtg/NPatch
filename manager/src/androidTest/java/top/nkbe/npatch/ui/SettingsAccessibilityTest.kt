@@ -119,7 +119,7 @@ class SettingsAccessibilityTest {
         compose.runOnIdle { assertEquals(1, clicks) }
     }
 
-    @Test fun dialogBackDoesNotReachThePageDuringItsExitAnimation() {
+    @Test fun dialogBackDismissesOnlyTheDialog() {
         val visible = mutableStateOf(true)
         var pageBacks = 0
         var dialogDismissals = 0
@@ -141,30 +141,17 @@ class SettingsAccessibilityTest {
         compose.onNodeWithText("Dialog back test").assertExists()
         // Compose idleness alone does not mean the separate Android window has focus.
         compose.waitUntil(timeoutMillis = 5_000) { dialogView?.hasWindowFocus() == true }
-        compose.mainClock.autoAdvance = false
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
         instrumentation.waitForIdleSync()
-        // The predictive-back completion launches a coroutine. Advance only until it
-        // delivers the first dismissal, then hold the clock during the second Back.
-        compose.waitUntil(timeoutMillis = 5_000) {
-            if (dialogDismissals == 0) compose.mainClock.advanceTimeByFrame()
-            dialogDismissals == 1
-        }
-        compose.mainClock.advanceTimeByFrame()
-        compose.onNodeWithText("Dialog back test").assertExists()
-        instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
-        instrumentation.waitForIdleSync()
-        compose.mainClock.advanceTimeByFrame()
+        compose.onNodeWithText("Dialog back test").assertDoesNotExist()
         compose.runOnIdle {
             assertEquals(1, dialogDismissals)
             assertEquals(0, pageBacks)
         }
-        compose.mainClock.advanceTimeBy(1_000)
-        compose.onNodeWithText("Dialog back test").assertDoesNotExist()
     }
 
-    @Test fun dialogRemainsComposedUntilItsExitAnimationFinishes() {
+    @Test fun dialogIsRemovedWhenDismissed() {
         val visible = mutableStateOf(true)
         compose.mainClock.autoAdvance = false
         compose.setContent {
@@ -180,12 +167,10 @@ class SettingsAccessibilityTest {
                 ) { Text("Dialog body") }
             }
         }
-        compose.mainClock.advanceTimeBy(1_000)
+        compose.mainClock.advanceTimeByFrame()
         compose.onNodeWithText("Dialog body").assertExists()
         compose.onNodeWithText("Confirm").performClick()
         compose.mainClock.advanceTimeByFrame()
-        compose.onNodeWithText("Dialog body").assertExists()
-        compose.mainClock.advanceTimeBy(1_000)
         compose.onNodeWithText("Dialog body").assertDoesNotExist()
     }
 }
