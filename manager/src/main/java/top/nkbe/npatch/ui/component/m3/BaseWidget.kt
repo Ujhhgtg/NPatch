@@ -322,6 +322,7 @@ fun BaseWidget(
                     }
                 ),
             colors = colors,
+            verticalAlignment = Alignment.CenterVertically,
             leadingContent = leadingContent,
             supportingContent = supportingContent,
             trailingContent = trailing,
