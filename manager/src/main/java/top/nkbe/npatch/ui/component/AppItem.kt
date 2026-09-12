@@ -47,7 +47,8 @@ fun AppItem(
     onClick: () -> Unit = {},
     onLongPress: (() -> Unit)? = null,
 ) {
-    var descriptionExpanded by rememberSaveable(packageName) { mutableStateOf(false) }
+    var descriptionExpanded by rememberSaveable(packageName, description) { mutableStateOf(false) }
+    var descriptionOverflows by remember(packageName, description) { mutableStateOf(false) }
     val interactionModifier = if (checked == null) {
         Modifier.combinedClickable(onClick = onClick, onLongClick = onLongPress, role = Role.Button)
     } else {
@@ -120,9 +121,16 @@ fun AppItem(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = if (descriptionExpanded) Int.MAX_VALUE else 2,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.fillMaxWidth().clickable {
-                    descriptionExpanded = !descriptionExpanded
+                onTextLayout = { result ->
+                    if (!descriptionExpanded) descriptionOverflows = result.hasVisualOverflow
                 },
+                modifier = Modifier.fillMaxWidth().then(
+                    if (descriptionOverflows || descriptionExpanded) {
+                        Modifier.clickable { descriptionExpanded = !descriptionExpanded }
+                    } else {
+                        Modifier
+                    }
+                ),
             )
         }
         warningText?.let {
