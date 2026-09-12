@@ -101,7 +101,12 @@ fun WelcomeScreen(reviewMode: Boolean, onFinish: () -> Unit, onReturn: () -> Uni
                     2 -> R.string.welcome_disclaimer_title
                     else -> R.string.app_name
                 }),
-                navigationIcon = { if (reviewMode) ExpressiveBackButton(onClick = onReturn) },
+                navigationIcon = {
+                    if (reviewMode) ExpressiveBackButton(
+                        contentDescription = stringResource(R.string.welcome_btn_return),
+                        onClick = onReturn,
+                    )
+                },
                 scrollBehavior = scrollBehavior,
             )
         },
@@ -126,8 +131,10 @@ fun WelcomeScreen(reviewMode: Boolean, onFinish: () -> Unit, onReturn: () -> Uni
                         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        TextButton(onClick = ::completeWelcome) {
-                            Text(stringResource(if (reviewMode) R.string.welcome_btn_return else R.string.welcome_btn_skip))
+                        if (!reviewMode) {
+                            TextButton(onClick = ::completeWelcome) {
+                                Text(stringResource(R.string.welcome_btn_skip))
+                            }
                         }
                         if (pagerState.currentPage > 0) {
                             OutlinedButton(onClick = { scope.launch { pagerState.animateScrollToPage(pagerState.currentPage - 1) } }) {
