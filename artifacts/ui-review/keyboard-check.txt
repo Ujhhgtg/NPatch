@@ -1,0 +1,7 @@
+Tap Apps [84,974][482,1016]
+Tap New Patch [808,1963][985,2016]
+Tap Select an installed app [356,1252][724,1305]
+Tap UI Review Module 01 [231,1080][636,1143]
+{'index': '0', 'text': 'local.npatch.uireview.module01', 'resource-id': '', 'class': 'android.widget.EditText', 'package': 'top.nkbe.npatch', 'content-desc': '', 'checkable': 'false', 'checked': 'false', 'clickable': 'true', 'enabled': 'true', 'focusable': 'true', 'focused': 'true', 'scrollable': 'false', 'long-clickable': 'true', 'password': 'false', 'selected': 'false', 'bounds': '[84,1349][996,1517]', 'drawing-order': '0', 'hint': ''}
+{'index': '1', 'text': 'New Patch', 'resource-id': '', 'class': 'android.widget.TextView', 'package': 'top.nkbe.npatch', 'content-desc': '', 'checkable': 'false', 'checked': 'false', 'clickable': 'false', 'enabled': 'true', 'focusable': 'false', 'focused': 'false', 'scrollable': 'false', 'long-clickable': 'false', 'password': 'false', 'selected': 'false', 'bounds': '[148,183][426,257]', 'drawing-order': '1', 'hint': ''}
+PASS: visible title and focused field during IME; labelled patch action returns after IME dismissal.

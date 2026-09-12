@@ -1,0 +1,17 @@
+Verified original runtime implementations in 14 backend/loader files.
+Only Lint annotations and explicit Locale.getDefault() are normalized for comparison.
+
+manager/src/main/java/nkbe/util/ShizukuApi.kt
+manager/src/main/java/top/nkbe/npatch/ShizukuService.kt
+manager/src/main/java/top/nkbe/npatch/manager/ConfigProvider.kt
+manager/src/main/java/top/nkbe/npatch/manager/ManagerIntegrity.kt
+manager/src/main/java/top/nkbe/npatch/manager/ManagerService.kt
+manager/src/main/java/top/nkbe/npatch/manager/ModuleService.kt
+meta-loader/src/main/java/top/nkbe/npatch/metaloader/LSPAppComponentFactoryStub.java
+patch-loader/src/main/java/top/nkbe/npatch/loader/LSPLoader.java
+patch-loader/src/main/java/top/nkbe/npatch/loader/LSPApplication.java
+patch-loader/src/main/java/top/nkbe/npatch/loader/OriginApkHelper.java
+patch-loader/src/main/java/top/nkbe/npatch/loader/SigBypass.java
+patch-loader/src/main/java/top/nkbe/npatch/service/IntegrApplicationService.java
+patch-loader/src/main/java/top/nkbe/npatch/service/NeoLocalApplicationService.java
+patch-loader/src/main/java/top/nkbe/npatch/service/RemoteApplicationService.java

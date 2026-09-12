@@ -1,0 +1,16 @@
+manager/build/reports/lint-results-debug.xml: 0 findings
+manager/build/reports/lint-results-release.xml: 0 findings
+meta-loader/build/reports/lint-results-debug.xml: 0 findings
+meta-loader/build/reports/lint-results-release.xml: 0 findings
+patch-loader/build/reports/lint-results-debug.xml: 0 findings
+patch-loader/build/reports/lint-results-release.xml: 0 findings
+remote-api/build/reports/lint-results-debug.xml: 0 findings
+remote-api/build/reports/lint-results-release.xml: 0 findings
+share/android/build/reports/lint-results-debug.xml: 0 findings
+share/android/build/reports/lint-results-release.xml: 0 findings
+
+Full Debug + Release Lint and Debug app/test APK assembly: BUILD SUCCESSFUL.
+apkzlib: 3 tests, 0 failures, 0 errors.
+UI instrumentation: 10 tests, 0 failures (13.427 seconds).
+Localization: 44 locale directories, 241 required resources; format arguments and technical identifiers preserved.
+Runtime preservation: 14 original backend/loader implementations verified after ignoring Lint annotations and explicit default Locale.

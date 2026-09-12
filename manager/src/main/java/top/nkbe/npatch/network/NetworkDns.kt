@@ -1,6 +1,7 @@
 package top.nkbe.npatch.network
 
 import android.content.Context
+import androidx.core.content.edit
 import okhttp3.Dns
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
@@ -36,7 +37,7 @@ object NetworkDns {
     fun customUrl(): String = preferences().getString(PREF_CUSTOM_URL, "").orEmpty()
 
     fun setProvider(provider: DnsProvider) {
-        preferences().edit().putString(PREF_PROVIDER, provider.preferenceValue).apply()
+        preferences().edit { putString(PREF_PROVIDER, provider.preferenceValue) }
         cachedClient = null
     }
 
@@ -44,10 +45,10 @@ object NetworkDns {
         val normalized = url.trim()
         val parsed = normalized.toHttpUrlOrNull()
         if (parsed == null || !parsed.isHttps || parsed.host.isBlank()) return false
-        preferences().edit()
-            .putString(PREF_CUSTOM_URL, normalized)
-            .putString(PREF_PROVIDER, DnsProvider.CUSTOM.preferenceValue)
-            .apply()
+        preferences().edit {
+            putString(PREF_CUSTOM_URL, normalized)
+            putString(PREF_PROVIDER, DnsProvider.CUSTOM.preferenceValue)
+        }
         cachedClient = null
         return true
     }

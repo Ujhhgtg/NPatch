@@ -32,11 +32,7 @@ object ThirdPartyPackageInstaller {
             setDataAndType(dummyUri, MIME_TYPE_APK)
         }
 
-        val flags = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            PackageManager.MATCH_ALL
-        } else {
-            0
-        }
+        val flags = PackageManager.MATCH_ALL
 
         val activities = pm.queryIntentActivities(viewIntent, flags) +
             pm.queryIntentActivities(installPackageIntent, flags)

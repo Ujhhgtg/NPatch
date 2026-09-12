@@ -1,0 +1,8 @@
+
+top.nkbe.npatch.ui.PagerNavigationTest:.
+top.nkbe.npatch.ui.PatchAccessibilityTest:.
+top.nkbe.npatch.ui.SettingsAccessibilityTest:........
+
+Time: 13.427
+
+OK (10 tests)

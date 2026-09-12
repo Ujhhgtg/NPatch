@@ -1,0 +1,1 @@
+OK: 44 locale directories; 241 translatable resources each; format arguments and technical identifiers preserved.

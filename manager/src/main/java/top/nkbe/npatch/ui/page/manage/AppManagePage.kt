@@ -1,3 +1,4 @@
+// App rows, native menus and refresh follow InstallerX-Revived ApplyPage/ApplyItemWidget.
 package top.nkbe.npatch.ui.page.manage
 
 import android.app.Activity
@@ -14,7 +15,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.*
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
+import androidx.compose.ui.window.DialogProperties
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -24,12 +28,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,8 +40,6 @@ import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.hazeSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -55,6 +55,10 @@ import top.nkbe.npatch.share.LSPConfig
 
 import top.nkbe.npatch.ui.component.AccessibleMenuItem
 import top.nkbe.npatch.ui.component.AppItem
+import top.nkbe.npatch.ui.component.m3.topShape
+import top.nkbe.npatch.ui.component.m3.middleShape
+import top.nkbe.npatch.ui.component.m3.bottomShape
+import top.nkbe.npatch.ui.component.m3.singleShape
 import top.nkbe.npatch.ui.component.NPatchPullToRefresh
 import top.nkbe.npatch.ui.page.ACTION_APPLIST
 import top.nkbe.npatch.ui.page.ACTION_STORAGE
@@ -66,38 +70,20 @@ import top.nkbe.npatch.ui.viewmodel.manage.ModuleManageViewModel
 import top.nkbe.npatch.ui.viewstate.ProcessingState
 import nkbe.util.NeoPackageManager
 import nkbe.util.ShizukuApi
-import io.github.suqi8.coui.kmp.basic.ButtonDefaults
-import io.github.suqi8.coui.kmp.basic.FloatingActionButton
-import io.github.suqi8.coui.kmp.basic.Icon
-import io.github.suqi8.coui.kmp.basic.InfiniteProgressIndicator
-import io.github.suqi8.coui.kmp.basic.ListPopupColumn
-import io.github.suqi8.coui.kmp.basic.PopupPositionProvider
-import io.github.suqi8.coui.kmp.basic.ScrollBehavior
-import io.github.suqi8.coui.kmp.basic.Text
-import io.github.suqi8.coui.kmp.basic.TextButton
-import io.github.suqi8.coui.kmp.basic.rememberPullToRefreshState
-import io.github.suqi8.coui.kmp.layout.DialogButtonBar
-import io.github.suqi8.coui.kmp.layout.DialogButtonBarAction
-import io.github.suqi8.coui.kmp.overlay.OverlayDialog
-import io.github.suqi8.coui.kmp.overlay.OverlayListPopup
-import io.github.suqi8.coui.kmp.overlay.OverlayLoadingDialog
-import io.github.suqi8.coui.kmp.theme.COUITheme
-import io.github.suqi8.coui.kmp.utils.overScrollVertical
-import io.github.suqi8.coui.kmp.utils.scrollEndHaptic
 import java.io.IOException
 
 private const val TAG = "AppManagePage"
 
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun AppManageBody(
     navigator: Navigator,
     searchQuery: String = "",
     contentPadding: PaddingValues = PaddingValues(0.dp),
-    scrollBehavior: ScrollBehavior,
-    hazeState: HazeState
 ) {
     val viewModel = viewModel<AppManageViewModel>()
     val moduleManageViewModel = viewModel<ModuleManageViewModel>()
+    val diagnosticsChooser = stringResource(R.string.manage_export_diagnostics_chooser)
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val pullToRefreshState = rememberPullToRefreshState()
@@ -126,11 +112,12 @@ fun AppManageBody(
             || viewModel.forceStopState is ProcessingState.Processing
             || viewModel.forceRestartState is ProcessingState.Processing
     if (isProcessing) {
-        val showLoading = remember { mutableStateOf(true) }
-        OverlayLoadingDialog(
-            text = stringResource(R.string.manage_loading),
-            show = showLoading.value,
-            onDismissRequest = { /* 阻断取消，等待处理完成 */ }
+        AlertDialog(
+            onDismissRequest = {},
+            confirmButton = {},
+            title = { Text(stringResource(R.string.manage_loading)) },
+            text = { Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { ContainedLoadingIndicator() } },
+            properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false),
         )
     }
 
@@ -203,41 +190,37 @@ fun AppManageBody(
     ) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
-                .scrollEndHaptic()
-                .overScrollVertical()
-                .hazeSource(state = hazeState),
+                .fillMaxSize(),
             contentPadding = contentPadding,
-            overscrollEffect = null
+            verticalArrangement = Arrangement.spacedBy(2.dp),
         ) {
             if (filteredList.isEmpty()) {
                 item {
                     Box(Modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             if (NeoPackageManager.appList.isEmpty()) {
-                                InfiniteProgressIndicator()
+                                ContainedLoadingIndicator()
                                 Spacer(Modifier.height(16.dp))
                                 Text(
                                     text = stringResource(R.string.manage_loading),
-                                    style = COUITheme.textStyles.body1,
-                                    color = COUITheme.colorScheme.onSurfaceVariantSummary
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             } else {
                                 Text(
                                     text = if (searchQuery.isNotEmpty()) stringResource(R.string.manage_no_search_results) else stringResource(R.string.manage_no_apps),
-                                    style = COUITheme.textStyles.body1,
-                                    color = COUITheme.colorScheme.onSurfaceVariantSummary
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                         }
                     }
                 }
             } else {
-                items(
+                itemsIndexed(
                     items = filteredList,
-                    key = { it.first.app.packageName }
-                ) { (appInfo, patchConfig) ->
+                    key = { _, item -> item.first.app.packageName },
+                ) { index, (appInfo, patchConfig) ->
 
                     val isLocal = patchConfig.useManager
                     val currentVersion = patchConfig.lspConfig.VERSION_CODE
@@ -260,6 +243,13 @@ fun AppManageBody(
 
                     Box(modifier = Modifier.fillMaxWidth()) {
                         AppItem(
+                            modifier = Modifier.animateItem(),
+                            shape = when {
+                                filteredList.size == 1 -> singleShape
+                                index == 0 -> topShape
+                                index == filteredList.lastIndex -> bottomShape
+                                else -> middleShape
+                            },
                             icon = {
                                 Image(
                                     bitmap = NeoPackageManager.getIcon(appInfo),
@@ -270,7 +260,7 @@ fun AppManageBody(
                             label = appInfo.label,
                             packageName = appInfo.app.packageName,
                             summaryRow = {
-                                val patchColor = if (isLocal) COUITheme.colorScheme.primary else COUITheme.colorScheme.onSurfaceVariantSummary
+                                val patchColor = if (isLocal) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
 
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     val modeLabel = if (isLocal) {
@@ -282,9 +272,7 @@ fun AppManageBody(
                                     Text(
                                         text = modeLabel,
                                         color = patchColor,
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        fontFamily = FontFamily.Serif
+                                        style = MaterialTheme.typography.labelMedium,
                                     )
 
                                     if (showVersionNumber) {
@@ -292,10 +280,8 @@ fun AppManageBody(
                                         Text(
                                             text = currentVersion.toString(),
                                             color = patchColor,
-                                            fontSize = 12.sp,
-                                            fontWeight = FontWeight.SemiBold,
-                                            fontFamily = FontFamily.Serif
-                                        )
+                                            style = MaterialTheme.typography.labelMedium,
+                                            )
                                     }
 
                                     if (canUpdateLoader) {
@@ -322,9 +308,8 @@ fun AppManageBody(
                             }
                         )
 
-                        OverlayListPopup(
-                            show = showDropdown.value,
-                            alignment = PopupPositionProvider.Align.End,
+                        DropdownMenu(
+                            expanded = showDropdown.value,
                             onDismissRequest = { showDropdown.value = false }
                         ) {
                             val actions = mutableListOf<Pair<String, () -> Unit>>()
@@ -399,7 +384,7 @@ fun AppManageBody(
                                             context.startActivity(
                                                 Intent.createChooser(
                                                     shareIntent,
-                                                    context.getString(R.string.manage_export_diagnostics_chooser),
+                                                    diagnosticsChooser,
                                                 ),
                                             )
                                         }
@@ -467,9 +452,9 @@ fun AppManageBody(
                                 launcher.launch(intent)
                             })
 
-                            ListPopupColumn {
-                                actions.forEachIndexed { index, (text, action) ->
-                                    AccessibleMenuItem(
+                            actions.forEachIndexed { index, (text, action) ->
+                                if (index == actions.lastIndex) HorizontalDivider()
+                                AccessibleMenuItem(
                                         text = text,
                                         onClick = {
                                             hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
@@ -477,7 +462,6 @@ fun AppManageBody(
                                             action()
                                         }
                                     )
-                                }
                             }
                         }
                     }
@@ -514,58 +498,55 @@ fun AppManageFab(
     }
 
     if (shouldSelectDirectory.value) {
-        OverlayDialog(
-            title = stringResource(R.string.patch_select_dir_title),
-            summary = stringResource(R.string.patch_select_dir_text),
-            show = shouldSelectDirectory.value,
+        AlertDialog(
+            title = { Text(stringResource(R.string.patch_select_dir_title)) },
+            text = { Text(stringResource(R.string.patch_select_dir_text)) },
             onDismissRequest = { shouldSelectDirectory.value = false },
-        ) {
-            DialogButtonBar(
-                negative = DialogButtonBarAction(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = { shouldSelectDirectory.value = false },
-                ),
-                positive = DialogButtonBarAction(
-                    text = stringResource(android.R.string.ok),
-                    onClick = {
-                        launcher.launch(Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
-                        shouldSelectDirectory.value = false
-                    },
-                ),
-            )
-        }
+            dismissButton = {
+                TextButton(onClick = { shouldSelectDirectory.value = false }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    launcher.launch(Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
+                    shouldSelectDirectory.value = false
+                }) { Text(stringResource(android.R.string.ok)) }
+            },
+        )
     }
 
     if (showNewPatchDialog.value) {
-        OverlayDialog(
-            title = stringResource(R.string.screen_new_patch),
-            show = showNewPatchDialog.value,
+        AlertDialog(
+            title = { Text(stringResource(R.string.screen_new_patch)) },
             onDismissRequest = { showNewPatchDialog.value = false },
-        ) {
-            DialogButtonBar(
-                neutral = DialogButtonBarAction(
-                    text = stringResource(R.string.patch_from_storage),
-                    onClick = {
-                        navigator.navigate(Route.NewPatch(id = ACTION_STORAGE))
-                        showNewPatchDialog.value = false
-                    },
-                ),
-                positive = DialogButtonBarAction(
-                    text = stringResource(R.string.patch_from_applist),
-                    onClick = {
-                        navigator.navigate(Route.NewPatch(id = ACTION_APPLIST))
-                        showNewPatchDialog.value = false
-                    },
-                ),
-                negative = DialogButtonBarAction(
-                    text = stringResource(android.R.string.cancel),
-                    onClick = { showNewPatchDialog.value = false },
-                ),
-            )
-        }
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    FilledTonalButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {
+                            showNewPatchDialog.value = false
+                            navigator.navigate(Route.NewPatch(id = ACTION_STORAGE))
+                        },
+                    ) { Text(stringResource(R.string.patch_from_storage)) }
+                    FilledTonalButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {
+                            showNewPatchDialog.value = false
+                            navigator.navigate(Route.NewPatch(id = ACTION_APPLIST))
+                        },
+                    ) { Text(stringResource(R.string.patch_from_applist)) }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showNewPatchDialog.value = false }) {
+                    Text(stringResource(android.R.string.cancel))
+                }
+            },
+        )
     }
 
-    FloatingActionButton(
+    ExtendedFloatingActionButton(
         modifier = modifier,
         onClick = {
             val uri = Configs.storageDirectory?.toUri()
@@ -586,10 +567,8 @@ fun AppManageFab(
             }
         }
     ) {
-        Icon(
-            imageVector = Icons.Filled.Add,
-            contentDescription = stringResource(R.string.add),
-            tint = COUITheme.colorScheme.onPrimary
-        )
+        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+        Spacer(Modifier.width(8.dp))
+        Text(stringResource(R.string.screen_new_patch))
     }
 }

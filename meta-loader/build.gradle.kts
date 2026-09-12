@@ -12,6 +12,7 @@ extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles("proguard-rules.pro")
         }
     }

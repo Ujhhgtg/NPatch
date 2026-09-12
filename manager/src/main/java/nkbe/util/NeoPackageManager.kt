@@ -1,12 +1,10 @@
 package nkbe.util
 
-import android.R
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Parcelable
 import android.util.Log
@@ -15,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.core.graphics.createBitmap
 import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -114,7 +113,7 @@ object NeoPackageManager {
         private set
 
     @SuppressLint("StaticFieldLeak")
-    private val iconLoader = AppIconLoader(lspApp.resources.getDimensionPixelSize(R.dimen.app_icon_size), false, lspApp)
+    private val iconLoader = AppIconLoader(lspApp.resources.getDimensionPixelSize(android.R.dimen.app_icon_size), false, lspApp)
     private val appIcon = Collections.synchronizedMap(mutableMapOf<String, ImageBitmap>())
 
 
@@ -184,7 +183,7 @@ object NeoPackageManager {
     private fun loadIconBitmap(appInfo: ApplicationInfo): ImageBitmap =
         runCatching { iconLoader.loadIcon(appInfo).asImageBitmap() }.getOrElse {
             Log.w(TAG, "Failed to load icon for ${appInfo.packageName}", it)
-            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888).asImageBitmap()
+            createBitmap(1, 1).asImageBitmap()
         }
 
     suspend fun cleanTmpApkDir() {
