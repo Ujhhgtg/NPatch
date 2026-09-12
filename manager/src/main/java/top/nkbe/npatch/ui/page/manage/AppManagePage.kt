@@ -35,6 +35,12 @@ import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.IntOffset
+import kotlin.math.roundToInt
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
@@ -250,6 +256,7 @@ fun AppManageBody(
                     }
 
                     val showDropdown = remember { mutableStateOf(false) }
+                    var pressPosition by remember { mutableStateOf(Offset.Zero) }
                     val scopeUpdatedText = stringResource(R.string.manage_module_scope_updated)
                     val openScope: () -> Unit = {
                         viewModel.viewModelScope.launch {
@@ -283,7 +290,11 @@ fun AppManageBody(
                         }
                     }
 
-                    Box(modifier = Modifier.fillMaxWidth()) {
+                    Box(modifier = Modifier.fillMaxWidth().pointerInput(Unit) {
+                        awaitEachGesture {
+                            pressPosition = awaitFirstDown(requireUnconsumed = false).position
+                        }
+                    }) {
                         AppItem(
                             modifier = Modifier.animateItem(),
                             shape = when {
@@ -452,16 +463,21 @@ fun AppManageBody(
                                 launcher.launch(intent)
                             })
                         }
-                        ExpressiveActionDropdown(
-                            expanded = showDropdown.value,
-                            groups = listOf(actions.dropLast(1), actions.takeLast(1)),
-                            onDismissRequest = { showDropdown.value = false },
-                            onAction = { action ->
-                                hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
-                                showDropdown.value = false
-                                action.onClick()
-                            },
-                        )
+                        // Same zero-size pointer anchor as DropDownMenuWidget.
+                        Box(Modifier.offset {
+                            IntOffset(pressPosition.x.roundToInt(), pressPosition.y.roundToInt())
+                        }) {
+                            ExpressiveActionDropdown(
+                                expanded = showDropdown.value,
+                                groups = listOf(actions.dropLast(1), actions.takeLast(1)),
+                                onDismissRequest = { showDropdown.value = false },
+                                onAction = { action ->
+                                    hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                                    showDropdown.value = false
+                                    action.onClick()
+                                },
+                            )
+                        }
                     }
                 }
             }

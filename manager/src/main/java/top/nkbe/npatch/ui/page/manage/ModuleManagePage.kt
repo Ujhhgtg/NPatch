@@ -18,6 +18,12 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.IntOffset
+import kotlin.math.roundToInt
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
@@ -130,6 +136,7 @@ fun ModuleManageBody(
                     key = { _, item -> item.appInfo.app.packageName },
                 ) { index, item ->
                     val showDropdown = remember { mutableStateOf(false) }
+                    var pressPosition by remember { mutableStateOf(Offset.Zero) }
                     val settingsIntent = remember { NeoPackageManager.getSettingsIntent(item.appInfo.app.packageName) }
                     val apiBadgeColors = rememberModuleBadgeColors(
                         isModern = item.metadata.isModern,
@@ -140,7 +147,11 @@ fun ModuleManageBody(
                         isLegacy = item.metadata.isLegacy
                     )
 
-                    Box(modifier = Modifier.fillMaxWidth()) {
+                    Box(modifier = Modifier.fillMaxWidth().pointerInput(Unit) {
+                        awaitEachGesture {
+                            pressPosition = awaitFirstDown(requireUnconsumed = false).position
+                        }
+                    }) {
                         AppItem(
                             modifier = Modifier.animateItem(),
                             shape = when {
@@ -237,16 +248,21 @@ fun ModuleManageBody(
                                 context.startActivity(intent)
                             })
                         }
-                        ExpressiveActionDropdown(
-                            expanded = showDropdown.value,
-                            groups = listOf(actions),
-                            onDismissRequest = { showDropdown.value = false },
-                            onAction = { action ->
-                                hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
-                                showDropdown.value = false
-                                action.onClick()
-                            },
-                        )
+                        // Same zero-size pointer anchor as DropDownMenuWidget.
+                        Box(Modifier.offset {
+                            IntOffset(pressPosition.x.roundToInt(), pressPosition.y.roundToInt())
+                        }) {
+                            ExpressiveActionDropdown(
+                                expanded = showDropdown.value,
+                                groups = listOf(actions),
+                                onDismissRequest = { showDropdown.value = false },
+                                onAction = { action ->
+                                    hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                                    showDropdown.value = false
+                                    action.onClick()
+                                },
+                            )
+                        }
                     }
                 }
             }
