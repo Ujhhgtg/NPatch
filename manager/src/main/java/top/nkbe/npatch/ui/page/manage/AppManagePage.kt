@@ -455,7 +455,7 @@ fun AppManageBody(
                                 }
                                 context.startActivity(intent)
                             })
-                            add(DropdownAction(stringResource(R.string.uninstall), Icons.Outlined.Delete) {
+                            add(DropdownAction(stringResource(R.string.uninstall), Icons.Outlined.Delete, isDestructive = true) {
                                 val intent = Intent(Intent.ACTION_DELETE).apply {
                                     data = "package:${appInfo.app.packageName}".toUri()
                                     putExtra(Intent.EXTRA_RETURN_RESULT, true)

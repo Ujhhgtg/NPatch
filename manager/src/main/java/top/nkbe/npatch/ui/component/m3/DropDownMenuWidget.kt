@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.SelectableDropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +35,7 @@ data class DropdownOption<T>(
 data class DropdownAction(
     val label: String,
     val icon: ImageVector,
+    val isDestructive: Boolean = false,
     val onClick: () -> Unit,
 )
 
@@ -54,6 +57,10 @@ fun ExpressiveActionDropdown(
             onClick = { onAction(action) },
             text = { Text(action.label) },
             leadingIcon = { Icon(action.icon, contentDescription = null) },
+            colors = if (action.isDestructive) MenuDefaults.itemColors(
+                textColor = MaterialTheme.colorScheme.error,
+                leadingIconColor = MaterialTheme.colorScheme.error,
+            ) else MenuDefaults.itemColors(),
         )
     }
 }
