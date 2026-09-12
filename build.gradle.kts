@@ -31,7 +31,8 @@ val commitCount = runCatching {
 }.getOrElse {0}
 
 val coreCommitCount = runCatching {
-    FileRepositoryBuilder().setGitDir(rootProject.file("core/.git"))
+    // A submodule's .git is a gitdir pointer file, not the repository directory.
+    FileRepositoryBuilder().findGitDir(rootProject.file("core"))
         .setWorkTree(rootProject.file("core"))
         .build().use { repo ->
             val git = Git(repo)
@@ -39,19 +40,33 @@ val coreCommitCount = runCatching {
         }
 }.getOrDefault(3083)
 
-val defaultManagerPackageName by extra("top.nkbe.npatch")
-val apiCode by extra(102)
-val verCode by extra(commitCount)
-val verName by extra("1.0.7")
-val coreVerCode by extra(coreCommitCount)
-val coreVerName by extra("v2.2-core")
-val androidMinSdkVersion by extra(28)
-val androidTargetSdkVersion by extra(37)
-val androidCompileSdkVersion by extra(37)
-val androidCompileNdkVersion by extra("29.0.13846066")
-val androidBuildToolsVersion by extra("37.0.0")
-val androidSourceCompatibility by extra(JavaVersion.VERSION_21)
-val androidTargetCompatibility by extra(JavaVersion.VERSION_21)
+val defaultManagerPackageName = "top.nkbe.npatch"
+val apiCode = 102
+val verCode = commitCount
+val verName = "1.0.7"
+val coreVerCode = coreCommitCount
+val coreVerName = "v2.2-core"
+val androidMinSdkVersion = 28
+val androidTargetSdkVersion = 37
+val androidCompileSdkVersion = 37
+val androidCompileNdkVersion = "29.0.13846066"
+val androidBuildToolsVersion = "37.0.0"
+val androidSourceCompatibility = JavaVersion.VERSION_21
+val androidTargetCompatibility = JavaVersion.VERSION_21
+
+extra.set("defaultManagerPackageName", defaultManagerPackageName)
+extra.set("apiCode", apiCode)
+extra.set("verCode", verCode)
+extra.set("verName", verName)
+extra.set("coreVerCode", coreVerCode)
+extra.set("coreVerName", coreVerName)
+extra.set("androidMinSdkVersion", androidMinSdkVersion)
+extra.set("androidTargetSdkVersion", androidTargetSdkVersion)
+extra.set("androidCompileSdkVersion", androidCompileSdkVersion)
+extra.set("androidCompileNdkVersion", androidCompileNdkVersion)
+extra.set("androidBuildToolsVersion", androidBuildToolsVersion)
+extra.set("androidSourceCompatibility", androidSourceCompatibility)
+extra.set("androidTargetCompatibility", androidTargetCompatibility)
 
 tasks.register<Delete>("clean") {
     delete(layout.buildDirectory)
@@ -222,6 +237,8 @@ fun Project.configureApplicationExtension(extension: ApplicationExtension) {
     }
 
     extensions.findByType(ApplicationAndroidComponentsExtension::class)?.let { androidComponents ->
+        val resourceBuildDirectory = layout.buildDirectory
+        val processProviders = providers
         val optimizeReleaseRes = tasks.register("optimizeReleaseRes") {
             doLast {
                 val isWindows = System.getProperty("os.name").lowercase().contains("windows")
@@ -231,14 +248,14 @@ fun Project.configureApplicationExtension(extension: ApplicationExtension) {
                     androidComponents.sdkComponents.sdkDirectory.get().asFile,
                     "build-tools/${androidBuildToolsVersion}/$aapt2Name"
                 )
-                val zip = project.layout.buildDirectory.get().asFile.toPath()
+                val zip = resourceBuildDirectory.get().asFile.toPath()
                     .resolve("intermediates")
                     .resolve("optimized_processed_res")
                     .resolve("release")
                     .resolve("optimizeReleaseResources")
                     .resolve("resources-release-optimize.ap_")
                 val optimized = File("${zip}.opt")
-                val cmd = providers.exec {
+                val cmd = processProviders.exec {
                     commandLine(
                         aapt2, "optimize",
                         "--collapse-resource-names",
@@ -249,7 +266,7 @@ fun Project.configureApplicationExtension(extension: ApplicationExtension) {
                     isIgnoreExitValue = false
                 }.result.get()
                 if (cmd.exitValue == 0) {
-                    delete(zip)
+                    java.nio.file.Files.deleteIfExists(zip)
                     optimized.renameTo(zip.toFile())
                 }
             }

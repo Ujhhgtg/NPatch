@@ -28,6 +28,7 @@ object ThirdPartyPackageInstaller {
         val viewIntent = Intent(Intent.ACTION_VIEW).apply {
             setDataAndType(dummyUri, MIME_TYPE_APK)
         }
+        @Suppress("DEPRECATION") // Discover installers that still advertise this legacy action.
         val installPackageIntent = Intent(Intent.ACTION_INSTALL_PACKAGE).apply {
             setDataAndType(dummyUri, MIME_TYPE_APK)
         }

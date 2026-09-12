@@ -5,12 +5,12 @@ import java.util.Locale
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.variant.BuildConfigField
 
-val defaultManagerPackageName: String by rootProject.extra
-val apiCode: Int by rootProject.extra
-val verCode: Int by rootProject.extra
-val verName: String by rootProject.extra
-val coreVerCode: Int by rootProject.extra
-val coreVerName: String by rootProject.extra
+val defaultManagerPackageName = rootProject.extra["defaultManagerPackageName"] as String
+val apiCode = rootProject.extra["apiCode"] as Int
+val verCode = rootProject.extra["verCode"] as Int
+val verName = rootProject.extra["verName"] as String
+val coreVerCode = rootProject.extra["coreVerCode"] as Int
+val coreVerName = rootProject.extra["coreVerName"] as String
 
 fun decodeSha256Hex(value: String): ByteArray {
     require(value.length == 64) { "Manager signature digest must be 64 hex chars: $value" }
