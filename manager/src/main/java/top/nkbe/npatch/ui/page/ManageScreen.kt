@@ -1,6 +1,11 @@
 // Tabs and retained pager ported from WeKit ui/agent/settings/PromptsScreen.kt.
 package top.nkbe.npatch.ui.page
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,6 +23,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -46,7 +52,7 @@ import top.nkbe.npatch.ui.page.manage.AppManageFab
 import top.nkbe.npatch.ui.page.manage.ModuleManageBody
 import top.nkbe.npatch.ui.viewmodel.manage.ModuleManageViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ManageScreen(
     navigator: Navigator,
@@ -119,7 +125,13 @@ fun ManageScreen(
             )
         },
         floatingActionButton = {
-            if (pagerState.settledPage == 0) {
+            AnimatedVisibility(
+                visible = controller.selectedPage == 0,
+                enter = fadeIn(MaterialTheme.motionScheme.fastEffectsSpec()) +
+                    scaleIn(MaterialTheme.motionScheme.fastSpatialSpec()),
+                exit = fadeOut(MaterialTheme.motionScheme.fastEffectsSpec()) +
+                    scaleOut(MaterialTheme.motionScheme.fastSpatialSpec()),
+            ) {
                 AppManageFab(navigator, Modifier.padding(bottom = bottomInset))
             }
         },
