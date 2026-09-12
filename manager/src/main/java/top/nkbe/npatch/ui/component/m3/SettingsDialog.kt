@@ -40,6 +40,7 @@ fun SettingsDialog(
     onDismissRequest: () -> Unit,
     dismissOnBackPress: Boolean = true,
     dismissOnClickOutside: Boolean = true,
+    scrollable: Boolean = true,
     confirmButton: @Composable () -> Unit = {},
     dismissButton: @Composable () -> Unit = {
         TextButton(onClick = onDismissRequest) { Text(stringResource(android.R.string.cancel)) }
@@ -72,7 +73,9 @@ fun SettingsDialog(
                 )
                 Spacer(Modifier.height(16.dp))
                 Column(
-                    Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()),
+                    Modifier.weight(1f, fill = false).then(
+                        if (scrollable) Modifier.verticalScroll(rememberScrollState()) else Modifier,
+                    ),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                     content = content,
                 )

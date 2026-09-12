@@ -11,6 +11,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
@@ -145,20 +146,18 @@ private fun SettingsChoice(
 ) {
     var show by rememberSaveable { mutableStateOf(false) }
     SettingsAction(title, icon, options.getOrNull(selectedIndex), onClick = { show = true })
-    SettingsDialog(show = show, title = title, onDismissRequest = { show = false }) {
+    SettingsDialog(show = show, title = title, onDismissRequest = { show = false }, scrollable = false) {
         // Radio controls use the same full-row selection contract as InstallerX's dialogs.
-        Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            options.forEachIndexed { index, label ->
-                key(index) {
-                    RadioButtonWidget(
-                        title = label,
-                        selected = index == selectedIndex,
-                        onSelect = {
-                            show = false
-                            onSelected(index)
-                        },
-                    )
-                }
+        LazyColumn(Modifier.weight(1f, fill = false).fillMaxWidth().selectableGroup()) {
+            lazySegmentedItems(options.indices.toList(), key = { it }) { index ->
+                RadioButtonWidget(
+                    title = options[index],
+                    selected = index == selectedIndex,
+                    onSelect = {
+                        show = false
+                        onSelected(index)
+                    },
+                )
             }
         }
     }
@@ -415,6 +414,7 @@ private fun InstallerPreference() {
         show = show,
         title = stringResource(R.string.settings_third_party_installer_dialog_title),
         onDismissRequest = { if (!saving) show = false },
+        scrollable = false,
         confirmButton = {
             TextButton(enabled = !saving && !discovering, onClick = {
                 val selectedPackage = if (customSelected) customPackage.trim() else draft
@@ -433,25 +433,40 @@ private fun InstallerPreference() {
             }) { Text(stringResource(android.R.string.ok)) }
         },
     ) {
-        Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            RadioButtonWidget(
-                title = defaultLabel,
-                selected = !customSelected && draft.isBlank(),
-                onSelect = { customSelected = false; draft = ""; invalidPackage = false },
-            )
-            discovered.forEach { installer ->
-                RadioButtonWidget(
-                    title = installer.label,
-                    description = installer.packageName,
-                    selected = !customSelected && draft == installer.packageName,
-                    onSelect = { customSelected = false; draft = installer.packageName; invalidPackage = false },
-                )
+        LazyColumn(Modifier.weight(1f, fill = false).fillMaxWidth().selectableGroup()) {
+            val customIndex = discovered.size + 1
+            lazySegmentedItems(
+                items = (0..customIndex).toList(),
+                key = { index ->
+                    when (index) {
+                        0 -> "system"
+                        customIndex -> "custom"
+                        else -> discovered[index - 1].packageName
+                    }
+                },
+            ) { index ->
+                when (index) {
+                    0 -> RadioButtonWidget(
+                        title = defaultLabel,
+                        selected = !customSelected && draft.isBlank(),
+                        onSelect = { customSelected = false; draft = ""; invalidPackage = false },
+                    )
+                    customIndex -> RadioButtonWidget(
+                        title = stringResource(R.string.settings_third_party_installer_custom),
+                        selected = customSelected || (draft.isNotBlank() && discovered.none { it.packageName == draft }),
+                        onSelect = { customSelected = true; invalidPackage = false },
+                    )
+                    else -> {
+                        val installer = discovered[index - 1]
+                        RadioButtonWidget(
+                            title = installer.label,
+                            description = installer.packageName,
+                            selected = !customSelected && draft == installer.packageName,
+                            onSelect = { customSelected = false; draft = installer.packageName; invalidPackage = false },
+                        )
+                    }
+                }
             }
-            RadioButtonWidget(
-                title = stringResource(R.string.settings_third_party_installer_custom),
-                selected = customSelected || (draft.isNotBlank() && discovered.none { it.packageName == draft }),
-                onSelect = { customSelected = true; invalidPackage = false },
-            )
         }
         if (discovering) LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         OutlinedTextField(
@@ -492,6 +507,7 @@ private fun DnsPreference() {
         show = show,
         title = stringResource(R.string.settings_dns),
         onDismissRequest = { show = false },
+        scrollable = false,
         confirmButton = {
             TextButton(onClick = {
                 if (draft == DnsProvider.CUSTOM) {
@@ -505,10 +521,10 @@ private fun DnsPreference() {
             }) { Text(stringResource(android.R.string.ok)) }
         },
     ) {
-        Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            providers.forEachIndexed { index, provider ->
+        LazyColumn(Modifier.weight(1f, fill = false).fillMaxWidth().selectableGroup()) {
+            lazySegmentedItems(providers, key = { it.name }) { provider ->
                 RadioButtonWidget(
-                    title = labels[index], selected = draft == provider,
+                    title = labels[providers.indexOf(provider)], selected = draft == provider,
                     onSelect = { draft = provider; invalid = false },
                 )
             }
