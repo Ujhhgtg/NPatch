@@ -116,11 +116,11 @@
     <string name="patch_output_log_to_media">日誌輸出到 Media 目錄</string>
     <string name="patch_output_log_to_media_desc">記錄 Xposed API 日誌、框架事件及 Java/Kotlin 崩潰</string>
     <string name="patch_inject_dex">注入載入器 DEX</string>
-    <string name="patch_inject_dex_desc">將 loader dex 物理寫入主 dex 序列。僅當裝載的模組明確需要 Hook 獨立子進程/沙箱組件時開啟此特例選項。</string>
+    <string name="patch_inject_dex_desc">將 載入器 DEX 物理寫入主 DEX 序列。僅當裝載的模組明確需要 Hook 獨立子進程/沙箱組件時開啟此特例選項。</string>
     <string name="patch_cleartext_traffic">允許 HTTP 明文流量</string>
     <string name="patch_cleartext_traffic_desc">在清單中強制設定 android:usesCleartextTraffic=\"true\"，允許應用程式與模組存取未加密的 HTTP 端點，以便進行流量檢查、代理或除錯。</string>
     <plurals name="patch_subprocess_detected_hint">
-        <item quantity="other">偵測到目標應用包含 %1$d 個獨立子進程/沙箱組件。若模組需要 Hook 這些子進程，建議開啟「注入 Loader DEX」。</item>
+        <item quantity="other">偵測到目標應用包含 %1$d 個獨立子進程/沙箱組件。若模組需要 Hook 這些子進程，建議開啟「注入載入器 DEX」。</item>
     </plurals>
     <string name="patch_start">開始打包</string>
     <string name="patch_return">返回</string>

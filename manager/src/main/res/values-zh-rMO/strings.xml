@@ -84,10 +84,10 @@
     <string name="patch_integrated">合体模式</string>
     <string name="patch_integrated_desc">修補 App 並內建模組。\n經修補的應用可以在沒有管理器的情況下獨立執行，但不能動態管理配置。\n此模式適用於需要在未安裝 NPatch 管理器的裝置上執行的應用程式。</string>
     <string name="patch_embed_modules">缝入挂件</string>
-    <string name="patch_inject_dex">注入 Loader DEX (子進程支援)</string>
-    <string name="patch_inject_dex_desc">將 loader dex 物理寫入主 dex 序列。僅當裝載的模組明確需要 Hook 獨立子進程/沙箱組件時開啟此特例選項。</string>
+    <string name="patch_inject_dex">注入載入器 DEX (子進程支援)</string>
+    <string name="patch_inject_dex_desc">將 載入器 DEX 物理寫入主 DEX 序列。僅當裝載的模組明確需要 Hook 獨立子進程/沙箱組件時開啟此特例選項。</string>
     <plurals name="patch_subprocess_detected_hint">
-        <item quantity="other">偵測到目標應用包含 %1$d 個獨立子進程/沙箱組件。若模組需要 Hook 這些子進程，建議開啟「注入 Loader DEX」。</item>
+        <item quantity="other">偵測到目標應用包含 %1$d 個獨立子進程/沙箱組件。若模組需要 Hook 這些子進程，建議開啟「注入載入器 DEX」。</item>
     </plurals>
     <string name="patch_advanced">高阶喵技</string>
     <string name="patch_debuggable">开启猫眼（调试）</string>

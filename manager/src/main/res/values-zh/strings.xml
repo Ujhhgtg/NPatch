@@ -116,11 +116,11 @@
     <string name="patch_output_log_to_media">输出日志到 Media 目录</string>
     <string name="patch_output_log_to_media_desc">记录 Xposed API 日志、框架事件及 Java/Kotlin 崩溃</string>
     <string name="patch_inject_dex">注入加载器 DEX</string>
-    <string name="patch_inject_dex_desc">将 loader dex 物理写入主 dex 序列。仅当装载的模块明确需要 Hook 独立子进程/沙箱组件时开启此特例选项。</string>
+    <string name="patch_inject_dex_desc">将 加载器 DEX 物理写入主 DEX 序列。仅当装载的模块明确需要 Hook 独立子进程/沙箱组件时开启此特例选项。</string>
     <string name="patch_cleartext_traffic">允许 HTTP 明文流量</string>
     <string name="patch_cleartext_traffic_desc">在清单中强制设置 android:usesCleartextTraffic=\"true\"，允许应用与模块访问未加密的 HTTP 端点，以便进行流量检查、代理或调试。</string>
     <plurals name="patch_subprocess_detected_hint">
-        <item quantity="other">检测到目标应用包含 %1$d 个独立子进程/沙箱组件。若模块需要 Hook 这些子进程，建议开启「注入 Loader DEX」。</item>
+        <item quantity="other">检测到目标应用包含 %1$d 个独立子进程/沙箱组件。若模块需要 Hook 这些子进程，建议开启「注入加载器 DEX」。</item>
     </plurals>
     <string name="patch_start">开始打包</string>
     <string name="patch_return">返回</string>
