@@ -96,7 +96,7 @@ dependencies {
     implementation("vector:legacy")
     implementation(projects.share.android)
     implementation(projects.share.java)
-    implementation(npatch.hiddenapibypass)
+    implementation(libs.hiddenapibypass)
 
     implementation(libs.gson)
 }

@@ -22,7 +22,7 @@ dependencies {
     implementation(projects.share.java)
     implementation("vector:axml")
 
-    implementation(npatch.commons.io)
-    implementation(npatch.beust.jcommander)
-    implementation(npatch.google.gson)
+    implementation(libs.commons.io)
+    implementation(libs.beust.jcommander)
+    implementation(libs.google.gson)
 }

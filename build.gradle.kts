@@ -10,8 +10,8 @@ import org.gradle.kotlin.dsl.extra
 plugins {
     alias(libs.plugins.agp.lib) apply false
     alias(libs.plugins.agp.app) apply false
-    alias(npatch.plugins.compose.compiler) apply false
-    alias(npatch.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
 }
 
 buildscript {
