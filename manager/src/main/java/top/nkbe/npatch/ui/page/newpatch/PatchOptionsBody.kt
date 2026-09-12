@@ -6,6 +6,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardOptions
@@ -13,13 +15,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import nkbe.util.NeoPackageManager
 import top.nkbe.npatch.R
 import top.nkbe.npatch.share.Constants
 import top.nkbe.npatch.ui.component.m3.BaseItemContainer
@@ -72,6 +81,12 @@ fun sigBypassLvDesc(level: Int): String = stringResource(
 @Composable
 fun PatchOptionsBody(modifier: Modifier, onAddEmbed: () -> Unit) {
     val viewModel = viewModel<NewPatchViewModel>()
+    val app = viewModel.patchApp
+    val appIcon by produceState<ImageBitmap?>(null, app) {
+        // The selected ApplicationInfo points to either the installed app or the imported APK.
+        // Avoid the package-name cache, which could contain the icon of another installed build.
+        value = withContext(Dispatchers.IO) { NeoPackageManager.loadIconBitmap(app.app) }
+    }
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 104.dp),
@@ -80,7 +95,16 @@ fun PatchOptionsBody(modifier: Modifier, onAddEmbed: () -> Unit) {
             SegmentedColumn {
                 item {
                     BaseWidget(
-                        icon = Icons.Outlined.Android,
+                        iconContent = {
+                            val bitmap = appIcon
+                            if (bitmap != null) {
+                                Image(
+                                    bitmap = bitmap,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(40.dp).clip(RoundedCornerShape(12.dp)),
+                                )
+                            } else Icon(Icons.Outlined.Android, null, Modifier.size(40.dp))
+                        },
                         title = viewModel.patchApp.label,
                         titleStyle = MaterialTheme.typography.headlineSmall,
                         description = viewModel.patchApp.app.packageName,

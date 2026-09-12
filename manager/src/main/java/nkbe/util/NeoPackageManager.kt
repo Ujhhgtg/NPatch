@@ -184,7 +184,7 @@ object NeoPackageManager {
         appIcon.clear()
     }
 
-    private fun loadIconBitmap(appInfo: ApplicationInfo): ImageBitmap =
+    internal fun loadIconBitmap(appInfo: ApplicationInfo): ImageBitmap =
         runCatching { iconLoader.loadIcon(appInfo).asImageBitmap() }.getOrElse {
             Log.w(TAG, "Failed to load icon for ${appInfo.packageName}", it)
             createBitmap(1, 1).asImageBitmap()

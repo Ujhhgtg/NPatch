@@ -59,6 +59,7 @@ val LocalSegmentedItemShape = compositionLocalOf<Shape> { RoundedCornerShape(Cor
  *
  * @param modifier The [Modifier] to be applied to the widget.
  * @param icon The [ImageVector] to be displayed at the start of the widget.
+ * @param iconContent Optional custom leading image; its caller supplies the size.
  * @param iconColor The color applied to the [icon].
  * @param iconPlaceholder If true, maintains a consistent leading space even when [icon] is null.
  * @param title The primary headline text of the widget.
@@ -84,6 +85,7 @@ val LocalSegmentedItemShape = compositionLocalOf<Shape> { RoundedCornerShape(Cor
 fun BaseWidget(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
+    iconContent: (@Composable () -> Unit)? = null,
     iconColor: Color? = null,
     iconPlaceholder: Boolean = false,
     title: String,
@@ -193,7 +195,9 @@ fun BaseWidget(
     )
 
     val leadingContent: (@Composable () -> Unit)? =
-        if (icon != null || iconPlaceholder) {
+        if (iconContent != null) {
+            { Box(Modifier.alpha(alpha), contentAlignment = Alignment.Center) { iconContent() } }
+        } else if (icon != null || iconPlaceholder) {
             {
                 Box(
                     modifier = Modifier
